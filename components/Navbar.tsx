@@ -23,30 +23,28 @@ const Navbar = async () => {
               </Link>
             </li>
           ))}
-          <div className="flex items-center gap-x-5">
-            {!session?.user ? (
-              <Link className="font-bold" href="/sign-in">
-                <div className="rounded-sm bg-teal-600 px-4 py-2 text-sm text-white">
-                  Login
-                </div>
-              </Link>
-            ) : (
-              <>
-                <div>
-                  {session?.user.image && (
-                    <Image
-                      className="rounded-full"
-                      width={30}
-                      height={30}
-                      alt="User Avatar"
-                      src={session?.user?.image || ""}
-                    />
-                  )}
-                </div>
-                <Logout />
-              </>
-            )}
-          </div>
+          {!session?.user ? (
+            <Link className="font-bold" href="/sign-in">
+              <div className="rounded-sm bg-teal-600 px-4 py-2 text-sm text-white">
+                Login
+              </div>
+            </Link>
+          ) : (
+            <>
+              <div>
+                {session?.user.image && (
+                  <Image
+                    className="rounded-full"
+                    width={30}
+                    height={30}
+                    alt="User Avatar"
+                    src={session?.user?.image || ""}
+                  />
+                )}
+              </div>
+              <Logout />
+            </>
+          )}
         </ul>
       </div>
     </nav>

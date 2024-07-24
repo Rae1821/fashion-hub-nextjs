@@ -2,7 +2,6 @@
 
 import { auth, signIn, signOut } from "@/auth";
 import { db } from "@/db";
-// import { User } from "@prisma/client";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 
@@ -19,9 +18,24 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
+// Login with Google
+export async function doSocialLogin(formData: any) {
+  const action = formData.get("action");
+  // console.log(action);
+  await signIn(action, { redirectTo: "/profile" });
+}
+
 // login for any social provider
 export const login = async (provider: string) => {
-  await signIn(provider, { redirectTo: "/" });
+  await signIn(provider, { redirectTo: "/" })
+    .then((r) => {
+      console.log("there was a result");
+      console.log(r);
+    })
+    .catch((e) => {
+      console.log("there was an error");
+      console.log(e);
+    });
   revalidatePath("/");
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "./ui/input";
-import AuthButton from "./AuthButton";
 import { loginWithCreds } from "@/actions/auth";
+import AuthButton from "./AuthButton";
 
 const LoginForm = () => {
   return (

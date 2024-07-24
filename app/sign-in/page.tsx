@@ -1,5 +1,6 @@
 import LoginForm from "@/components/LoginForm";
-import LoginGithub from "@/components/LoginGithub";
+// import LoginGithub from "@/components/LoginGithub";
+import LoginGoogle from "@/components/LoginGoogle";
 import React from "react";
 
 const SignIn = () => {
@@ -8,7 +9,8 @@ const SignIn = () => {
       <section className="flex w-[400px] flex-col">
         <h1 className="mb-6 w-full text-center text-3xl font-bold">Sign in</h1>
         <LoginForm />
-        <LoginGithub />
+        <LoginGoogle />
+        {/* <LoginGithub /> */}
       </section>
     </div>
   );
