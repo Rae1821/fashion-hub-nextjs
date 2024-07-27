@@ -74,8 +74,7 @@ export const loginWithCreds = async (formData: FormData) => {
   }
 };
 
-// setup profile actions here
-
+// Create profile
 interface CreateProfileInput {
   height?: string;
   weight?: string;
@@ -83,7 +82,6 @@ interface CreateProfileInput {
   style?: string;
 }
 
-// Create profile
 export const createProfile = async (input: CreateProfileInput) => {
   try {
     const session = await auth();
@@ -112,6 +110,81 @@ export const createProfile = async (input: CreateProfileInput) => {
   }
 };
 
+// Find profile
+export const findUniqueProfile = async () => {
+  try {
+    const session = await auth();
+
+    const userId = session?.user?.id;
+
+    const findProfile = await db.profile.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return findProfile;
+  } catch (error) {
+    console.log("Error finding profile:", error);
+    throw error;
+  }
+};
+
 // Update profile
 
+interface UpdateProfileInput {
+  height?: string;
+  weight?: string;
+  shape?: string;
+  style?: string;
+}
+export const updateProfile = async (input: UpdateProfileInput) => {
+  try {
+    const session = await auth();
+
+    const userId = session?.user?.id;
+
+    const updateProfile = await db.profile.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        height: input.height,
+        weight: input.weight,
+        shape: input.shape,
+        style: input.style,
+      },
+    });
+
+    return updateProfile;
+  } catch (error) {
+    console.log("Error updating profile", error);
+    throw error;
+  }
+};
+
 // Delete profile
+interface DeleteProfileInput {
+  height?: string;
+  weight?: string;
+  shape?: string;
+  style?: string;
+}
+export const deleteProfile = async (input: DeleteProfileInput) => {
+  try {
+    const session = await auth();
+
+    const userId = session?.user?.id;
+
+    const deleteProfile = await db.profile.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    return deleteProfile;
+  } catch (error) {
+    console.log("Error deleting profile", error);
+    throw error;
+  }
+};

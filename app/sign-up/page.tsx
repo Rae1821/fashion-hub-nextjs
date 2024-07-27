@@ -1,14 +1,14 @@
-import LoginForm from "@/components/LoginForm";
 import LoginGithub from "@/components/LoginGithub";
 import LoginGoogle from "@/components/LoginGoogle";
+import SignUpForm from "@/components/SignUpForm";
 import React from "react";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
-    <div className="container mt-20 flex w-full justify-center">
+    <div className="mt-20 flex w-full justify-center">
       <section className="flex w-[400px] flex-col">
-        <h1 className="mb-6 w-full text-center text-3xl font-bold">Sign in</h1>
-        <LoginForm />
+        <h1 className="mb-6 w-full text-center text-3xl font-bold">Sign up</h1>
+        <SignUpForm />
         <LoginGoogle />
         <LoginGithub />
       </section>
@@ -16,4 +16,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

@@ -4,7 +4,7 @@ import { loginWithCreds } from "@/actions/auth";
 import AuthButton from "./AuthButton";
 import Link from "next/link";
 
-const LoginForm = () => {
+const SignUpForm = () => {
   return (
     <div>
       <form action={loginWithCreds} className="flex w-full flex-col gap-4">
@@ -28,13 +28,13 @@ const LoginForm = () => {
         <div className="mt-2">
           <AuthButton />
         </div>
-        <p className="mt-2 text-center">
-          Don&apos;t have an account?{" "}
+        <p className="text-center">
+          Already have an account?{" "}
           <Link
-            href="/sign-up"
+            href="/sign-in"
             className="decoration-2 hover:underline hover:decoration-teal-600"
           >
-            Sign up here.
+            Sign in here.
           </Link>
         </p>
       </form>
@@ -42,4 +42,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

@@ -10,27 +10,60 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import BodyShape from "@/components/BodyShape";
+
 const Profile = async () => {
   const session = await auth();
 
   return (
-    <div className="container mt-24">
-      Hello, {session?.user?.name}
+    <div className="container mt-8">
       <div>
-        <Card className="w-full md:w-1/2">
-          <CardHeader>
-            <CardTitle>Profile Form</CardTitle>
-            <CardDescription>
-              Fill out the fields below to complete your profile
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+        <div>
+          <div className="flex items-center justify-between rounded bg-teal-600/20 px-4 py-6">
+            <h2 className="font-semibold"> Hello, {session?.user?.name}</h2>
             <ProfileForm />
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
+          </div>
+          <div className="flex flex-col items-center justify-center md:flex-row">
+            <div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Your Body Shape</CardTitle>
+                  <CardDescription>
+                    The calculated current shape of your body
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="pb-2">Body Shape from calculator goes here</p>
+                  <p className="text-sm">
+                    Characteristics of your shape include:
+                  </p>
+                  <ul>
+                    {/* <li>Hips are wider than shoulders</li>
+                  <li>Small waist and smallish bust</li>
+                  <li>Gains weight in lower half of body</li> */}
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <BodyShape />
+                </CardFooter>
+              </Card>
+            </div>
+            <div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Your Fashion Style</CardTitle>
+                  <CardDescription>Your current fashion style</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p>Card Content</p>
+                </CardContent>
+                <CardFooter>
+                  <p>Card Footer</p>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

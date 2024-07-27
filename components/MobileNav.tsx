@@ -2,6 +2,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 
 import Navbar from "./Navbar";
+import { Separator } from "./ui/separator";
 
 const MobileNav = () => {
   return (
@@ -24,9 +25,10 @@ const MobileNav = () => {
               width={32}
               height={32}
             />
+            <p className="font-semibold">Fashion Hub</p>
           </div>
 
-          {/* <Separator className="border border-gray-50" /> */}
+          <Separator className="border border-gray-50" />
 
           <Navbar />
         </SheetContent>

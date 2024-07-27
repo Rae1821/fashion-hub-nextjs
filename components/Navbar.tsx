@@ -10,14 +10,14 @@ const Navbar = async () => {
 
   return (
     // eslint-disable-next-line tailwindcss/no-custom-classname
-    <nav className="flex w-full items-center border-b">
+    <nav className="flex w-full items-center">
       <div>
         <ul className="flex w-full cursor-pointer flex-col items-start gap-5 text-sm font-semibold tracking-wider md:flex-row md:items-center md:justify-between">
           {navLinks.map((link) => (
             <li key={link.route}>
               <Link
                 href={link.route}
-                className="decoration-emerald-600 hover:underline hover:decoration-2 hover:underline-offset-2 hover:transition-all hover:duration-300 hover:ease-in"
+                className="hover:underline hover:decoration-emerald-600 hover:decoration-2 hover:underline-offset-2 hover:transition-all hover:duration-300 hover:ease-in"
               >
                 {link.label}
               </Link>
