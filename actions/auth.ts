@@ -27,7 +27,7 @@ export async function doSocialLogin(formData: any) {
 
 // login for any social provider
 export const login = async (provider: string) => {
-  await signIn(provider, { redirectTo: "/" })
+  await signIn(provider, { redirectTo: "/profile" })
     .then((r) => {
       console.log("there was a result");
       console.log(r);
@@ -50,7 +50,7 @@ export const loginWithCreds = async (formData: FormData) => {
     name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
-    redirectTo: "/",
+    redirectTo: "/profile",
   };
 
   // Debugging purposes

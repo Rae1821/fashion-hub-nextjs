@@ -16,6 +16,12 @@ import {
 
 const ProfileForm = () => {
   const [isPending, startTransition] = useTransition();
+  // const [profileObj, setProfileObj] = useState({
+  //   height: "",
+  //   weight: "",
+  //   shape: "",
+  //   style: "",
+  // });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
