@@ -27,7 +27,7 @@ export async function doSocialLogin(formData: any) {
 
 // login for any social provider
 export const login = async (provider: string) => {
-  await signIn(provider, { redirectTo: "/profile" })
+  await signIn(provider, { redirectTo: "/" })
     .then((r) => {
       console.log("there was a result");
       console.log(r);
@@ -39,7 +39,7 @@ export const login = async (provider: string) => {
   revalidatePath("/");
 };
 
-export const logout = async (provider: string) => {
+export const logout = async () => {
   await signOut();
   revalidatePath("/");
 };
@@ -113,13 +113,26 @@ export const createProfile = async (input: CreateProfileInput) => {
 // Find profile
 export const findUniqueProfile = async () => {
   try {
-    const session = await auth();
+    // const session = await auth();
 
-    const userId = session?.user?.id;
+    // const userId = session?.user?.id;
+
+    // const findProfile = await db.profile.findUnique({
+    //   where: {
+    //     id: userId,
+    //   },
+    // });
+
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const userEmail = session.user.email;
 
     const findProfile = await db.profile.findUnique({
       where: {
-        id: userId,
+        email: userEmail,
       },
     });
 
@@ -153,6 +166,9 @@ export const updateProfile = async (input: UpdateProfileInput) => {
         weight: input.weight,
         shape: input.shape,
         style: input.style,
+        user: {
+          connect: { id: userId },
+        },
       },
     });
 

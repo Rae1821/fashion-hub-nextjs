@@ -2,7 +2,11 @@
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import React, { useTransition } from "react";
-import { createProfile } from "@/actions/auth";
+import {
+  createProfile,
+  findUniqueProfile,
+  updateProfile,
+} from "@/actions/auth";
 import BodyShape from "./BodyShape";
 import StyleQuiz from "./StyleQuiz";
 import {
@@ -14,20 +18,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const ProfileForm = () => {
+const ProfileForm = ({ session }: any) => {
   const [isPending, startTransition] = useTransition();
-  // const [profileObj, setProfileObj] = useState({
-  //   height: "",
-  //   weight: "",
-  //   shape: "",
-  //   style: "",
-  // });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const data = {
+      userId: session?.user?.id,
       height: formData.get("height") as string,
       weight: formData.get("weight") as string,
       shape: formData.get("shape") as string,
@@ -36,8 +35,14 @@ const ProfileForm = () => {
 
     startTransition(async () => {
       try {
-        const result = await createProfile(data);
-        console.log("Profile created successfully: ", result);
+        const existingProfile = await findUniqueProfile();
+        if (existingProfile) {
+          const updateExistingProfile = await updateProfile(data);
+          console.log("Profile updated successfully: ", updateExistingProfile);
+        } else {
+          const result = await createProfile(data);
+          console.log("Profile created successfully: ", result);
+        }
       } catch (error) {
         console.log("Error creating profile: ", error);
       }
@@ -53,7 +58,8 @@ const ProfileForm = () => {
         <DialogHeader>
           <DialogTitle>Profile Form</DialogTitle>
           <DialogDescription>
-            Fill out the fields below to complete your profile
+            {session?.user?.name}Fill out the fields below to complete your
+            profile
           </DialogDescription>
         </DialogHeader>
         <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>

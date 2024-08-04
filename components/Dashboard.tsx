@@ -30,6 +30,7 @@ const Dashboard = (session: any) => {
   const [userProfile, setUserProfile] = useState<UserProfileType | null>();
 
   useEffect(() => {
+    console.log(session);
     const fetchUserProfile = async () => {
       if (session?.user) {
         try {
@@ -51,7 +52,7 @@ const Dashboard = (session: any) => {
             });
           }
 
-          console.log(userProfile);
+          console.log(currentUserProfile);
         } catch (err) {
           console.log(err);
         }
@@ -84,7 +85,6 @@ const Dashboard = (session: any) => {
             <CardTitle>Your Body Shape</CardTitle>
             <CardDescription>
               The calculated current shape of your body is:{" "}
-              {userProfile?.profile?.shape}
             </CardDescription>
           </CardHeader>
           <CardContent>
