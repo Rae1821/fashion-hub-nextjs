@@ -30,7 +30,7 @@ const Dashboard = (session: any) => {
   const [userProfile, setUserProfile] = useState<UserProfileType | null>();
 
   useEffect(() => {
-    console.log(session);
+    console.log(session.session.user);
     const fetchUserProfile = async () => {
       if (session?.user) {
         try {

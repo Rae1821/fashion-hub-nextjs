@@ -74,6 +74,62 @@ export const loginWithCreds = async (formData: FormData) => {
   }
 };
 
+// Find profile
+export const findUniqueProfile = async () => {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const userEmail = session.user.email;
+
+    const findProfile = await db.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+      select: {
+        email: true,
+        profile: true,
+      },
+    });
+
+    return findProfile;
+  } catch (error) {
+    console.log("Error finding profile:", error);
+    throw error;
+  }
+};
+
+// Update or Create Profile
+// export const updateOrCreateProfile = async (input: any) => {
+//   try {
+//     const profileCheck = findUniqueProfile();
+
+//     // const upsertProfile = await db.profile.upsert({
+//     //   where: {
+//     //     id: input.id,
+//     //   },
+//     //   update: {
+//     //     height: input.height,
+//     //     weight: input.weight,
+//     //     shape: input.shape,
+//     //     style: input.style,
+//     //   },
+//     //   create: {
+//     //     height: input.height,
+//     //     weight: input.weight,
+//     //     shape: input.shape,
+//     //     style: input.style,
+//     //     user: {
+//     //       connect: { id: input.id },
+//     //     }
+//     // }),
+//   } catch (error) {
+//     console.log("Error updating or creating profile", error);
+//   }
+// };
+
 // Create profile
 interface CreateProfileInput {
   height?: string;
@@ -91,54 +147,24 @@ export const createProfile = async (input: CreateProfileInput) => {
 
     const userEmail = session.user.email;
 
-    const newProfile = await db.profile.create({
-      data: {
-        height: input.height,
-        weight: input.weight,
-        shape: input.shape,
-        style: input.style,
-        user: {
-          connect: { email: userEmail },
-        },
-      },
-    });
+    const profileCheck = findUniqueProfile();
 
-    return newProfile;
+    if (!profileCheck) {
+      const newProfile = await db.profile.create({
+        data: {
+          height: input.height,
+          weight: input.weight,
+          shape: input.shape,
+          style: input.style,
+          user: {
+            connect: { email: userEmail },
+          },
+        },
+      });
+      return newProfile;
+    }
   } catch (error: any) {
     console.log("Error creating profile:", error);
-    throw error;
-  }
-};
-
-// Find profile
-export const findUniqueProfile = async () => {
-  try {
-    // const session = await auth();
-
-    // const userId = session?.user?.id;
-
-    // const findProfile = await db.profile.findUnique({
-    //   where: {
-    //     id: userId,
-    //   },
-    // });
-
-    const session = await auth();
-    if (!session || !session.user || !session.user.email) {
-      throw new Error("User not authenticated");
-    }
-
-    const userEmail = session.user.email;
-
-    const findProfile = await db.profile.findUnique({
-      where: {
-        email: userEmail,
-      },
-    });
-
-    return findProfile;
-  } catch (error) {
-    console.log("Error finding profile:", error);
     throw error;
   }
 };
