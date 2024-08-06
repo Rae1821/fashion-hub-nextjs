@@ -2,11 +2,7 @@
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import React, { useTransition } from "react";
-import {
-  createProfile,
-  findUniqueProfile,
-  updateProfile,
-} from "@/actions/auth";
+import { updateOrCreateProfile } from "@/actions/auth";
 import BodyShape from "./BodyShape";
 import StyleQuiz from "./StyleQuiz";
 import {
@@ -17,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { redirect } from "next/navigation";
 
 const ProfileForm = ({ session }: any) => {
   const [isPending, startTransition] = useTransition();
@@ -35,14 +32,10 @@ const ProfileForm = ({ session }: any) => {
 
     startTransition(async () => {
       try {
-        const existingProfile = await findUniqueProfile();
-        if (existingProfile) {
-          const updateExistingProfile = await updateProfile(data);
-          console.log("Profile updated successfully: ", updateExistingProfile);
-        } else {
-          const result = await createProfile(data);
-          console.log("Profile created successfully: ", result);
-        }
+        const result = await updateOrCreateProfile(data);
+        console.log(result);
+
+        redirect("/profile");
       } catch (error) {
         console.log("Error creating profile: ", error);
       }
@@ -113,7 +106,7 @@ const ProfileForm = ({ session }: any) => {
 
           <div className="mt-4">
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Creating Profile..." : "Create Profile"}
+              {isPending ? "Updating Profile..." : "Update Profile"}
             </Button>
           </div>
         </form>

@@ -94,7 +94,7 @@ export const findUniqueProfile = async () => {
       },
     });
 
-    return findProfile;
+    return JSON.parse(JSON.stringify(findProfile));
   } catch (error) {
     console.log("Error finding profile:", error);
     throw error;
@@ -102,33 +102,46 @@ export const findUniqueProfile = async () => {
 };
 
 // Update or Create Profile
-// export const updateOrCreateProfile = async (input: any) => {
-//   try {
-//     const profileCheck = findUniqueProfile();
+export const updateOrCreateProfile = async (input: any) => {
+  try {
+    // const profileCheck = findUniqueProfile();
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+    const userEmail = session.user.email;
+    // const findUserEmail = await db.user.findUnique({
+    //   where: { email: userEmail },
+    // });
 
-//     // const upsertProfile = await db.profile.upsert({
-//     //   where: {
-//     //     id: input.id,
-//     //   },
-//     //   update: {
-//     //     height: input.height,
-//     //     weight: input.weight,
-//     //     shape: input.shape,
-//     //     style: input.style,
-//     //   },
-//     //   create: {
-//     //     height: input.height,
-//     //     weight: input.weight,
-//     //     shape: input.shape,
-//     //     style: input.style,
-//     //     user: {
-//     //       connect: { id: input.id },
-//     //     }
-//     // }),
-//   } catch (error) {
-//     console.log("Error updating or creating profile", error);
-//   }
-// };
+    // const currentUserEmail = findUserEmail?.email;
+
+    const upsertProfile = await db.profile.upsert({
+      where: {
+        userEmail,
+      },
+      update: {
+        height: input.height,
+        weight: input.weight,
+        shape: input.shape,
+        style: input.style,
+      },
+      create: {
+        height: input.height,
+        weight: input.weight,
+        shape: input.shape,
+        style: input.style,
+        user: {
+          connect: { email: userEmail },
+        },
+      },
+    });
+
+    return JSON.parse(JSON.stringify(upsertProfile));
+  } catch (error) {
+    console.log("Error updating or creating profile", error);
+  }
+};
 
 // Create profile
 interface CreateProfileInput {

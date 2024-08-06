@@ -21,13 +21,7 @@ export const {
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
     }),
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-      async profile(profile) {
-        return { ...profile, id: profile.id.toString() };
-      },
-    }),
+    Google,
     Credentials({
       name: "Credentials",
       credentials: {
@@ -82,7 +76,19 @@ export const {
       },
     }),
   ],
-
+  // callbacks: {
+  //   jwt({ token, user }) {
+  //     if (user) {
+  //       // User is available during sign-in
+  //       token.id = user.id;
+  //     }
+  //     return token;
+  //   },
+  //   session({ session, token }) {
+  //     session.user.id = token.id as string;
+  //     return session;
+  //   },
+  // },
   // callbacks: {
   //   session({ session, user }) {
   //     session.user.id = user.id;

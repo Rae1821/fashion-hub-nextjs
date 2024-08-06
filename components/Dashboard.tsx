@@ -15,7 +15,7 @@ import { db } from "@/db";
 // const Dashboard = (currentUserProfile: CurrentUserProfileType) => {
 type ProfileDetails = {
   id: string;
-  userId: string;
+  userEmail: string;
   height: string | null;
   weight?: string | null;
   shape?: string | null;
@@ -24,56 +24,90 @@ type ProfileDetails = {
 type UserProfileType = {
   email?: string | null;
   profile?: ProfileDetails | null;
+  shape?: string | null; // Add the 'shape' property
 };
 
-const Dashboard = (session: any) => {
-  const [userProfile, setUserProfile] = useState<UserProfileType | null>();
+const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
+  // const [currentUserProfile, setCurrentUserProfile] =
+  //   useState<UserProfileDetails | null>();
 
-  useEffect(() => {
-    console.log(session.session.user);
-    const fetchUserProfile = async () => {
-      if (session?.user) {
-        try {
-          const currentUserProfile = await db.user.findUnique({
-            where: {
-              email: session?.user?.email,
-              name: session?.user?.name,
-            },
-            select: {
-              email: true,
-              profile: true,
-            },
-          });
+  // useEffect(() => {
+  //   console.log(session.session.user);
+  //   const fetchUserProfile = async () => {
+  //     if (session?.user) {
+  //       try {
+  //         const currentUserProfile = await db.user.findUnique({
+  //           where: {
+  //             email: session?.user?.email,
+  //             name: session?.user?.name,
+  //           },
+  //           select: {
+  //             email: true,
+  //             profile: true,
+  //           },
+  //         });
 
-          if (currentUserProfile) {
-            setUserProfile({
-              email: currentUserProfile.email,
-              profile: currentUserProfile.profile,
-            });
-          }
+  //         console.log(currentUserProfile);
 
-          console.log(currentUserProfile);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    };
+  //         if (currentUserProfile) {
+  //           setUserProfile({
+  //             email: currentUserProfile.email,
+  //             profile: currentUserProfile.profile,
+  //           });
+  //         }
+  //       } catch (err) {
+  //         console.log(err);
+  //       }
+  //     }
+  //   };
 
-    fetchUserProfile();
-  }, [session, userProfile]);
+  //   fetchUserProfile();
+  // }, [session, userProfile]);
 
-  if (userProfile && userProfile.profile) {
-    const { id, userId, height, weight, shape, style } = userProfile.profile;
+  // const fetchUserProfile = async () => {
+  //   if (session?.user) {
+  //     try {
+  //       const currentUserProfile = await db.user.findUnique({
+  //         where: {
+  //           email: session?.user?.email,
+  //           name: session?.user?.name,
+  //         },
+  //         select: {
+  //           email: true,
+  //           profile: true,
+  //         },
+  //       });
 
-    console.log("Profile ID:", id);
-    console.log("User ID:", userId);
-    console.log("Height:", height);
-    console.log("Weight:", weight);
-    console.log("Shape:", shape);
-    console.log("Style:", style);
-  } else {
-    console.log("Profile is not available.");
-  }
+  //       console.log(currentUserProfile);
+
+  //       if (currentUserProfile) {
+  //         setUserProfile({
+  //           email: currentUserProfile.email,
+  //           profile: currentUserProfile.profile,
+  //         });
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // };
+
+  // fetchUserProfile();
+
+  console.log(userProfile.profile?.style);
+
+  // if (userProfile && userProfile.profile) {
+  //   const { id, userEmail, height, weight, shape, style } = userProfile.profile;
+
+  //   console.log("Profile ID:", id);
+  //   console.log("User ID:", userEmail);
+  //   console.log("Height:", height);
+  //   console.log("Weight:", weight);
+  //   console.log("Shape:", shape);
+  //   console.log("Style:", style);
+  // } else {
+  //   console.log("Profile is not available.");
+  // }
 
   return (
     <div className="container">
@@ -85,6 +119,7 @@ const Dashboard = (session: any) => {
             <CardTitle>Your Body Shape</CardTitle>
             <CardDescription>
               The calculated current shape of your body is:{" "}
+              {userProfile.profile?.shape}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -105,7 +140,9 @@ const Dashboard = (session: any) => {
         <Card>
           <CardHeader>
             <CardTitle>Your Fashion Style</CardTitle>
-            <CardDescription>Your current fashion style</CardDescription>
+            <CardDescription>
+              Your current fashion style is: {userProfile.profile?.style}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <p>Card Content</p>

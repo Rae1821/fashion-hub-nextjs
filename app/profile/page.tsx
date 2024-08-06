@@ -2,9 +2,12 @@ import { auth } from "@/auth";
 import ProfileForm from "@/components/ProfileForm";
 import React from "react";
 import Dashboard from "@/components/Dashboard";
+import { findUniqueProfile } from "@/actions/auth";
 
 const Profile = async () => {
   const session = await auth();
+
+  const fetchUserProfile = await findUniqueProfile();
 
   return (
     <div className="container mt-8">
@@ -15,7 +18,7 @@ const Profile = async () => {
             <ProfileForm session={session} />
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row">
-            <Dashboard session={session} />
+            <Dashboard userProfile={fetchUserProfile} />
           </div>
         </div>
       </div>
