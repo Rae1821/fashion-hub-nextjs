@@ -5,17 +5,11 @@ import React, { useTransition } from "react";
 import { updateOrCreateProfile } from "@/actions/auth";
 import BodyShape from "./BodyShape";
 import StyleQuiz from "./StyleQuiz";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const ProfileForm = ({ session }: any) => {
+  const router = useRouter();
+
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,84 +28,71 @@ const ProfileForm = ({ session }: any) => {
       try {
         const result = await updateOrCreateProfile(data);
         console.log(result);
-
-        redirect("/profile");
       } catch (error) {
         console.log("Error creating profile: ", error);
       }
     });
+    router.push("/profile");
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Edit Profile</Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Profile Form</DialogTitle>
-          <DialogDescription>
-            {session?.user?.name}Fill out the fields below to complete your
-            profile
-          </DialogDescription>
-        </DialogHeader>
-        <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-          <div>
-            <label>Height</label>
-            <Input
-              name="height"
-              type="height"
-              placeholder="Current height"
-              id="height"
-            />
-          </div>
-          <div>
-            <label>Weight</label>
-            <Input
-              name="weight"
-              type="weight"
-              placeholder="Current weight"
-              id="weight"
-            />
-          </div>
-          <div>
-            <label className="mb-2 flex items-end justify-between">
-              Body Shape{" "}
-              <span>
-                <BodyShape />
-              </span>
-            </label>
+    <div className="container">
+      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
+        <div>
+          <label>Height</label>
+          <Input
+            name="height"
+            type="height"
+            placeholder="Current height"
+            id="height"
+          />
+        </div>
+        <div>
+          <label>Weight</label>
+          <Input
+            name="weight"
+            type="weight"
+            placeholder="Current weight"
+            id="weight"
+          />
+        </div>
+        <div>
+          <label className="mb-2 flex items-end justify-between">
+            Body Shape{" "}
+            <span>
+              <BodyShape />
+            </span>
+          </label>
 
-            <Input
-              name="shape"
-              type="shape"
-              placeholder="Current body shape"
-              id="shape"
-            />
-          </div>
-          <div>
-            <label className="mb-2 flex items-end justify-between">
-              Fashion Style{" "}
-              <span>
-                <StyleQuiz />
-              </span>
-            </label>
-            <Input
-              name="style"
-              type="style"
-              placeholder="Current fashion style"
-              id="style"
-            />
-          </div>
+          <Input
+            name="shape"
+            type="shape"
+            placeholder="Current body shape"
+            id="shape"
+          />
+        </div>
+        <div>
+          <label className="mb-2 flex items-end justify-between">
+            Fashion Style{" "}
+            <span>
+              <StyleQuiz />
+            </span>
+          </label>
+          <Input
+            name="style"
+            type="style"
+            placeholder="Current fashion style"
+            id="style"
+          />
+        </div>
 
-          <div className="mt-4">
-            <Button type="submit" disabled={isPending}>
-              {isPending ? "Updating Profile..." : "Update Profile"}
-            </Button>
-          </div>
-        </form>
-      </DialogContent>
-    </Dialog>
+        <div className="mt-4">
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Updating Profile..." : "Update Profile"}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 

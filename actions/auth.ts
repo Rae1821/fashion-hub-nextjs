@@ -104,17 +104,11 @@ export const findUniqueProfile = async () => {
 // Update or Create Profile
 export const updateOrCreateProfile = async (input: any) => {
   try {
-    // const profileCheck = findUniqueProfile();
     const session = await auth();
     if (!session || !session.user || !session.user.email) {
       throw new Error("User not authenticated");
     }
     const userEmail = session.user.email;
-    // const findUserEmail = await db.user.findUnique({
-    //   where: { email: userEmail },
-    // });
-
-    // const currentUserEmail = findUserEmail?.email;
 
     const upsertProfile = await db.profile.upsert({
       where: {
@@ -136,6 +130,7 @@ export const updateOrCreateProfile = async (input: any) => {
         },
       },
     });
+    revalidatePath("/profile");
 
     return JSON.parse(JSON.stringify(upsertProfile));
   } catch (error) {

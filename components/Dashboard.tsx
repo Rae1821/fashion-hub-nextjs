@@ -9,8 +9,6 @@ import {
 } from "@/components/ui/card";
 // import { useState } from "react";
 import BodyShape from "./BodyShape";
-import { useEffect, useState } from "react";
-import { db } from "@/db";
 
 // const Dashboard = (currentUserProfile: CurrentUserProfileType) => {
 type ProfileDetails = {
@@ -28,86 +26,7 @@ type UserProfileType = {
 };
 
 const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
-  // const [currentUserProfile, setCurrentUserProfile] =
-  //   useState<UserProfileDetails | null>();
-
-  // useEffect(() => {
-  //   console.log(session.session.user);
-  //   const fetchUserProfile = async () => {
-  //     if (session?.user) {
-  //       try {
-  //         const currentUserProfile = await db.user.findUnique({
-  //           where: {
-  //             email: session?.user?.email,
-  //             name: session?.user?.name,
-  //           },
-  //           select: {
-  //             email: true,
-  //             profile: true,
-  //           },
-  //         });
-
-  //         console.log(currentUserProfile);
-
-  //         if (currentUserProfile) {
-  //           setUserProfile({
-  //             email: currentUserProfile.email,
-  //             profile: currentUserProfile.profile,
-  //           });
-  //         }
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     }
-  //   };
-
-  //   fetchUserProfile();
-  // }, [session, userProfile]);
-
-  // const fetchUserProfile = async () => {
-  //   if (session?.user) {
-  //     try {
-  //       const currentUserProfile = await db.user.findUnique({
-  //         where: {
-  //           email: session?.user?.email,
-  //           name: session?.user?.name,
-  //         },
-  //         select: {
-  //           email: true,
-  //           profile: true,
-  //         },
-  //       });
-
-  //       console.log(currentUserProfile);
-
-  //       if (currentUserProfile) {
-  //         setUserProfile({
-  //           email: currentUserProfile.email,
-  //           profile: currentUserProfile.profile,
-  //         });
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // };
-
-  // fetchUserProfile();
-
   console.log(userProfile.profile?.style);
-
-  // if (userProfile && userProfile.profile) {
-  //   const { id, userEmail, height, weight, shape, style } = userProfile.profile;
-
-  //   console.log("Profile ID:", id);
-  //   console.log("User ID:", userEmail);
-  //   console.log("Height:", height);
-  //   console.log("Weight:", weight);
-  //   console.log("Shape:", shape);
-  //   console.log("Style:", style);
-  // } else {
-  //   console.log("Profile is not available.");
-  // }
 
   return (
     <div className="container">
