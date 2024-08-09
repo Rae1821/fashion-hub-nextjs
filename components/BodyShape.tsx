@@ -13,11 +13,26 @@ import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
+import { HiOutlineClipboard } from "react-icons/hi";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { title } from "process";
+import CoolButton from "./CoolButton";
 
-const BodyShape = () => {
+type ButtonProps = {
+  title: string;
+};
+
+const BodyShape = ({ title }: ButtonProps) => {
   const [shapeResults, setShapeResults] = useState<string>("");
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const data = {
@@ -59,10 +74,25 @@ const BodyShape = () => {
     setShapeResults("");
   };
 
+  const copyToClipboard = async () => {
+    console.log("click");
+    try {
+      await navigator.clipboard.writeText(shapeResults);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 5000);
+    } catch (err) {
+      console.log("Failed to copy to clipboard", err);
+    }
+  };
+
   return (
     <div>
       <Dialog>
-        <DialogTrigger>Calculate Shape</DialogTrigger>
+        <DialogTrigger className="border-4 border-black text-black py-2 px-4 hover:bg-red-300 hover:transition-all">
+          Calculate Shape
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Body Shape Calculator</DialogTitle>
@@ -111,11 +141,27 @@ const BodyShape = () => {
               </div>
             </form>
             <Separator />
-            <div className="mt-4">
-              <h2 className="mb-4 text-lg">
+            <div className="mt-4 flex gap-4 items-center">
+              <h2 className="mb-4 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                 Your body shape is:{" "}
-                <span className="text-2xl">{shapeResults}</span>
+                <span className="font-semibold">{shapeResults}</span>
               </h2>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={copyToClipboard}
+                    >
+                      <HiOutlineClipboard />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{isCopied ? "Copied!" : "Copy to Clipboard"}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </>
         </DialogContent>

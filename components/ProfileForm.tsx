@@ -6,6 +6,7 @@ import { updateOrCreateProfile } from "@/actions/auth";
 import BodyShape from "./BodyShape";
 import StyleQuiz from "./StyleQuiz";
 import { useRouter } from "next/navigation";
+import CoolButton from "./CoolButton";
 
 const ProfileForm = ({ session }: any) => {
   const router = useRouter();
@@ -87,8 +88,11 @@ const ProfileForm = ({ session }: any) => {
         </div>
 
         <div className="mt-4">
-          <Button type="submit" disabled={isPending}>
+          {/* <Button type="submit" disabled={isPending}>
             {isPending ? "Updating Profile..." : "Update Profile"}
+          </Button> */}
+          <Button asChild type="submit" disabled={isPending}>
+            <CoolButton title="submit" />
           </Button>
         </div>
       </form>

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 // import { useState } from "react";
 import BodyShape from "./BodyShape";
+import StyleQuiz from "./StyleQuiz";
 
 // const Dashboard = (currentUserProfile: CurrentUserProfileType) => {
 type ProfileDetails = {
@@ -51,7 +52,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
             </ul>
           </CardContent>
           <CardFooter>
-            <BodyShape />
+            <BodyShape title="Your Body Shape" />
           </CardFooter>
         </Card>
       </div>
@@ -67,7 +68,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
             <p>Card Content</p>
           </CardContent>
           <CardFooter>
-            <p>Card Footer</p>
+            <StyleQuiz />
           </CardFooter>
         </Card>
       </div>

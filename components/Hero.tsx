@@ -1,5 +1,7 @@
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
+// import { Button } from "./ui/button";
+import CoolButton from "./CoolButton";
 import { Button } from "./ui/button";
 // import Image from "next/image";
 
@@ -16,8 +18,8 @@ const Hero = () => {
           <p className="mb-8 mt-2 hidden md:flex">
             Take our quiz to find out your unique fashion style!
           </p>
-          <Button asChild size="sm" className="w-1/4 md:w-3/4">
-            <Link href="/">Start Quiz</Link>
+          <Button asChild>
+            <CoolButton title="start quiz" />
           </Button>
         </div>
       </div>
@@ -26,3 +28,11 @@ const Hero = () => {
 };
 
 export default Hero;
+
+{
+  /* <a href="#_" class="relative px-6 py-3 font-bold text-black group">
+<span class="absolute inset-0 w-full h-full transition duration-300 ease-out transform -translate-x-2 -translate-y-2 bg-red-300 group-hover:translate-x-0 group-hover:translate-y-0"></span>
+<span class="absolute inset-0 w-full h-full border-4 border-black"></span>
+<span class="relative">Button Text</span>
+</a> */
+}
