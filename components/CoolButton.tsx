@@ -5,6 +5,7 @@ import React from "react";
 
 type ButtonProps = {
   title: string;
+  onClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
 const CoolButton = ({ title }: ButtonProps) => {

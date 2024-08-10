@@ -58,7 +58,7 @@ export const questions = [
       { value: "classic", text: "Loafers or ballet flats" },
       { value: "boho", text: "Sandals or ankle boots" },
       { value: "chic", text: "Heels or sleek boots" },
-      { value: "sporty", text: "Sneakers" },
+      { value: "sporty", text: "Classic Sneakers" },
       { value: "edgy", text: "Combat boots" },
     ],
   },

@@ -40,7 +40,7 @@ export const login = async (provider: string) => {
 };
 
 export const logout = async () => {
-  await signOut();
+  await signOut({ redirectTo: "/" });
   revalidatePath("/");
 };
 

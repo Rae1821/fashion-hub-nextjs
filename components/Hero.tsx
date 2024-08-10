@@ -19,7 +19,7 @@ const Hero = () => {
             Take our quiz to find out your unique fashion style!
           </p>
           <Button asChild>
-            <CoolButton title="start quiz" />
+            <CoolButton title="start quiz"  />
           </Button>
         </div>
       </div>

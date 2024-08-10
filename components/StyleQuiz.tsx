@@ -1,21 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "./ui/label";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { questions } from "@/constants";
+import Link from "next/link";
 import { useState } from "react";
-import { BookmarkIcon } from "@radix-ui/react-icons";
-import { toast } from "./ui/use-toast";
+import CoolButton from "./CoolButton";
+import { get } from "http";
 
 type Answer = {
   index: number;
@@ -26,7 +16,7 @@ type Answer = {
 const StyleQuiz = () => {
   const [result, setResult] = useState<string>("");
   const [answersArr, setAnswersArr] = useState<Answer[]>([]);
-  const [styleObj, setStyleObj] = useState<{ [key: string]: number }>({});
+  const [styleObj, setStyleObj] = useState({});
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
@@ -36,37 +26,63 @@ const StyleQuiz = () => {
     answerValue: string,
     textValue: string
   ) => {
-    setSelectedAnswers({
-      ...selectedAnswers,
-      [questionIndex]: answerValue,
+    const answer: Answer = {
+      index: questionIndex,
+      answer: answerValue,
+      text: textValue,
+    };
+
+    // The first answer is not being added to the answers array annd is then not counted in the styleObj so the result is not always correct. need to fix this
+
+    setAnswersArr((prevAnswersArr) => {
+      const existingAnswerIndex = prevAnswersArr.findIndex(
+        (item) => item.index === questionIndex
+      );
+
+      if (existingAnswerIndex !== -1) {
+        const updatedAnswers = [...prevAnswersArr];
+        updatedAnswers[existingAnswerIndex].answer = answerValue;
+        updatedAnswers[existingAnswerIndex].text = textValue;
+        return updatedAnswers;
+      } else {
+        return [...prevAnswersArr, answer];
+      }
     });
+    // Update the selected answer for the specific question
+    setSelectedAnswers((prevSelectedAnswers) => ({
+      ...prevSelectedAnswers,
+      [questionIndex]: textValue,
+    }));
 
-    setAnswersArr([
-      ...answersArr,
-      {
-        index: questionIndex,
-        answer: answerValue,
-        text: textValue,
-      },
-    ]);
+    // Debugging logs
+    console.log("Selected Answers:", selectedAnswers);
+    console.log("Answers Array:", answersArr);
+
+    handleFindStyle();
+
+    // Check if the answer already exists
+    // const existingAnswerIndex = answersArr.findIndex(
+    //   (item) => item.index === questionIndex
+    // );
+
+    // if (existingAnswerIndex !== -1) {
+    //   // Update existing answer
+    //   const updatedAnswers = [...answersArr];
+    //   updatedAnswers[existingAnswerIndex].answer = answerValue;
+    //   updatedAnswers[existingAnswerIndex].text = textValue;
+    //   setAnswersArr(updatedAnswers);
+    // } else {
+    //   // Add new answer
+    //   setAnswersArr([...answersArr, answer]);
+    // }
+    // console.log("Answers array", answersArr);
+    // // Update the selected answer for the specific question
+    // setSelectedAnswers((prev) => ({ ...prev, [questionIndex]: textValue }));
+
+    // console.log("Selected Answers", selectedAnswers);
+
+    // handleFindStyle();
   };
-
-  // const handleFindStyle = () => {
-  //   const styleCount = answersArr.reduce((acc, curr) => {
-  //     if (acc[curr.answer]) {
-  //       acc[curr.answer]++;
-  //     } else {
-  //       acc[curr.answer] = 1;
-  //     }
-  //     return acc;
-  //   }, {});
-
-  //   const style = Object.keys(styleCount).reduce((a, b) =>
-  //     styleCount[a] > styleCount[b] ? a : b
-  //   );
-
-  //   setResult(style);
-  // }
 
   const handleFindStyle = () => {
     const style = {
@@ -111,98 +127,67 @@ const StyleQuiz = () => {
     return setResult(winningCategory);
   }
 
-  function handleStartOver(obj: any) {
-    setStyleObj(obj);
+  function handleStartOver() {
+    setStyleObj({});
     setResult("");
-    setSelectedAnswers(obj);
+    setSelectedAnswers({});
+    setAnswersArr([]);
   }
 
   return (
-    <div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline">Find your style</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Fashion Style Quiz</DialogTitle>
-            <DialogDescription>
-              Answer the questions below to find out your personal fashion
-              style.
-            </DialogDescription>
-          </DialogHeader>
-          <div id="quiz">
-            {questions.map((option, i) => (
-              <div key={i}>
-                <p className="mb-2 mt-8 font-semibold md:text-lg">
-                  <span>{option.id}.</span>
-                  {option.text}
+    <div className="container">
+      <div id="quiz">
+        {questions.map((option, i) => (
+          <div key={i}>
+            <p className="mb-2 mt-8 font-semibold md:text-lg">
+              <span>{option.id}.</span>
+              {option.text}
+            </p>
+            <div className="flex w-[275px] flex-col justify-center md:h-[47px] md:w-full md:flex-row md:items-center md:justify-start">
+              {option.answers.map((answer, j) => (
+                <p
+                  className={`${
+                    selectedAnswers[i] === answer.text
+                      ? "bg-red-300"
+                      : "bg-white"
+                  } my-2 ml-4 flex  cursor-pointer rounded border-2 border-black px-2 py-1 text-center text-sm shadow hover:bg-red-300 hover:shadow-lg hover:transition-all focus:outline-none focus:ring-2`}
+                  key={j}
+                  onClick={() =>
+                    handleAnswerClick(i, answer.value, answer.text)
+                  }
+                >
+                  {answer.text}
                 </p>
-                <div className="flex w-[275px] flex-col justify-center md:h-[47px] md:w-full md:flex-row md:items-center md:justify-start">
-                  {option.answers.map((answer, j) => (
-                    <p
-                      className={`${
-                        selectedAnswers[i] === answer.text
-                          ? "bg-secondary/60"
-                          : "bg-white"
-                      } my-2 ml-4 flex  cursor-pointer rounded-lg border border-teal-600 px-2 py-1 text-center text-sm shadow hover:bg-teal-600/60 hover:shadow-lg hover:transition-all focus:outline-none focus:ring-2`}
-                      key={j}
-                      onClick={(e) =>
-                        handleAnswerClick(i, answer.value, answer.text)
-                      }
-                    >
-                      {answer.text}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <div className="mx-auto mt-8 flex w-full items-center gap-4 md:mx-0 md:w-1/2 md:flex-row">
-              <Button
-                className="bg-teal-600 hover:border-2 hover:border-teal-600 hover:bg-white hover:text-black"
-                onClick={() => {
-                  getTheResult(styleObj);
-                }}
-              >
-                Get Your Style
-              </Button>
-              <Button
-                className="border-2 border-teal-600 bg-white text-black hover:bg-teal-600 hover:text-slate-100 md:ml-2"
-                onClick={handleStartOver}
-              >
-                Start over
-              </Button>
+              ))}
             </div>
           </div>
+        ))}
+        <div className="mx-auto mt-8 flex w-full items-center gap-4 md:mx-0 md:w-1/2 md:flex-row">
+          <Button
+            size="lg"
+            className="bg-red-300 border-4 border-black text-black  hover:bg-white hover:text-black rounded-none"
+            onClick={() => {
+              getTheResult(styleObj);
+            }}
+          >
+            Get Your Style
+          </Button>
 
-          <DialogFooter>
-            <div className="mt-12 h-[300px] w-full">
-              {result && (
-                <div id="result" className="h-24 w-full">
-                  <h2 className="text-2xl font-semibold">
-                    Your Fashion Style is:{" "}
-                    <span>
-                      {result}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => {
-                          toast({
-                            title: "Saved",
-                            description: "Results save to your profile",
-                          });
-                        }}
-                      >
-                        <BookmarkIcon className="size-8" />
-                      </Button>
-                    </span>
-                  </h2>
-                </div>
-              )}
-            </div>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          <Button variant="link" className=" md:ml-2" onClick={handleStartOver}>
+            Start over
+          </Button>
+        </div>
+      </div>
+      {/* Display the result */}
+      <div className="mt-12 h-[300px] w-full">
+        {result && (
+          <div id="result" className="h-24 w-full">
+            <h2 className="text-2xl font-semibold">
+              Your Fashion Style is: <span>{result}</span>
+            </h2>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
