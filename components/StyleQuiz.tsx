@@ -1,11 +1,16 @@
 "use client";
 
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { questions } from "@/constants";
-import Link from "next/link";
 import { useState } from "react";
-import CoolButton from "./CoolButton";
-import { get } from "http";
+import { FaRegCopy } from "react-icons/fa6";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type Answer = {
   index: number;
@@ -20,6 +25,7 @@ const StyleQuiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleAnswerClick = (
     questionIndex: number,
@@ -127,6 +133,19 @@ const StyleQuiz = () => {
     return setResult(winningCategory);
   }
 
+  const copyToClipboard = async () => {
+    console.log("click");
+    try {
+      await navigator.clipboard.writeText(result);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 5000);
+    } catch (err) {
+      console.log("Failed to copy to clipboard", err);
+    }
+  };
+
   function handleStartOver() {
     setStyleObj({});
     setResult("");
@@ -165,7 +184,7 @@ const StyleQuiz = () => {
         <div className="mx-auto mt-8 flex w-full items-center gap-4 md:mx-0 md:w-1/2 md:flex-row">
           <Button
             size="lg"
-            className="bg-red-300 border-4 border-black text-black  hover:bg-white hover:text-black rounded-none"
+            className="rounded-none border-4 border-black bg-red-300  text-black hover:bg-white hover:text-black"
             onClick={() => {
               getTheResult(styleObj);
             }}
@@ -181,10 +200,22 @@ const StyleQuiz = () => {
       {/* Display the result */}
       <div className="mt-12 h-[300px] w-full">
         {result && (
-          <div id="result" className="h-24 w-full">
+          <div id="result" className="flex h-24 w-full items-center gap-4">
             <h2 className="text-2xl font-semibold">
               Your Fashion Style is: <span>{result}</span>
             </h2>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button variant="ghost" onClick={copyToClipboard}>
+                    <FaRegCopy className="size-6" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{isCopied ? "Copied!" : "Copy to Clipboard"}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         )}
       </div>

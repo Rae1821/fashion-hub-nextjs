@@ -17,7 +17,7 @@ const Navbar = async () => {
             <li key={link.route}>
               <Link
                 href={link.route}
-                className="hover:underline hover:decoration-emerald-600 hover:decoration-2 hover:underline-offset-2 hover:transition-all hover:duration-300 hover:ease-in"
+                className="hover:underline hover:decoration-red-300 hover:decoration-2 hover:underline-offset-2 hover:transition-all hover:duration-300 hover:ease-in"
               >
                 {link.label}
               </Link>
@@ -25,7 +25,7 @@ const Navbar = async () => {
           ))}
           {!session?.user ? (
             <Link className="font-bold" href="/sign-in">
-              <div className="rounded-sm px-4 py-2 text-sm border-4 border-black hover:bg-red-300">
+              <div className="rounded-sm border-4 border-black px-4 py-2 text-sm hover:bg-red-300">
                 Login
               </div>
             </Link>

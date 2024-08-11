@@ -20,8 +20,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { title } from "process";
-import CoolButton from "./CoolButton";
 
 type ButtonProps = {
   title: string;
@@ -90,7 +88,7 @@ const BodyShape = ({ title }: ButtonProps) => {
   return (
     <div>
       <Dialog>
-        <DialogTrigger className="border-4 border-black text-black py-2 px-4 hover:bg-red-300 hover:transition-all">
+        <DialogTrigger className="border-4 border-black px-4 py-2 text-black hover:bg-red-300 hover:transition-all">
           Calculate Shape
         </DialogTrigger>
         <DialogContent>
@@ -141,7 +139,7 @@ const BodyShape = ({ title }: ButtonProps) => {
               </div>
             </form>
             <Separator />
-            <div className="mt-4 flex gap-4 items-center">
+            <div className="mt-4 flex items-center gap-4">
               <h2 className="mb-4 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                 Your body shape is:{" "}
                 <span className="font-semibold">{shapeResults}</span>

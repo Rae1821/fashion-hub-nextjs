@@ -4,7 +4,7 @@ import MobileNav from "./MobileNav";
 
 const Header = () => {
   return (
-    <header className="mx-auto flex w-full max-w-[1300px] items-center justify-between p-4 shadow sm:px-10">
+    <header className="mx-auto flex w-full max-w-[1300px] items-center justify-between border-b-2 border-gray-100 p-4 sm:px-10">
       <div className="flex items-center gap-1">
         <Image src="/icons/sparkles.svg" alt="logo" width={24} height={24} />
         <p className="font-semibold">Fashion Hub</p>
