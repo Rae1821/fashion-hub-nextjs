@@ -12,7 +12,7 @@ const LoginGoogle = () => {
         type="submit"
         name="action"
         value="google"
-        className="mt-6 h-12 w-full border-2 border-teal-600 bg-teal-600 text-white hover:cursor-pointer hover:bg-teal-600 hover:text-white"
+        className="mt-6 h-12 w-full border-4 border-black bg-white text-black hover:cursor-pointer hover:bg-red-300 hover:transition-all"
       >
         <span className="mr-4">
           <FaGoogle />

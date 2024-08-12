@@ -13,7 +13,7 @@ export const navLinks = [
   },
   {
     label: "Products",
-    route: "/recommendations",
+    route: "/products",
   },
 ];
 
@@ -74,3 +74,127 @@ export const questions = [
     ],
   },
 ];
+
+// Top products for __ body shape
+
+export const bestPearProducts = [
+  {
+    type: "Tops",
+    product: "A-line tops",
+  },
+  {
+    type: "Pants",
+    product: "Bootcut jeans",
+  },
+  {
+    type: "Skirts",
+    product: "A-line skirts",
+  },
+  {
+    type: "Dresses",
+    product: "Wrap dresses",
+  },
+  {
+    type: "Jackets",
+    product: "Fitted jackets",
+  },
+];
+
+export const bestAppleProducts = [
+  {
+    type: "Tops",
+    product: "V-neck tops",
+  },
+  {
+    type: "Pants",
+    product: "Bootcut jeans",
+  },
+  {
+    type: "Skirts",
+    product: "A-line skirts",
+  },
+  {
+    type: "Dresses",
+    product: "Wrap dresses",
+  },
+  {
+    type: "Jackets",
+    product: "Fitted jackets",
+  },
+];
+
+export const bestHourglassProducts = [
+  {
+    type: "Tops",
+    product: "V-neck tops",
+  },
+  {
+    type: "Pants",
+    product: "Bootcut jeans",
+  },
+  {
+    type: "Skirts",
+    product: "A-line skirts",
+  },
+  {
+    type: "Dresses",
+    product: "Wrap dresses",
+  },
+  {
+    type: "Jackets",
+    product: "Fitted jackets",
+  },
+];
+
+export const bestInvertedTriangleProducts = [
+  {
+    type: "Tops",
+    product: "V-neck tops",
+  },
+  {
+    type: "Pants",
+    product: "Bootcut jeans",
+  },
+  {
+    type: "Skirts",
+    product: "A-line skirts",
+  },
+  {
+    type: "Dresses",
+    product: "Wrap dresses",
+  },
+  {
+    type: "Jackets",
+    product: "Fitted jackets",
+  },
+];
+
+export const bestRectangleProducts = [
+  {
+    id: 1,
+    type: "Tops",
+    description: "V-neck tops",
+  },
+  {
+    id: 2,
+    type: "Pants",
+    description: "Bootcut jeans",
+  },
+  {
+    id: 3,
+    type: "Skirts",
+    description: "A-line skirts",
+  },
+  {
+    id: 4,
+    type: "Dresses",
+    description: "Wrap dresses",
+  },
+  {
+    id: 5,
+    type: "Jackets",
+    description: "Fitted jackets",
+  },
+];
+
+// Top products for __ fashion style

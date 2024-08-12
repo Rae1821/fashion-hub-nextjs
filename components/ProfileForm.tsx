@@ -40,7 +40,7 @@ const ProfileForm = ({ session }: any) => {
     <div className="container">
       <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
         <div>
-          <label>Height</label>
+          <label htmlFor="height">Height</label>
           <Input
             name="height"
             type="height"
@@ -49,7 +49,7 @@ const ProfileForm = ({ session }: any) => {
           />
         </div>
         <div>
-          <label>Weight</label>
+          <label htmlFor="weight">Weight</label>
           <Input
             name="weight"
             type="weight"
@@ -58,7 +58,10 @@ const ProfileForm = ({ session }: any) => {
           />
         </div>
         <div>
-          <label className="mb-2 flex items-end justify-between">
+          <label
+            htmlFor="shape"
+            className="mb-2 flex items-end justify-between"
+          >
             Body Shape{" "}
             <span>
               <BodyShape />
@@ -73,7 +76,10 @@ const ProfileForm = ({ session }: any) => {
           />
         </div>
         <div>
-          <label className="mb-2 flex items-end justify-between">
+          <label
+            htmlFor="style"
+            className="mb-2 flex items-end justify-between"
+          >
             Fashion Style{" "}
             <span>
               <StyleQuiz />

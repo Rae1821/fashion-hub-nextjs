@@ -9,15 +9,15 @@ const LoginForm = () => {
     <div>
       <form action={loginWithCreds} className="flex w-full flex-col gap-4">
         <div>
-          <label>Name</label>
+          <label htmlFor="name">Name</label>
           <Input name="name" type="name" placeholder="Name" id="name" />
         </div>
         <div>
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <Input name="email" type="email" placeholder="Email" id="email" />
         </div>
         <div>
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <Input
             name="password"
             type="password"
@@ -32,7 +32,7 @@ const LoginForm = () => {
           Don&apos;t have an account?{" "}
           <Link
             href="/sign-up"
-            className="decoration-2 hover:underline hover:decoration-teal-600"
+            className="decoration-2 hover:underline hover:decoration-red-300"
           >
             Sign up here.
           </Link>

@@ -7,10 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-// import { useState } from "react";
-import BodyShape from "./BodyShape";
-import StyleQuiz from "./StyleQuiz";
-import { Button } from "./ui/button";
+import { bestAppleProducts, bestHourglassProducts, bestInvertedTriangleProducts, bestPearProducts, bestRectangleProducts, bestShapeProducts } from "@/constants";
 import Link from "next/link";
 
 // const Dashboard = (currentUserProfile: CurrentUserProfileType) => {
@@ -39,12 +36,49 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
             <CardHeader>
               <CardTitle>Your Body Shape</CardTitle>
               <CardDescription>
-                <p className="pt-2">
-                  You have a {userProfile.profile?.shape} body shape!
-                </p>
+                You have a {userProfile.profile?.shape} body shape!
               </CardDescription>
             </CardHeader>
             <CardContent>
+              {userProfile.profile?.shape === "Rectangle" ? (
+                bestRectangleProducts.map((product) => (
+                  <div key={product.id}>
+                    <p>{product.type}</p>
+                    <p>{product.description}</p>
+                  </div>
+                ))
+                ) : userProfile.profile?.shape === "Inverted Triangle" ? (
+                  bestInvertedTriangleProducts.map((product) => (
+                    <div key={product.type}>
+                      <p>{product.type}</p>
+                      <p>{product.product}</p>
+                    </div>
+                  ))
+                  ) : userProfile.profile?.shape === "Hourglass" ? (
+                    bestHourglassProducts.map((product) => (
+                      <div key={product.type}>
+                        <p>{product.type}</p>
+                        <p>{product.product}</p>
+                      </div>
+                    ) : userProfile.profile?.shape === "Apple" ? (
+                      bestAppleProducts.map((product) => (
+                        <div key={product.type}>
+                          <p>{product.type}</p>
+                          <p>{product.product}</p>
+                        </div>
+                      ))
+
+              ) : userProfile.profile?.shape === "Pear" ? (
+                  bestPearProducts.map((product) => (
+                    <div key={product.type}>
+                      <p>{product.type}</p>
+                      <p>{product.product}</p>
+                    </div>
+                  ))
+              ) : (
+                null
+              )
+              }
               {/* <p className="pb-2"></p>
               <p className="text-sm">Characteristics of your shape include:</p>
               <ul>
@@ -54,7 +88,6 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               {/* </ul> */}
             </CardContent>
             <CardFooter>
-              {/* <BodyShape title="Your Body Shape" /> */}
               <Link
                 href="/find-shape"
                 className="group relative px-6 py-3 font-bold text-black"
@@ -67,23 +100,15 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
           </Card>
         </div>
         <div>
-          <Card className="h-[200px] w-[300px]">
+          <Card className="h-[200px] w-[350px]">
             <CardHeader>
               <CardTitle>Your Fashion Style</CardTitle>
-              <CardDescription>
-                <p className="pt-2">
-                  Your fashion style is {userProfile.profile?.style}!
-                </p>
+              <CardDescription className="pt-2">
+                Your fashion style is {userProfile.profile?.style}!
               </CardDescription>
             </CardHeader>
             <CardContent>{/* <p>Card Content</p> */}</CardContent>
             <CardFooter>
-              {/* <Button
-                size="lg"
-                className="border-4 bg-white border-black text-black py-2 px-4 hover:bg-red-300 hover:transition-all rounded-none"
-              >
-                Take Style Quiz
-              </Button> */}
               <Link
                 href="/find-style"
                 className="group relative px-6 py-3 font-bold text-black"

@@ -5,8 +5,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Separator } from "./ui/separator";
-import { HiOutlineClipboard } from "react-icons/hi";
 import {
   Tooltip,
   TooltipContent,
@@ -21,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { FaRegCopy } from "react-icons/fa6";
 
 // type ButtonProps = {
 //   title: string;
@@ -121,7 +120,7 @@ const CalculateShape = () => {
                   type="reset"
                   variant="ghost"
                   onClick={handleReset}
-                  className="decoration-teal-600 decoration-2 hover:bg-transparent hover:underline hover:underline-offset-4"
+                  className="decoration-red-300 decoration-2 hover:bg-transparent hover:underline hover:underline-offset-4"
                 >
                   Start Over
                 </Button>
@@ -130,20 +129,18 @@ const CalculateShape = () => {
           </form>
         </CardContent>
         <CardFooter>
-          <div className="mt-4 flex items-center gap-4">
-            <h2 className="mb-4 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+          <div className="mt-4 flex items-center justify-center gap-4">
+            <p className="text-sm font-medium leading-none">
               Your body shape is:{" "}
-              <span className="font-semibold">{shapeResults}</span>
-            </h2>
+              <span className="ml-2 text-lg font-semibold text-red-300">
+                {shapeResults}
+              </span>
+            </p>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={copyToClipboard}
-                  >
-                    <HiOutlineClipboard />
+                  <Button variant="ghost" onClick={copyToClipboard}>
+                    <FaRegCopy className="size-6" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
