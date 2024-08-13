@@ -30,18 +30,33 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     product_photo: productPhoto,
   } = clothing;
 
-  const [addToFavorites, setAddToFavorites] = useState(false);
+  const [addToFavorites, setAddToFavorites] = useState<ClothingProps[]>([]);
+  const [addButton, setAddButton] = useState(false);
 
-  const handleAddToFavorites = () => {
+  const handleAddToFavorites = (product: ClothingProps) => {
     // add product to favorites
+    setAddButton((prevAddButton) => !prevAddButton);
+    setAddToFavorites((prevAddToFavorites) => [...prevAddToFavorites, product]);
   };
 
+  console.log(addButton);
+  console.log(addToFavorites);
+
   return (
-    <Link href={productUrl} className="product-card">
+    // <Link href={productUrl} className="product-card">
+    <div className="product-card">
       <div className="product-card_img-container">
         <div>
-          <Button variant="outline" size="icon" onClick={handleAddToFavorites}>
-            <FaPlus className="product-card_plus-icon" />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => handleAddToFavorites(clothing)}
+          >
+            {addButton ? (
+              <FaCheck className="" />
+            ) : (
+              <FaPlus className="product-card_plus-icon" />
+            )}
           </Button>
         </div>
         <Image
@@ -74,6 +89,11 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
             </span>
           </p>
         </div>
+      </div>
+      <div>
+        <Button asChild className="bg-red-300">
+          <Link href={productUrl}>See More</Link>
+        </Button>
       </div>
       {/* <Link href={productUrl}>
           <Card className="product-card">
@@ -123,7 +143,8 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
             </CardFooter>
           </Card>
         </Link> */}
-    </Link>
+      {/* </Link> */}
+    </div>
   );
 };
 

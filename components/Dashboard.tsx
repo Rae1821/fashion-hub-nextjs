@@ -7,8 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { bestAppleProducts, bestHourglassProducts, bestInvertedTriangleProducts, bestPearProducts, bestRectangleProducts, bestShapeProducts } from "@/constants";
+import {
+  bestAppleProducts,
+  bestHourglassProducts,
+  bestInvertedTriangleProducts,
+  bestPearProducts,
+  bestRectangleProducts,
+} from "@/constants";
 import Link from "next/link";
+import FavoriteProducts from "./FavoriteProducts";
 
 // const Dashboard = (currentUserProfile: CurrentUserProfileType) => {
 type ProfileDetails = {
@@ -30,63 +37,16 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
 
   return (
     <div className="container">
-      <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 grid-rows-4">
         <div className="">
-          <Card className="h-[200px] w-[350px]">
+          <Card className="w-full">
             <CardHeader>
               <CardTitle>Your Body Shape</CardTitle>
               <CardDescription>
                 You have a {userProfile.profile?.shape} body shape!
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              {userProfile.profile?.shape === "Rectangle" ? (
-                bestRectangleProducts.map((product) => (
-                  <div key={product.id}>
-                    <p>{product.type}</p>
-                    <p>{product.description}</p>
-                  </div>
-                ))
-                ) : userProfile.profile?.shape === "Inverted Triangle" ? (
-                  bestInvertedTriangleProducts.map((product) => (
-                    <div key={product.type}>
-                      <p>{product.type}</p>
-                      <p>{product.product}</p>
-                    </div>
-                  ))
-                  ) : userProfile.profile?.shape === "Hourglass" ? (
-                    bestHourglassProducts.map((product) => (
-                      <div key={product.type}>
-                        <p>{product.type}</p>
-                        <p>{product.product}</p>
-                      </div>
-                    ) : userProfile.profile?.shape === "Apple" ? (
-                      bestAppleProducts.map((product) => (
-                        <div key={product.type}>
-                          <p>{product.type}</p>
-                          <p>{product.product}</p>
-                        </div>
-                      ))
-
-              ) : userProfile.profile?.shape === "Pear" ? (
-                  bestPearProducts.map((product) => (
-                    <div key={product.type}>
-                      <p>{product.type}</p>
-                      <p>{product.product}</p>
-                    </div>
-                  ))
-              ) : (
-                null
-              )
-              }
-              {/* <p className="pb-2"></p>
-              <p className="text-sm">Characteristics of your shape include:</p>
-              <ul>
-                {/* <li>Hips are wider than shoulders</li>
-                  <li>Small waist and smallish bust</li>
-                  <li>Gains weight in lower half of body</li> */}
-              {/* </ul> */}
-            </CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <Link
                 href="/find-shape"
@@ -100,7 +60,8 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
           </Card>
         </div>
         <div>
-          <Card className="h-[200px] w-[350px]">
+          {/* h-[200px] w-[350px] */}
+          <Card className="w-full">
             <CardHeader>
               <CardTitle>Your Fashion Style</CardTitle>
               <CardDescription className="pt-2">
@@ -119,6 +80,9 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               </Link>
             </CardFooter>
           </Card>
+        </div>
+        <div className="col-span-2 row-span-3">
+          <FavoriteProducts />
         </div>
       </div>
     </div>

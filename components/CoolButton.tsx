@@ -27,7 +27,6 @@ const CoolButton = ({ title }: ButtonProps) => {
           data-rounded="rounded-lg"
         ></span>
       </Link>
-      ;
     </>
   );
 };

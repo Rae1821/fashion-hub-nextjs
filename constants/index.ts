@@ -80,11 +80,11 @@ export const questions = [
 export const bestPearProducts = [
   {
     type: "Tops",
-    product: "A-line tops",
+    product: "Embellished tops",
   },
   {
     type: "Pants",
-    product: "Bootcut jeans",
+    product: "Wide leg pants",
   },
   {
     type: "Skirts",
@@ -107,7 +107,7 @@ export const bestAppleProducts = [
   },
   {
     type: "Pants",
-    product: "Bootcut jeans",
+    product: "High waisted pants",
   },
   {
     type: "Skirts",
@@ -119,7 +119,7 @@ export const bestAppleProducts = [
   },
   {
     type: "Jackets",
-    product: "Fitted jackets",
+    product: "Structured jackets",
   },
 ];
 
@@ -149,11 +149,11 @@ export const bestHourglassProducts = [
 export const bestInvertedTriangleProducts = [
   {
     type: "Tops",
-    product: "V-neck tops",
+    product: "Off-the-Shoulder tops",
   },
   {
     type: "Pants",
-    product: "Bootcut jeans",
+    product: "Wide leg pants",
   },
   {
     type: "Skirts",
@@ -165,7 +165,7 @@ export const bestInvertedTriangleProducts = [
   },
   {
     type: "Jackets",
-    product: "Fitted jackets",
+    product: "Structured blazers",
   },
 ];
 
@@ -173,12 +173,12 @@ export const bestRectangleProducts = [
   {
     id: 1,
     type: "Tops",
-    description: "V-neck tops",
+    description: "Ruffled tops",
   },
   {
     id: 2,
     type: "Pants",
-    description: "Bootcut jeans",
+    description: "High waisted pants",
   },
   {
     id: 3,
@@ -188,12 +188,12 @@ export const bestRectangleProducts = [
   {
     id: 4,
     type: "Dresses",
-    description: "Wrap dresses",
+    description: "Belted dresses",
   },
   {
     id: 5,
     type: "Jackets",
-    description: "Fitted jackets",
+    description: "Tailored blazers",
   },
 ];
 

@@ -56,7 +56,7 @@ const ProductSearch = () => {
           onChange={(e: any) => setSearchItem(e.target.value)}
         />
         {/* <AddSearchButton /> */}
-        <Button type="submit" aria-disabled={pending} className="bg-pink-500">
+        <Button type="submit" aria-disabled={pending} className="bg-red-300">
           <Image
             src="/icons/magnifying-glass.svg"
             alt="search"

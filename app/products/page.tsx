@@ -17,9 +17,25 @@ export default async function ProductsPage({
     !allClothingProducts;
 
   return (
-    <div className="px-2">
+    <div className="container">
+      <div className="mt-8 w-full mx-auto">
+        <h2 className="text-2xl font-semibold tracking-tight text-center">
+          Product Search
+        </h2>
+        <p className="text-sm text-center">
+          Search products based on your body shape and fashion style
+        </p>
+      </div>
       <div className="mx-auto mt-12 w-full md:w-1/2">
         <ProductSearch />
+      </div>
+      <div className="mx-auto mt-4 w-full md:w-1/2">
+        <p className="font-semibold pb-2">Not sure what to search for?</p>
+        <p>
+          Try this search formula: Best (Fashion Style) + (Clothing item) for
+          (Body shape)
+        </p>
+        <p className="italic text-sm">i.e Best Edgy Tops for Pear Body Shape</p>
       </div>
       <div>
         {!isDataEmpty ? (
