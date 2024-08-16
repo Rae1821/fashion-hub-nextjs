@@ -46,7 +46,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     // <Link href={productUrl} className="product-card">
     <div className="product-card">
       <div className="product-card_img-container">
-        <div>
+        <div className="">
           <Button
             variant="outline"
             size="icon"
@@ -91,7 +91,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
         </div>
       </div>
       <div>
-        <Button asChild className="bg-red-300">
+        <Button asChild className="bg-red-300 w-full mt-4">
           <Link href={productUrl}>See More</Link>
         </Button>
       </div>

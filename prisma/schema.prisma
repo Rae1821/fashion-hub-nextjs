@@ -44,6 +44,20 @@ model Profile {
   style String?
 }
 
+// model Product {
+//   id String   @id @default(auto()) @map("_id") @db.ObjectId
+//   user User @relation(fields: [userEmail], references: [email])
+//   userEmail String @unique
+//   product_title String?
+//  product_price String?
+//   product_original_price String?
+//   currency String?
+//   product_star_rating String?
+//   product_num_rating String?
+//   product_url String?
+//   product_photo String?
+// }
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
