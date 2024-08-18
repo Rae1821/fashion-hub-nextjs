@@ -18,7 +18,7 @@ export async function fetchClothing({ searchItem }: { searchItem: string }) {
 
   try {
     const response = await fetch(
-      `https://real-time-amazon-data.p.rapidapi.com/search?query=${searchItem}&page=1&country=US&category_id=aps`,
+      `https://real-time-amazon-data.p.rapidapi.com/search?query=${searchItem}&limit=20&page=1&country=US&category_id=aps`,
       {
         headers,
       }

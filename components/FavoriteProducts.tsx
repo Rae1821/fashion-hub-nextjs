@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "./ui/button";
 
 const FavoriteProducts = () => {
   return (
@@ -14,15 +15,13 @@ const FavoriteProducts = () => {
         <CardHeader>
           <CardTitle>Your Favorite Products</CardTitle>
           <CardDescription>
-            Here you'll find all the products you favorited
+            Here you&apos;ll find all the products you favorited
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Card Content</p>
+          <Button>Find Products</Button>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
+        <CardFooter>{/* <p>Card Footer</p> */}</CardFooter>
       </Card>
     </div>
   );

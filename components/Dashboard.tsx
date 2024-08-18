@@ -7,17 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  bestAppleProducts,
-  bestHourglassProducts,
-  bestInvertedTriangleProducts,
-  bestPearProducts,
-  bestRectangleProducts,
-} from "@/constants";
-import Link from "next/link";
-import FavoriteProducts from "./FavoriteProducts";
 
-// const Dashboard = (currentUserProfile: CurrentUserProfileType) => {
+import FavoriteProducts from "./FavoriteProducts";
+import CoolButton from "./CoolButton";
+
 type ProfileDetails = {
   id: string;
   userEmail: string;
@@ -37,25 +30,22 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
 
   return (
     <div className="container">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 grid-rows-4">
+      <div className="grid grid-cols-1 grid-rows-2 gap-2 md:grid-cols-2">
         <div className="">
           <Card className="w-full">
             <CardHeader>
-              <CardTitle>Your Body Shape</CardTitle>
-              <CardDescription>
-                You have a {userProfile.profile?.shape} body shape!
+              <CardTitle>Your Body Shape is:</CardTitle>
+              <CardDescription className="pt-4">
+                <span className="text-4xl font-semibold">
+                  {" "}
+                  {userProfile.profile?.shape}
+                  {""}
+                </span>
               </CardDescription>
             </CardHeader>
             <CardContent></CardContent>
             <CardFooter>
-              <Link
-                href="/find-shape"
-                className="group relative px-6 py-3 font-bold text-black"
-              >
-                <span className="absolute inset-0 size-full -translate-x-2 -translate-y-2 bg-red-300 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                <span className="absolute inset-0 size-full border-4 border-black"></span>
-                <span className="relative">Calculate Shape</span>
-              </Link>
+              <CoolButton href="/find-shape" title="Calculate Shape" />
             </CardFooter>
           </Card>
         </div>
@@ -63,25 +53,20 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
           {/* h-[200px] w-[350px] */}
           <Card className="w-full">
             <CardHeader>
-              <CardTitle>Your Fashion Style</CardTitle>
-              <CardDescription className="pt-2">
-                Your fashion style is {userProfile.profile?.style}!
+              <CardTitle>Your Fashion Style is:</CardTitle>
+              <CardDescription className="pt-4">
+                <span className="text-4xl font-semibold">
+                  {userProfile.profile?.style}
+                </span>
               </CardDescription>
             </CardHeader>
             <CardContent>{/* <p>Card Content</p> */}</CardContent>
             <CardFooter>
-              <Link
-                href="/find-style"
-                className="group relative px-6 py-3 font-bold text-black"
-              >
-                <span className="absolute inset-0 size-full -translate-x-2 -translate-y-2 bg-red-300 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"></span>
-                <span className="absolute inset-0 size-full border-4 border-black"></span>
-                <span className="relative">Take Style Quiz</span>
-              </Link>
+              <CoolButton href="/find-style" title="Take Style Quiz" />
             </CardFooter>
           </Card>
         </div>
-        <div className="col-span-2 row-span-3">
+        <div className="col-span-2">
           <FavoriteProducts />
         </div>
       </div>
