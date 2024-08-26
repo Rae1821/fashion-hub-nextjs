@@ -1,15 +1,26 @@
+"use client";
+
 import { fetchClothing } from "@/utils/helper";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ClothingCard from "./ClothingCard";
 import ProductSearch from "./ProductSearch";
 
-const AllProducts = async ({ searchParams }: { searchParams: any }) => {
-  const allClothingProducts = await fetchClothing(searchParams);
+const AllProducts = ({ searchParams }: { searchParams: any }) => {
+  const [clothingProducts, setClothingProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const allClothingProducts = await fetchClothing(searchParams);
+      setClothingProducts(allClothingProducts);
+    };
+
+    fetchData();
+  }, [searchParams]);
 
   const isDataEmpty =
-    !Array.isArray(allClothingProducts) ||
-    allClothingProducts.length < 1 ||
-    !allClothingProducts;
+    !Array.isArray(clothingProducts) ||
+    clothingProducts.length < 1 ||
+    !clothingProducts;
 
   return (
     <div className="mt-2 rounded-xl border bg-card/80 text-card-foreground shadow">
@@ -36,7 +47,7 @@ const AllProducts = async ({ searchParams }: { searchParams: any }) => {
         {!isDataEmpty ? (
           <section>
             <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:flex-row">
-              {allClothingProducts?.map((product) => (
+              {clothingProducts?.map((product) => (
                 <ClothingCard key={product} clothing={product} />
               ))}
             </div>
@@ -44,7 +55,7 @@ const AllProducts = async ({ searchParams }: { searchParams: any }) => {
         ) : (
           <div>
             <h2>Oops, no results</h2>
-            <p>{allClothingProducts?.message}</p>
+            {/* <p>{clothingProducts?.message}</p> */}
           </div>
         )}
       </div>

@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaCheck } from "react-icons/fa6";
 import { Button } from "./ui/button";
-import { Toggle } from "@/components/ui/toggle";
+// import { Toggle } from "@/components/ui/toggle";
 import { useState } from "react";
-import { FaCheck } from "react-icons/fa6";
 
 interface ClothingProps {
   product_title: string;
@@ -91,59 +90,10 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
         </div>
       </div>
       <div>
-        <Button asChild className="bg-red-300 w-full mt-4">
+        <Button asChild className="mt-4 w-full bg-red-300">
           <Link href={productUrl}>See More</Link>
         </Button>
       </div>
-      {/* <Link href={productUrl}>
-          <Card className="product-card">
-            <CardHeader>
-              <div className="product-card_img-container">
-                <Image
-                  src={productPhoto}
-                  alt="product photo"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <CardTitle className="text-sm font-semibold text-gray-800">
-                {productTitle}
-              </CardTitle>
-              <CardDescription></CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm">
-                <span className="mr-1 font-semibold">{currency}</span>
-                {productPrice}{" "}
-                <span className="ml-1 text-gray-400 line-through">
-                  {productOriginalPrice}
-                </span>
-              </p>
-            </CardContent>
-            <CardFooter className="flex flex-col items-start">
-              <p className="flex flex-row items-center gap-1 text-sm">
-                <span>
-                  <Image
-                    src="/icons/star.svg"
-                    width={20}
-                    height={20}
-                    alt="star icon"
-                    className="text-yellow-500"
-                  />
-                </span>
-                {productStarRating} /
-                <span className="text-gray-400">{productNumRatings}</span>
-              </p>
-
-              <Button className="bg-pink-500" asChild>
-                <Link href={productUrl} className="mt-6">
-                  See more
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        </Link> */}
-      {/* </Link> */}
     </div>
   );
 };

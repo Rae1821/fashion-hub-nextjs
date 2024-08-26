@@ -8,9 +8,8 @@ export function saltAndHashPassword(password: any) {
   return hash; // return the hash directly as a string
 }
 
+// Fetch products from the Amazon API
 export async function fetchClothing({ searchItem }: { searchItem: string }) {
-  // const searchItem = formData.get("searchItem");
-
   const headers = {
     "X-RapidAPI-Key": "85109d553dmshaef4cc1a6980b3dp1d833fjsne5ad9b4d1cfa",
     "X-RapidAPI-Host": "real-time-amazon-data.p.rapidapi.com",

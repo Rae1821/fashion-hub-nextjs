@@ -198,3 +198,5 @@ export const bestRectangleProducts = [
 ];
 
 // Top products for __ fashion style
+
+export const bodyCharacteristic = [];
