@@ -4,9 +4,26 @@ import { fetchClothing } from "@/utils/helper";
 import React, { useEffect, useState } from "react";
 import ClothingCard from "./ClothingCard";
 import ProductSearch from "./ProductSearch";
+import { gsap } from "gsap";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AllProducts = ({ searchParams }: { searchParams: any }) => {
   const [clothingProducts, setClothingProducts] = useState([]);
+
+  gsap.to(".product-scroll", {
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".product-scroll",
+      start: "top top",
+      end: () => "+=3000",
+      pin: true,
+      // scrub: 0.5,
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,14 +61,15 @@ const AllProducts = ({ searchParams }: { searchParams: any }) => {
         <p className="text-sm italic">i.e Best Edgy Tops for Pear Body Shape</p>
       </div>
       <div>
+        <Image src="/images/hero.jpg" width={800} height={600} alt="hero img" />
+      </div>
+      <div className="mt-24">
         {!isDataEmpty ? (
-          <section>
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:flex-row">
-              {clothingProducts?.map((product) => (
-                <ClothingCard key={product} clothing={product} />
-              ))}
-            </div>
-          </section>
+          <div className="flex product-scroll">
+            {clothingProducts?.map((product) => (
+              <ClothingCard key={product} clothing={product} />
+            ))}
+          </div>
         ) : (
           <div>
             <h2>Oops, no results</h2>

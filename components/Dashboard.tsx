@@ -10,6 +10,14 @@ import {
 
 import FavoriteProducts from "./FavoriteProducts";
 import CoolButton from "./CoolButton";
+import {
+  pearBodyCharacteristic,
+  appleBodyCharacteristic,
+  rectangleBodyCharacteristic,
+  hourglassBodyCharacteristic,
+  invertedTriangleBodyCharacteristic,
+} from "@/constants";
+import { HiMiniFire } from "react-icons/hi2";
 
 type ProfileDetails = {
   id: string;
@@ -35,17 +43,64 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
           <Card className="w-full">
             <CardHeader>
               <CardTitle>Your Body Shape is:</CardTitle>
-              <CardDescription className="pt-4">
-                <span className="text-4xl font-semibold">
-                  {" "}
-                  {userProfile.profile?.shape}
-                  {""}
-                </span>
-
-                {/* want to add in details about body shape here and maybe a couple of basic items that are great for that shape */}
+              <CardDescription className="text-2xl font-semibold pt-2">
+                {userProfile.profile?.shape}
               </CardDescription>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent>
+              <div>
+                Characteristics for your shape include:
+                {userProfile.profile?.shape === "Pear" ? (
+                  <ul>
+                    {pearBodyCharacteristic.map((item) => (
+                      <li key={item} className="flex items-center gap-1">
+                        <HiMiniFire />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : userProfile.profile?.shape === "Apple" ? (
+                  <ul>
+                    {appleBodyCharacteristic.map((item) => (
+                      <li key={item} className="flex items-center gap-1">
+                        <HiMiniFire />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : userProfile.profile?.shape === "Rectangle" ? (
+                  <ul>
+                    {rectangleBodyCharacteristic.map((item) => (
+                      <li key={item} className="flex items-center gap-1">
+                        {" "}
+                        <HiMiniFire />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : userProfile.profile?.shape === "Hourglass" ? (
+                  <ul>
+                    {hourglassBodyCharacteristic.map((item) => (
+                      <li key={item} className="flex items-center gap-1">
+                        {" "}
+                        <HiMiniFire />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : userProfile.profile?.shape === "Inverted Triangle" ? (
+                  <ul>
+                    {invertedTriangleBodyCharacteristic.map((item) => (
+                      <li key={item} className="flex items-center gap-1">
+                        {" "}
+                        <HiMiniFire />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            </CardContent>
             <CardFooter>
               <CoolButton href="/find-shape" title="Calculate Shape" />
             </CardFooter>
@@ -63,7 +118,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                 {/* want to add in ideas for this style here - maybe even stores that are known for this fashion style? */}
               </CardDescription>
             </CardHeader>
-            <CardContent>{/* <p>Card Content</p> */}</CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <CoolButton href="/find-style" title="Take Style Quiz" />
             </CardFooter>

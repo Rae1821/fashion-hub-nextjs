@@ -15,6 +15,10 @@ export const navLinks = [
     label: "Products",
     route: "/products",
   },
+  {
+    label: "Moodboard",
+    route: "/moodboard",
+  },
 ];
 
 export const questions = [
@@ -199,4 +203,38 @@ export const bestRectangleProducts = [
 
 // Top products for __ fashion style
 
-export const bodyCharacteristic = [];
+
+
+export const pearBodyCharacteristic = [
+  "Small waist",
+  "Full hips",
+  "Full thighs",
+  "Round bottom",
+];
+
+export const appleBodyCharacteristic = [
+  "Full bust",
+  "Full waist",
+  "Narrow hips",
+  "Round bottom",
+];
+export const hourglassBodyCharacteristic = [
+  "Full bust",
+  "Small waist",
+  "Full hips",
+  "Round bottom",
+];
+
+export const rectangleBodyCharacteristic = [
+  "Straight shoulder line",
+  "Straight waist",
+  "Straight hips",
+  "Flat bottom",
+];
+
+export const invertedTriangleBodyCharacteristic = [
+  "Broad shoulders",
+  "Narrow waist",
+  "Narrow hips",
+  "Flat bottom",
+];
