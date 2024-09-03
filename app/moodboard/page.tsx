@@ -1,10 +1,11 @@
+import ImageUpload from "@/components/ImageUpload";
 import React from "react";
 
 const MoodboardPage = () => {
   return (
-    <div>
-      <div>
-        <h2>Welcome to your Moodboard</h2>
+    <div className="container min-h-screen">
+      <div className="mt-4">
+        <h2 className="text-lg font-semibold">Moodboard</h2>
         <p>
           Here you can create your own outfit ideas by uploading photos of
           existing clothing items and/or saving products that you love. This is
@@ -12,6 +13,10 @@ const MoodboardPage = () => {
           already have.
         </p>
       </div>
+      <div className="mt-12">
+        <ImageUpload />
+      </div>
+      <div></div>
 
       {/* add a way to upload your own photos */}
 

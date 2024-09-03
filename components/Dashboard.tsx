@@ -41,6 +41,8 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                   {userProfile.profile?.shape}
                   {""}
                 </span>
+
+                {/* want to add in details about body shape here and maybe a couple of basic items that are great for that shape */}
               </CardDescription>
             </CardHeader>
             <CardContent></CardContent>
@@ -58,6 +60,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                 <span className="text-4xl font-semibold">
                   {userProfile.profile?.style}
                 </span>
+                {/* want to add in ideas for this style here - maybe even stores that are known for this fashion style? */}
               </CardDescription>
             </CardHeader>
             <CardContent>{/* <p>Card Content</p> */}</CardContent>

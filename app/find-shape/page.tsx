@@ -13,7 +13,7 @@ const findShapePage = () => {
             <span className="">
               <BsArrowLeft className="size-4" />
             </span>
-            <span className="text-red-300">Back to profile</span>
+            <span>Back to profile</span>
           </Link>
         </Button>
       </div>
