@@ -16,6 +16,7 @@ import {
   rectangleBodyCharacteristic,
   hourglassBodyCharacteristic,
   invertedTriangleBodyCharacteristic,
+  fashionStyles,
 } from "@/constants";
 import { HiMiniFire } from "react-icons/hi2";
 
@@ -38,12 +39,13 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
 
   return (
     <div className="container">
-      <div className="grid grid-cols-1 grid-rows-2 gap-2 md:grid-cols-2">
-        <div className="">
+      <div className="grid ">
+        {/* Body Shape Card  */}
+        <div className=" w-full">
           <Card className="w-full">
             <CardHeader>
               <CardTitle>Your Body Shape is:</CardTitle>
-              <CardDescription className="text-2xl font-semibold pt-2">
+              <CardDescription className="pt-2 text-xl font-semibold">
                 {userProfile.profile?.shape}
               </CardDescription>
             </CardHeader>
@@ -106,8 +108,8 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
             </CardFooter>
           </Card>
         </div>
-        <div>
-          {/* h-[200px] w-[350px] */}
+        {/* Fashion Quiz Card */}
+        <div className=" w-full">
           <Card className="w-full">
             <CardHeader>
               <CardTitle>Your Fashion Style is:</CardTitle>
@@ -118,13 +120,24 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                 {/* want to add in ideas for this style here - maybe even stores that are known for this fashion style? */}
               </CardDescription>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent>
+              <div>
+                You love styles that are:
+                {fashionStyles.map((style) =>
+                  userProfile.profile?.style === style.style ? (
+                    <ul key={style.id}>
+                      <li>{style.description}</li>
+                    </ul>
+                  ) : null
+                )}
+              </div>
+            </CardContent>
             <CardFooter>
               <CoolButton href="/find-style" title="Take Style Quiz" />
             </CardFooter>
           </Card>
         </div>
-        <div className="col-span-2">
+        <div className="">
           <FavoriteProducts />
         </div>
       </div>

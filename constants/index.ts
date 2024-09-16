@@ -203,8 +203,6 @@ export const bestRectangleProducts = [
 
 // Top products for __ fashion style
 
-
-
 export const pearBodyCharacteristic = [
   "Small waist",
   "Full hips",
@@ -237,4 +235,32 @@ export const invertedTriangleBodyCharacteristic = [
   "Narrow waist",
   "Narrow hips",
   "Flat bottom",
+];
+
+export const fashionStyles = [
+  {
+    id: 1,
+    style: "Classic",
+    description: "Timeless and elegant",
+  },
+  {
+    id: 2,
+    style: "Boho",
+    description: "Eclectic and free-spirited",
+  },
+  {
+    id: 3,
+    style: "Chic",
+    description: "Modern and sophisticated",
+  },
+  {
+    id: 4,
+    style: "Sporty",
+    description: "Comfortable and functional",
+  },
+  {
+    id: 5,
+    style: "Edgy",
+    description: "Bold and unconventional",
+  },
 ];
