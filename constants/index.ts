@@ -19,6 +19,10 @@ export const navLinks = [
     label: "Moodboard",
     route: "/moodboard",
   },
+  {
+    label: "Learn",
+    route: "/learn",
+  },
 ];
 
 export const questions = [
@@ -82,126 +86,46 @@ export const questions = [
 // Top products for __ body shape
 
 export const bestPearProducts = [
-  {
-    type: "Tops",
-    product: "Embellished tops",
-  },
-  {
-    type: "Pants",
-    product: "Wide leg pants",
-  },
-  {
-    type: "Skirts",
-    product: "A-line skirts",
-  },
-  {
-    type: "Dresses",
-    product: "Wrap dresses",
-  },
-  {
-    type: "Jackets",
-    product: "Fitted jackets",
-  },
+  "Embellished tops",
+  "Wide leg pants",
+  "A-line skirts",
+  "Wrap dresses",
+  "Fitted jackets",
 ];
 
 export const bestAppleProducts = [
-  {
-    type: "Tops",
-    product: "V-neck tops",
-  },
-  {
-    type: "Pants",
-    product: "High waisted pants",
-  },
-  {
-    type: "Skirts",
-    product: "A-line skirts",
-  },
-  {
-    type: "Dresses",
-    product: "Wrap dresses",
-  },
-  {
-    type: "Jackets",
-    product: "Structured jackets",
-  },
+  "V-neck tops",
+  "High waisted pants",
+  "A-line skirts",
+  "Wrap dresses",
+  "Structured jackets",
 ];
 
 export const bestHourglassProducts = [
-  {
-    type: "Tops",
-    product: "V-neck tops",
-  },
-  {
-    type: "Pants",
-    product: "Bootcut jeans",
-  },
-  {
-    type: "Skirts",
-    product: "A-line skirts",
-  },
-  {
-    type: "Dresses",
-    product: "Wrap dresses",
-  },
-  {
-    type: "Jackets",
-    product: "Fitted jackets",
-  },
+  "V-neck tops",
+  "Bootcut jeans",
+  "A-line skirts",
+  "Wrap dresses",
+  "Fitted jackets",
 ];
 
 export const bestInvertedTriangleProducts = [
-  {
-    type: "Tops",
-    product: "Off-the-Shoulder tops",
-  },
-  {
-    type: "Pants",
-    product: "Wide leg pants",
-  },
-  {
-    type: "Skirts",
-    product: "A-line skirts",
-  },
-  {
-    type: "Dresses",
-    product: "Wrap dresses",
-  },
-  {
-    type: "Jackets",
-    product: "Structured blazers",
-  },
+  "Off-the-Shoulder tops",
+  "Wide leg pants",
+  "A-line skirts",
+  "Wrap dresses",
+  "Structured blazers",
 ];
 
 export const bestRectangleProducts = [
-  {
-    id: 1,
-    type: "Tops",
-    description: "Ruffled tops",
-  },
-  {
-    id: 2,
-    type: "Pants",
-    description: "High waisted pants",
-  },
-  {
-    id: 3,
-    type: "Skirts",
-    description: "A-line skirts",
-  },
-  {
-    id: 4,
-    type: "Dresses",
-    description: "Belted dresses",
-  },
-  {
-    id: 5,
-    type: "Jackets",
-    description: "Tailored blazers",
-  },
+  "Scoop neck tops",
+  "Straight leg pants",
+  "Pencil skirts",
+  "Shift dresses",
+  "Belted jackets",
 ];
 
-// Top products for __ fashion style
+// Body Shape Characteristics
 
 export const pearBodyCharacteristic = [
   "Small waist",
@@ -237,30 +161,78 @@ export const invertedTriangleBodyCharacteristic = [
   "Flat bottom",
 ];
 
-export const fashionStyles = [
-  {
-    id: 1,
-    style: "Classic",
-    description: "Timeless and elegant",
-  },
-  {
-    id: 2,
-    style: "Boho",
-    description: "Eclectic and free-spirited",
-  },
-  {
-    id: 3,
-    style: "Chic",
-    description: "Modern and sophisticated",
-  },
-  {
-    id: 4,
-    style: "Sporty",
-    description: "Comfortable and functional",
-  },
-  {
-    id: 5,
-    style: "Edgy",
-    description: "Bold and unconventional",
-  },
+// Fashion Styles
+
+export const classicStyle = [
+  "simple",
+  "clean lines",
+  "neutral color palettes",
+  "focus on quality over quantitiy",
+];
+
+export const classicClothing = [
+  "Tailored trousers",
+  "Monochrome blouses or shirts",
+  "Blazers or structured coats",
+  "Plain turtlenecks",
+  "Simple, minimal accessories",
+];
+
+export const bohoStyle = [
+  "Earthy tones",
+  "flowing fabrics",
+  "vintage-inspired electic prints",
+];
+
+export const bohoClothing = [
+  "Maxi dresses or skirts",
+  "Loose blouses with floral or tribal prints",
+  "Fringe jackets or cardigans",
+  "Wide-brim hats",
+  "Leather sandals or boots",
+  "Layered jewelry",
+  "Embroidered or crocheted pieces",
+];
+
+export const chicStyle = [
+  "Tailored silhouettes",
+  "monochromatic color schemes",
+  "minimalistic accessories",
+];
+
+export const chicClothing = [
+  "Tailored blazers",
+  "Pencil skirts",
+  "Silk blouses or tailored blazers",
+  "Statement coats",
+  "Minimalist yet bold accessories",
+  "Sleek polished hair and makeup",
+];
+
+export const sportyStyle = [
+  "Fusion of athletic wear and casual style",
+  "prioritizing comfort while maintaining a chic look",
+];
+
+export const sportyClothing = [
+  "Leggings or yoga pants",
+  "Sports bras or crop tops",
+  "Hoodies",
+  "Sneakers",
+  "Baseball caps",
+];
+
+export const edgyStyle = [
+  "Bold and unconventional",
+  "Mixing and matching different styles",
+  "Experimenting with textures and patterns",
+];
+
+export const edgyClothing = [
+  "Leather jackets",
+  "Ripped jeans",
+  "Graphic tees",
+  "Studded accessories",
+  "Combat boots",
+  "Statement jewelry",
 ];

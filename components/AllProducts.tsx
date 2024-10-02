@@ -65,7 +65,7 @@ const AllProducts = ({ searchParams }: { searchParams: any }) => {
       </div>
       <div className="mt-24">
         {!isDataEmpty ? (
-          <div className="flex product-scroll">
+          <div className="product-scroll flex">
             {clothingProducts?.map((product) => (
               <ClothingCard key={product} clothing={product} />
             ))}

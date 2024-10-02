@@ -5,6 +5,7 @@ import { findUniqueProfile } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 // import AllProducts from "@/components/AllProducts";
+import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
 
 const Profile = async () => {
   const session = await auth();
@@ -33,6 +34,9 @@ const Profile = async () => {
             {/* <AllProducts searchParams={{}} /> */}
           </div>
         </div>
+      </div>
+      <div>
+        <HiChatBubbleBottomCenterText />
       </div>
     </div>
   );

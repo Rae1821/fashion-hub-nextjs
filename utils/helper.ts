@@ -9,24 +9,24 @@ export function saltAndHashPassword(password: any) {
 }
 
 // Fetch products from the Amazon API
-export async function fetchClothing({ searchItem }: { searchItem: string }) {
-  const headers = {
-    "X-RapidAPI-Key": "85109d553dmshaef4cc1a6980b3dp1d833fjsne5ad9b4d1cfa",
-    "X-RapidAPI-Host": "real-time-amazon-data.p.rapidapi.com",
-  };
+// export async function fetchClothing({ searchItem }: { searchItem: string }) {
+//   const headers = {
+//     "X-RapidAPI-Key": "85109d553dmshaef4cc1a6980b3dp1d833fjsne5ad9b4d1cfa",
+//     "X-RapidAPI-Host": "real-time-amazon-data.p.rapidapi.com",
+//   };
 
-  try {
-    const response = await fetch(
-      `https://real-time-amazon-data.p.rapidapi.com/search?query=${searchItem}&limit=20&page=1&country=US&category_id=aps`,
-      {
-        headers,
-      }
-    );
-    // parse the response as json
-    const result = await response.json();
+//   try {
+//     const response = await fetch(
+//       `https://real-time-amazon-data.p.rapidapi.com/search?query=${searchItem}&limit=20&page=1&country=US&category_id=aps`,
+//       {
+//         headers,
+//       }
+//     );
+//     // parse the response as json
+//     const result = await response.json();
 
-    return result.data.products;
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     return result.data.products;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
