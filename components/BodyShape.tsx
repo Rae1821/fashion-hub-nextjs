@@ -21,11 +21,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-type ButtonProps = {
-  title: string;
-};
+// type ButtonProps = {
+//   title: string;
+// };
 
-const BodyShape = ({ title }: ButtonProps) => {
+const BodyShape = () => {
+  // const BodyShape = ({ title }: ButtonProps) => {
   const [shapeResults, setShapeResults] = useState<string>("");
   const [isCopied, setIsCopied] = useState(false);
 

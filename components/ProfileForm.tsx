@@ -7,6 +7,8 @@ import BodyShape from "./BodyShape";
 import StyleQuiz from "./StyleQuiz";
 import { useRouter } from "next/navigation";
 import CoolButton from "./CoolButton";
+import Link from "next/link";
+import { BsArrowRight } from "react-icons/bs";
 
 const ProfileForm = ({ session }: any) => {
   const router = useRouter();
@@ -60,11 +62,20 @@ const ProfileForm = ({ session }: any) => {
         <div>
           <label
             htmlFor="shape"
-            className="mb-2 flex items-end justify-between"
+            className="mb-2 flex items-center gap-4 font-medium"
           >
             Body Shape{" "}
             <span>
-              <BodyShape />
+              <Link
+                href="/find-shape"
+                className="flex items-center gap-2 text-sm font-normal text-red-400 hover:text-black"
+              >
+                Calculate body shape{" "}
+                <span>
+                  {" "}
+                  <BsArrowRight className="size-4" />
+                </span>
+              </Link>
             </span>
           </label>
 
@@ -78,11 +89,21 @@ const ProfileForm = ({ session }: any) => {
         <div>
           <label
             htmlFor="style"
-            className="mb-2 flex items-end justify-between"
+            className="mb-2 flex items-center gap-4 font-medium"
           >
             Fashion Style{" "}
             <span>
-              <StyleQuiz />
+              <Link
+                href="/find-style"
+                className="flex items-center gap-2 text-sm font-normal text-red-400 hover:text-black"
+              >
+                Take Style Quiz{" "}
+                <span>
+                  {" "}
+                  <BsArrowRight className="size-4" />
+                </span>
+              </Link>
+              {/* <CoolButton href="/find-style" title="Find Style" /> */}
             </span>
           </label>
           <Input
@@ -98,7 +119,7 @@ const ProfileForm = ({ session }: any) => {
             {isPending ? "Updating Profile..." : "Update Profile"}
           </Button> */}
           <Button asChild type="submit" disabled={isPending}>
-            <CoolButton title="submit" />
+            <CoolButton href="" title="Update Profile" />
           </Button>
         </div>
       </form>
