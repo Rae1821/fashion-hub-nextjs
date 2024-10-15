@@ -30,7 +30,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.17.4",
-    "framer-motion": "^11.3.24",
+    "framer-motion": "^11.11.9",
     "gsap": "^3.12.5",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",

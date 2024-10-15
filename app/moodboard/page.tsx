@@ -1,5 +1,4 @@
 import ImageUpload from "@/components/ImageUpload";
-import React from "react";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import Chatbot from "@/components/Chatbot";
 import Image from "next/image";
+import Moodboard from "@/components/Moodboard";
 
 const MoodboardPage = () => {
   return (
@@ -28,7 +28,7 @@ const MoodboardPage = () => {
       </div>
       {/* Uploaded images container */}
       <div>
-        <Card>
+        {/* <Card>
           <CardHeader>
             <CardTitle>Uploaded Images</CardTitle>
             <CardDescription></CardDescription>
@@ -58,19 +58,14 @@ const MoodboardPage = () => {
               width={350}
               alt="booties"
             />
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-            />
           </CardContent>
           <CardFooter></CardFooter>
-        </Card>
+        </Card> */}
       </div>
+      <Moodboard />
       {/* Moodboard area  */}
       {/* Need a way to persist these - localstorage or add to database? Maybe having kanbans would be easier to group */}
-      <div className="my-4">
+      {/* <div className="my-4">
         <Card className="h-[500px]">
           <CardHeader>
             <CardTitle>Moodboard</CardTitle>
@@ -79,7 +74,7 @@ const MoodboardPage = () => {
           <CardContent></CardContent>
           <CardFooter></CardFooter>
         </Card>
-      </div>
+      </div> */}
       {/* Favorite products */}
       <div>
         <Card>
