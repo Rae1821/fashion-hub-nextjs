@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import {
   Card,
   CardHeader,
@@ -11,13 +11,33 @@ import {
   CardFooter,
 } from "./ui/card";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Draggable } from "gsap/Draggable";
+// cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js
+
+gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(Draggable);
 
 const Moodboard = () => {
-  const constraintsRef = useRef(null);
+  // const constraintsRef = useRef(null);
+  const container = useRef(null);
+
+  // useGSAP(() => {
+  //   gsap.to(".img-1", {
+  //     x: 100,
+  //     duration: 1,
+  //   });
+  // });
+
+  Draggable.create(".img-1", {
+    type: "x",
+    bounds: ".container",
+  });
 
   return (
-    <div ref={constraintsRef} className="min-h-screen">
-      <div>
+    <div className="min-h-screen">
+      <div ref={container}>
         {" "}
         <Card>
           <CardHeader>
@@ -25,25 +45,12 @@ const Moodboard = () => {
             <CardDescription></CardDescription>
           </CardHeader>
           <CardContent className="z-10 flex gap-2 overflow-auto">
-            <motion.div>
-              <motion.div
-                drag
-                dragConstraints={constraintsRef}
-                className="size-[100px] bg-green-300"
-              />
-
-              <Image
-                src="/images/black-booties.png"
-                height={350}
-                width={350}
-                alt="booties"
-              />
-            </motion.div>
             <Image
               src="/images/black-booties.png"
               height={350}
               width={350}
               alt="booties"
+              className="img-1"
             />
             <Image
               src="/images/black-booties.png"
@@ -67,30 +74,14 @@ const Moodboard = () => {
           <CardFooter></CardFooter>
         </Card>
       </div>
-      <div className="my-4 gap-3 overflow-scroll">
-        <motion.div
-          drag="x"
-          dragConstraints={{
-            left: 100,
-            right: 100,
-          }}
-        >
-          <Image
-            src="/images/black-booties.png"
-            height={350}
-            width={350}
-            alt="booties"
-          />
-        </motion.div>
-        <Card className="z-0 h-[500px]">
-          <CardHeader>
-            <CardTitle>Moodboard</CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent></CardContent>
-          <CardFooter></CardFooter>
-        </Card>
-      </div>
+      <Card className="z-0 h-[500px]">
+        <CardHeader>
+          <CardTitle>Moodboard</CardTitle>
+          <CardDescription></CardDescription>
+        </CardHeader>
+        <CardContent></CardContent>
+        <CardFooter></CardFooter>
+      </Card>
     </div>
   );
 };

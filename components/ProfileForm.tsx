@@ -3,12 +3,12 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import React, { useTransition } from "react";
 import { updateOrCreateProfile } from "@/actions/auth";
-import BodyShape from "./BodyShape";
-import StyleQuiz from "./StyleQuiz";
+// import BodyShape from "./BodyShape";
+// import StyleQuiz from "./StyleQuiz";
 import { useRouter } from "next/navigation";
 import CoolButton from "./CoolButton";
 import Link from "next/link";
-import { BsArrowRight } from "react-icons/bs";
+import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 
 const ProfileForm = ({ session }: any) => {
   const router = useRouter();
@@ -73,7 +73,7 @@ const ProfileForm = ({ session }: any) => {
                 Calculate body shape{" "}
                 <span>
                   {" "}
-                  <BsArrowRight className="size-4" />
+                  <HiArrowTopRightOnSquare className="size-4" />
                 </span>
               </Link>
             </span>
@@ -100,7 +100,7 @@ const ProfileForm = ({ session }: any) => {
                 Take Style Quiz{" "}
                 <span>
                   {" "}
-                  <BsArrowRight className="size-4" />
+                  <HiArrowTopRightOnSquare className="size-4" />
                 </span>
               </Link>
               {/* <CoolButton href="/find-style" title="Find Style" /> */}
