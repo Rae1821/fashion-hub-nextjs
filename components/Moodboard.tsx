@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 // import { motion } from "framer-motion";
 import {
   Card,
@@ -17,11 +17,11 @@ import { Draggable } from "gsap/Draggable";
 // cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js
 
 gsap.registerPlugin(useGSAP);
-gsap.registerPlugin(Draggable);
+// gsap.registerPlugin(Draggable);
 
 const Moodboard = () => {
   // const constraintsRef = useRef(null);
-  const container = useRef(null);
+  const imageRef = useRef(null);
 
   // useGSAP(() => {
   //   gsap.to(".img-1", {
@@ -30,58 +30,92 @@ const Moodboard = () => {
   //   });
   // });
 
-  Draggable.create(".img-1", {
-    type: "x",
-    bounds: ".container",
+  // Draggable.create(".img", {
+  //   type: "x,y",
+  //   bounds: ".container",
+  // });
+
+  useEffect(() => {
+    gsap.registerPlugin(Draggable);
+
+    Draggable.create(imageRef.current, {
+      bounds: "#container",
+    });
   });
 
   return (
-    <div className="min-h-screen">
-      <div ref={container}>
+    <div id="container" className="min-h-screen">
+      <h2>Uploaded Images</h2>
+      <div className="flex gap-2">
+        <div ref={imageRef}>
+          <Image
+            src="/images/black-booties.png"
+            height={350}
+            width={350}
+            alt="booties"
+          />
+        </div>
+        <div>
+          <Image
+            src="/images/black-booties.png"
+            height={350}
+            width={350}
+            alt="booties"
+          />
+        </div>
+      </div>
+      <div className="h-[600px] w-full">
+        <p>Moodboard</p>
+      </div>
+      <div>
+        <h2>Favorite Products</h2>
+        <div>
+          <div>
+            <Image
+              src="/images/black-booties.png"
+              height={350}
+              width={350}
+              alt="booties"
+            />
+          </div>
+          <div>
+            <Image
+              src="/images/black-booties.png"
+              height={350}
+              width={350}
+              alt="booties"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
         {" "}
-        <Card>
+        {/* <Card className="h-[1000px]">
           <CardHeader>
             <CardTitle>Uploaded Images</CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
-          <CardContent className="z-10 flex gap-2 overflow-auto">
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-              className="img-1"
-            />
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-            />
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-            />
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-            />
+          <CardContent className="flex gap-2">
+            <div ref={imageRef}>
+              <Image
+                src="/images/black-booties.png"
+                height={350}
+                width={350}
+                alt="booties"
+              />
+            </div>
+            <div>
+              <Image
+                src="/images/black-booties.png"
+                height={350}
+                width={350}
+                alt="booties"
+              />
+            </div>
           </CardContent>
           <CardFooter></CardFooter>
-        </Card>
+        </Card> */}
       </div>
-      <Card className="z-0 h-[500px]">
-        <CardHeader>
-          <CardTitle>Moodboard</CardTitle>
-          <CardDescription></CardDescription>
-        </CardHeader>
-        <CardContent></CardContent>
-        <CardFooter></CardFooter>
-      </Card>
     </div>
   );
 };
