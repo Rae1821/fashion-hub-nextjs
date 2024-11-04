@@ -25,7 +25,7 @@ const Navbar = async () => {
           ))}
           {!session?.user ? (
             <Link className="font-bold" href="/sign-in">
-              <div className="rounded-sm border-4 border-black px-4 py-2 text-sm hover:bg-red-300">
+              <div className="rounded-sm border-4 border-black bg-red-300 px-4 py-2 text-sm hover:bg-transparent">
                 Login
               </div>
             </Link>

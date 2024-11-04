@@ -15,29 +15,43 @@ import { fetchClothing } from "@/utils/helper";
 //   };
 // }
 
-const ProductsPage = async ({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] }>;
-}) => {
-  const query = await searchParams;
-  const items = await fetchClothing(query);
+// const ProductsPage = async ({
+//   searchParams,
+// }: {
+//   searchParams: Promise<{ [key: string]: string | string[] }>;
+// }) => {
 
-  return (
-    <div className="container">
-      {/* <AllProducts searchParams={searchParams} />{" "}
+const ProductsPage = async ({ searchItem }: { searchItem: string }) => {
+  // const query = await searchParams;
+
+
+
+  const findProducts = async (searchItem: string) => {
+      const items = await fetchClothing({ searchItem });
+  }
+
+  if(searchItem) {
+    findProducts(searchItem);
+  }
+
+
+
+    return (
+      <div className="container">
+        {/* <AllProducts searchParams={searchParams} />{" "}
       Pass the searchParams property to the AllProducts component */}
-      <div>
-        <ProductSearch />
-      </div>
+        <div>
+          <ProductSearch />
+        </div>
 
-      <div>
-        {items.map((item: any) => (
-          <ClothingCard key={item.id} clothing={item} />
-        ))}
+        {/* <div className="flex flex-wrap gap-2">
+          {items.map((item: any) => (
+            <ClothingCard key={item.id} clothing={item} />
+          ))}
+        </div> */}
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ProductsPage;

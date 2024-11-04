@@ -29,23 +29,23 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     product_photo: productPhoto,
   } = clothing;
 
-  const [addToFavorites, setAddToFavorites] = useState<ClothingProps[]>([]);
-  const [addButton, setAddButton] = useState(false);
+  // const [addToFavorites, setAddToFavorites] = useState<ClothingProps[]>([]);
+  // const [addButton, setAddButton] = useState(false);
 
-  const handleAddToFavorites = (product: ClothingProps) => {
-    // add product to favorites
-    setAddButton((prevAddButton) => !prevAddButton);
-    setAddToFavorites((prevAddToFavorites) => [...prevAddToFavorites, product]);
-  };
+  // const handleAddToFavorites = (product: ClothingProps) => {
+  //   // add product to favorites
+  //   setAddButton((prevAddButton) => !prevAddButton);
+  //   setAddToFavorites((prevAddToFavorites) => [...prevAddToFavorites, product]);
+  // };
 
-  console.log(addButton);
-  console.log(addToFavorites);
+  // console.log(addButton);
+  // console.log(addToFavorites);
 
   return (
     // <Link href={productUrl} className="product-card">
     <div className="product-card">
       <div className="product-card_img-container">
-        <div className="">
+        {/* <div className="">
           <Button
             variant="outline"
             size="icon"
@@ -57,7 +57,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
               <FaPlus className="product-card_plus-icon" />
             )}
           </Button>
-        </div>
+        </div> */}
         <Image
           src={productPhoto}
           width={200}

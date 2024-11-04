@@ -3,7 +3,7 @@
 // import { Input } from "../ui/input";
 // import { AddSearchButton } from "./AddSearchButton";
 import React, { useCallback, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+// import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { useFormStatus } from "react-dom";
@@ -13,20 +13,20 @@ const ProductSearch = () => {
   const [searchItem, setSearchItem] = useState("");
   const { pending } = useFormStatus();
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+  // const createQueryString = useCallback(
+  //   (name: string, value: string) => {
+  //     const params = new URLSearchParams(searchParams.toString());
+  //     params.set(name, value);
 
-      return params.toString();
-    },
+  //     return params.toString();
+  //   },
 
-    [searchParams]
-  );
+  //   [searchParams]
+  // );
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,7 +35,9 @@ const ProductSearch = () => {
       return alert("Please fill in the search bar");
     }
 
-    router.push(pathname + "?" + createQueryString("searchItem", searchItem));
+    // router.push(pathname + "?" + createQueryString("searchItem", searchItem));
+
+    setSearchItem(searchItem);
   };
 
   // const updateSearchParams = (searchItem: string) => {
