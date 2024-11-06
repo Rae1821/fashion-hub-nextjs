@@ -20,7 +20,7 @@ const ProductSearch: React.FC<ProductSearchProps> = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchItem.trim()) {
-      router.push(`/products/${searchItem}`);
+      router.push(`/products?searchItem=${encodeURIComponent(searchItem)}`);
     }
   };
 

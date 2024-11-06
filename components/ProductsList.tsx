@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ClothingCard from "@/components/ClothingCard";
 import { fetchClothing } from "@/utils/helper";
+import ProductSearch from "./ProductSearch";
 
 const ProductsList = ({ searchItem }: { searchItem: string }) => {
   const [items, setItems] = useState([]);
@@ -18,10 +19,16 @@ const ProductsList = ({ searchItem }: { searchItem: string }) => {
   }, [searchItem]);
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {items.map((item: any) => (
-        <ClothingCard key={item.id} clothing={item} />
-      ))}
+    <div>
+      <ProductSearch />
+
+      <div className="flex flex-wrap gap-2">
+        {items.map((item: any) => (
+          <div key={item.id}>
+            <ClothingCard clothing={item} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaPlus, FaCheck } from "react-icons/fa6";
+// import { FaPlus, FaCheck } from "react-icons/fa6";
 import { Button } from "./ui/button";
 // import { Toggle } from "@/components/ui/toggle";
-import { useState } from "react";
+// import { useState } from "react";
 
 interface ClothingProps {
   product_title: string;
