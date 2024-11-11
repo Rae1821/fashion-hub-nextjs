@@ -238,3 +238,105 @@ export const deleteProfile = async (input: DeleteProfileInput) => {
     throw error;
   }
 };
+
+//// Favorite Products
+
+// Find user's favorite products
+export const findUniqueProducts = async () => {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const userEmail = session.user.email;
+
+    const findProducts = await db.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+      select: {
+        email: true,
+        products: true,
+      },
+    });
+
+    return JSON.parse(JSON.stringify(findProducts));
+  } catch (error) {
+    console.log("Error finding profile:", error);
+    throw error;
+  }
+};
+
+interface AddProductInput {
+  product_title?: string;
+  product_price?: string;
+  product_original_price?: string;
+  product_star_rating?: string;
+  product_num_ratings?: number;
+  product_url?: string;
+  product_photo?: string;
+}
+
+// Add product to favorites
+export const addProduct = async (input: AddProductInput) => {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const userEmail = session.user.email;
+
+    //const productCheck = findUniqueProducts();
+
+    const newProduct = await db.products.create({
+      data: {
+        product_title: input.product_title,
+        product_price: input.product_price,
+        product_original_price: input.product_original_price,
+        product_star_rating: input.product_star_rating,
+        product_num_ratings: input.product_num_ratings,
+        product_url: input.product_url,
+        product_photo: input.product_photo,
+        user: {
+          connect: { email: userEmail },
+        },
+      },
+    });
+    return newProduct;
+  } catch (error: any) {
+    console.log("Error adding product:", error);
+    throw error;
+  }
+};
+
+interface DeleteProductInput {
+  product_title?: string;
+  product_price?: string;
+  product_original_price?: string;
+  product_star_rating?: string;
+  product_num_ratings?: number;
+  product_url?: string;
+  product_photo?: string;
+}
+
+// delete product from favorites
+export const deleteProduct = async (input: DeleteProductInput) => {
+  try {
+    const session = await auth();
+
+    const userId = session?.user?.id;
+
+    const deleteProfile = await db.products.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    return deleteProfile;
+  } catch (error) {
+    console.log("Error deleting profile", error);
+    throw error;
+  }
+};

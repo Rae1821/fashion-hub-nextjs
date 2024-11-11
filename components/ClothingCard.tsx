@@ -2,17 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import { FaPlus, FaCheck } from "react-icons/fa6";
+import { FaPlus, FaCheck } from "react-icons/fa6";
 import { Button } from "./ui/button";
+import { addProduct } from "@/actions/auth";
+import { useState } from "react";
 // import { Toggle } from "@/components/ui/toggle";
 // import { useState } from "react";
 
 interface ClothingProps {
   product_title: string;
-  product_price: number;
-  product_original_price: number;
+  product_price: string;
+  product_original_price: string;
   currency: string;
-  product_star_rating: number;
+  product_star_rating: string;
   product_num_ratings: number;
   product_url: string;
   product_photo: string;
@@ -29,35 +31,37 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     product_photo: productPhoto,
   } = clothing;
 
-  // const [addToFavorites, setAddToFavorites] = useState<ClothingProps[]>([]);
-  // const [addButton, setAddButton] = useState(false);
+  console.log(clothing);
 
-  // const handleAddToFavorites = (product: ClothingProps) => {
-  //   // add product to favorites
-  //   setAddButton((prevAddButton) => !prevAddButton);
-  //   setAddToFavorites((prevAddToFavorites) => [...prevAddToFavorites, product]);
-  // };
+  const [addFavorite, setAddFavorite] = useState(false);
 
-  // console.log(addButton);
-  // console.log(addToFavorites);
+  const handleAddToFavorites = async (clothing: ClothingProps) => {
+    try {
+      const result = await addProduct(clothing);
+      console.log(result);
+      setAddFavorite((prevAddFavorite) => !prevAddFavorite);
+    } catch (error) {
+      console.log("Error adding product: ", error);
+    }
+  };
 
   return (
     // <Link href={productUrl} className="product-card">
     <div className="product-card">
       <div className="product-card_img-container">
-        {/* <div className="">
+        <div className="">
           <Button
             variant="outline"
             size="icon"
             onClick={() => handleAddToFavorites(clothing)}
           >
-            {addButton ? (
+            {addFavorite ? (
               <FaCheck className="" />
             ) : (
               <FaPlus className="product-card_plus-icon" />
             )}
           </Button>
-        </div> */}
+        </div>
         <Image
           src={productPhoto}
           width={200}

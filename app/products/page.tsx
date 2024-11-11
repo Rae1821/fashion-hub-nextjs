@@ -11,7 +11,7 @@ const ProductsPage = async ({
   // const searchItem = searchParams.searchItem || "";
 
   return (
-    <div className="container">
+    <div className="container mx-auto max-w-[1300px] px-10">
       <ProductsList searchItem={searchItem || ""} />
     </div>
   );

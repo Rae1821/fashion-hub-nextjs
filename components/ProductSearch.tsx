@@ -26,12 +26,12 @@ const ProductSearch: React.FC<ProductSearchProps> = () => {
 
   return (
     <form onSubmit={handleSearch}>
-      <div className="flex">
+      <div className="flex w-full">
         <Input
           type="text"
           name="searchItem"
           placeholder="white peplum tops"
-          className="rounded-r-none border-r-0 focus-visible:ring-0"
+          className="w-[300px] rounded-r-none border-r-0 focus-visible:ring-0 md:w-[500px] lg:w-[800px]"
           value={searchItem}
           onChange={(e: any) => setSearchItem(e.target.value)}
         />
