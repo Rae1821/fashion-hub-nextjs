@@ -1,16 +1,18 @@
 import { auth } from "@/auth";
 import React from "react";
 import Dashboard from "@/components/Dashboard";
-import { findUniqueProfile } from "@/actions/auth";
+import { findUniqueProducts, findUniqueProfile } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 // import AllProducts from "@/components/AllProducts";
 import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
+import FavoriteProducts from "@/components/FavoriteProducts";
 
 const Profile = async () => {
   const session = await auth();
 
   const fetchUserProfile = await findUniqueProfile();
+  const fetchUserProducts = await findUniqueProducts();
 
   return (
     <div className="magicpattern fixed min-h-screen">
@@ -31,7 +33,7 @@ const Profile = async () => {
             <Dashboard userProfile={fetchUserProfile} />
           </div>
           <div className="container">
-            {/* <AllProducts searchParams={{}} /> */}
+            <FavoriteProducts userProducts={fetchUserProducts} />
           </div>
         </div>
       </div>

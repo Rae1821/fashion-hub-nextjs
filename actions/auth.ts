@@ -257,13 +257,23 @@ export const findUniqueProducts = async () => {
       },
       select: {
         email: true,
-        products: true,
+        products: {
+          select: {
+            product_title: true,
+            product_price: true,
+            product_original_price: true,
+            product_star_rating: true,
+            product_num_ratings: true,
+            product_url: true,
+            product_photo: true,
+          },
+        },
       },
     });
 
     return JSON.parse(JSON.stringify(findProducts));
   } catch (error) {
-    console.log("Error finding profile:", error);
+    console.log("Error finding products:", error);
     throw error;
   }
 };
@@ -288,23 +298,26 @@ export const addProduct = async (input: AddProductInput) => {
 
     const userEmail = session.user.email;
 
-    //const productCheck = findUniqueProducts();
+    const productCheck = findUniqueProducts();
+    console.log(productCheck);
 
-    const newProduct = await db.products.create({
-      data: {
-        product_title: input.product_title,
-        product_price: input.product_price,
-        product_original_price: input.product_original_price,
-        product_star_rating: input.product_star_rating,
-        product_num_ratings: input.product_num_ratings,
-        product_url: input.product_url,
-        product_photo: input.product_photo,
-        user: {
-          connect: { email: userEmail },
+    if (!productCheck) {
+      const newProduct = await db.products.create({
+        data: {
+          product_title: input.product_title,
+          product_price: input.product_price,
+          product_original_price: input.product_original_price,
+          product_star_rating: input.product_star_rating,
+          product_num_ratings: input.product_num_ratings,
+          product_url: input.product_url,
+          product_photo: input.product_photo,
+          user: {
+            connect: { email: userEmail },
+          },
         },
-      },
-    });
-    return newProduct;
+      });
+      return newProduct;
+    }
   } catch (error: any) {
     console.log("Error adding product:", error);
     throw error;

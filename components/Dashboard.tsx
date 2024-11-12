@@ -10,7 +10,7 @@ import {
 import { IoShirtOutline } from "react-icons/io5";
 import { HiMiniFire, HiMiniBolt } from "react-icons/hi2";
 
-import FavoriteProducts from "./FavoriteProducts";
+// import FavoriteProducts from "./FavoriteProducts";
 import CoolButton from "./CoolButton";
 import {
   pearBodyCharacteristic,
@@ -294,9 +294,6 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               </CardFooter>
             </Card>
           </div>
-        </div>
-        <div className="">
-          <FavoriteProducts />
         </div>
       </div>
     </div>

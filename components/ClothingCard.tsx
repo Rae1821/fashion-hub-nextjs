@@ -31,7 +31,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     product_photo: productPhoto,
   } = clothing;
 
-  console.log(clothing);
+  // console.log(clothing);
 
   const [addFavorite, setAddFavorite] = useState(false);
 
@@ -44,6 +44,8 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
       console.log("Error adding product: ", error);
     }
   };
+
+  const newProductTitle = productTitle.replace(/[^\w\s]/gi, "");
 
   return (
     // <Link href={productUrl} className="product-card">
@@ -72,7 +74,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
       </div>
 
       <div className="flex flex-col gap-3">
-        <h3 className="product-title">{productTitle}</h3>
+        <h3 className="product-title">{newProductTitle}</h3>
         <div className="flex justify-between">
           <p className="flex items-center gap-2 capitalize text-black opacity-50">
             <span>
