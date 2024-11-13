@@ -20,29 +20,17 @@ const ProductsList = ({ searchItem }: { searchItem: string }) => {
   }, [searchItem]);
 
   return (
-    <div className="max-w-[1300px]">
-      <div className="flex max-w-[1100px] flex-col pl-4">
-        <div className="mt-12 ">
-          <h2 className="text-lg font-semibold leading-none tracking-tight">
-            Product Search
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Use the search box below to find items that are perfect for your
-            body shape!
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-8 flex justify-center">
+    <div className="max-w-[1300px] mt-24">
+      <div className="flex justify-center">
         <ProductSearch />
       </div>
-      <div className="flex flex-wrap gap-4 mt-12">
+      <ul className="flex flex-wrap gap-4 mt-12">
         {items.map((item: any) => (
-          <div key={item.id} className="flex">
+          <li className="flex">
             <ClothingCard clothing={item} />
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -8,11 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import ProductsList from "./ProductsList";
-import Link from "next/link";
-
-const handleFindProducts = () => {
-  console.log("Find Products");
-};
+// import Link from "next/link";
+import { useState } from "react";
 
 type ProductDetails = {
   id: string;
@@ -35,6 +34,7 @@ const FavoriteProducts = ({
 }: {
   userProducts: UserProductsType;
 }) => {
+  const [showProducts, setShowProducts] = useState(false);
   const productsArr = userProducts.products;
   const favProducts = productsArr?.map((product: any) => {
     return {
@@ -48,6 +48,12 @@ const FavoriteProducts = ({
     };
   });
 
+  console.log(favProducts?.map((product) => product.product_title));
+
+  const handleFindProducts = () => {
+    setShowProducts((prevShowProducts) => !prevShowProducts);
+  };
+
   return (
     <div className="w-full">
       <div>
@@ -59,19 +65,52 @@ const FavoriteProducts = ({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button asChild>
-              <Link href="/products">Find Products</Link>
-            </Button>
+            <Button onClick={handleFindProducts}></Button>
           </CardContent>
           <CardFooter>{/* <p>Card Footer</p> */}</CardFooter>
         </Card>
       </div>
-      {/* <div>
-        { favProducts?.forEach((product) => (
-          <ProductsList product={product} />
-        );}
+      {favProducts?.map((product) => (
+        <div className="product-card">
+          <div className="product-card_img-container">
+            <Image
+              src={product.product_photo}
+              width={200}
+              height={200}
+              alt={productTitle}
+              className="product-card_img"
+            />
+          </div>
 
-      </div> */}
+          <div className="flex flex-col gap-3">
+            <h3 className="product-title">{newProductTitle}</h3>
+            <div className="flex justify-between">
+              <p className="flex items-center gap-2 capitalize text-black opacity-50">
+                <span>
+                  <Image
+                    src="/icons/star.svg"
+                    width={20}
+                    height={20}
+                    alt="star icon"
+                  />
+                </span>
+                {productStarRating} / {productNumRatings}
+              </p>
+              <p className="font-semibold text-black">
+                <span>{productPrice}</span>
+                <span className="ml-2 font-light text-gray-400 line-through">
+                  {productOriginalPrice}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div>
+            <Button asChild className="mt-4 w-full bg-red-300">
+              <Link href={productUrl}>See More</Link>
+            </Button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

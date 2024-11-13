@@ -22,7 +22,7 @@ export const getUserByEmail = async (email: string) => {
 export async function doSocialLogin(formData: any) {
   const action = formData.get("action");
   // console.log(action);
-  await signIn(action, { redirectTo: "/profile" });
+  await signIn(action, { redirectTo: "/dashboard" });
 }
 
 // login for any social provider
@@ -50,7 +50,7 @@ export const loginWithCreds = async (formData: FormData) => {
     name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
-    redirectTo: "/profile",
+    redirectTo: "/dashboard",
   };
 
   // Debugging purposes
@@ -130,7 +130,7 @@ export const updateOrCreateProfile = async (input: any) => {
         },
       },
     });
-    revalidatePath("/profile");
+    revalidatePath("/dashboard");
 
     return JSON.parse(JSON.stringify(upsertProfile));
   } catch (error) {
