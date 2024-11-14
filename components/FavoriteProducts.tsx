@@ -12,6 +12,8 @@ import { Button } from "./ui/button";
 import ProductsList from "./ProductsList";
 // import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 type ProductDetails = {
   id: string;
@@ -48,7 +50,7 @@ const FavoriteProducts = ({
     };
   });
 
-  console.log(favProducts?.map((product) => product.product_title));
+  // console.log(favProducts?.map((product) => product.product_title));
 
   const handleFindProducts = () => {
     setShowProducts((prevShowProducts) => !prevShowProducts);
@@ -56,61 +58,62 @@ const FavoriteProducts = ({
 
   return (
     <div className="w-full">
-      <div>
+      <div className="">
         <Card>
           <CardHeader>
             <CardTitle>Your Favorite Products</CardTitle>
             <CardDescription>
               Here you&apos;ll find all the products you favorited
+              <Button onClick={handleFindProducts}>Search Products</Button>
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={handleFindProducts}></Button>
+            {favProducts?.map((product) => (
+              <div className="product-card" key={product.product_title}>
+                <div className="product-card_img-container">
+                  <Image
+                    src={product.product_photo}
+                    width={200}
+                    height={200}
+                    alt={product.product_title}
+                    className="product-card_img"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <h3 className="product-title">{product.product_title}</h3>
+                  <div className="flex justify-between">
+                    <p className="flex items-center gap-2 capitalize text-black opacity-50">
+                      <span>
+                        <Image
+                          src="/icons/star.svg"
+                          width={20}
+                          height={20}
+                          alt="star icon"
+                        />
+                      </span>
+                      {product.product_starRating} /{" "}
+                      {product.product_numRatings}
+                    </p>
+                    <p className="font-semibold text-black">
+                      <span>{product.product_price}</span>
+                      <span className="ml-2 font-light text-gray-400 line-through">
+                        {product.product_originalPrice}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <Button asChild className="mt-4 w-full bg-red-300">
+                    <Link href={product.product_url}>See More</Link>
+                  </Button>
+                </div>
+              </div>
+            ))}
           </CardContent>
-          <CardFooter>{/* <p>Card Footer</p> */}</CardFooter>
+          <CardFooter></CardFooter>
         </Card>
       </div>
-      {favProducts?.map((product) => (
-        <div className="product-card">
-          <div className="product-card_img-container">
-            <Image
-              src={product.product_photo}
-              width={200}
-              height={200}
-              alt={productTitle}
-              className="product-card_img"
-            />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <h3 className="product-title">{newProductTitle}</h3>
-            <div className="flex justify-between">
-              <p className="flex items-center gap-2 capitalize text-black opacity-50">
-                <span>
-                  <Image
-                    src="/icons/star.svg"
-                    width={20}
-                    height={20}
-                    alt="star icon"
-                  />
-                </span>
-                {productStarRating} / {productNumRatings}
-              </p>
-              <p className="font-semibold text-black">
-                <span>{productPrice}</span>
-                <span className="ml-2 font-light text-gray-400 line-through">
-                  {productOriginalPrice}
-                </span>
-              </p>
-            </div>
-          </div>
-          <div>
-            <Button asChild className="mt-4 w-full bg-red-300">
-              <Link href={productUrl}>See More</Link>
-            </Button>
-          </div>
-        </div>
-      ))}
     </div>
   );
 };
