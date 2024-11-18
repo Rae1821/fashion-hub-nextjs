@@ -239,7 +239,7 @@ export const deleteProfile = async (input: DeleteProfileInput) => {
   }
 };
 
-//// Favorite Products
+// Favorite Products
 
 // Find user's favorite products
 export const findUniqueProducts = async () => {
@@ -341,13 +341,26 @@ export const deleteProduct = async (input: DeleteProductInput) => {
 
     const userId = session?.user?.id;
 
-    const deleteProfile = await db.products.delete({
+    const deleteProduct = await db.products.update({
       where: {
         id: userId,
       },
+      data: {
+        products: {
+          delete: {
+            product_title: input.product_title,
+            product_price: input.product_price,
+            product_original_price: input.product_original_price,
+            product_star_rating: input.product_star_rating,
+            product_num_ratings: input.product_num_ratings,
+            product_url: input.product_url,
+            product_photo: input.product_photo,
+          },
+        },
+      },
     });
 
-    return deleteProfile;
+    return deleteProduct;
   } catch (error) {
     console.log("Error deleting profile", error);
     throw error;

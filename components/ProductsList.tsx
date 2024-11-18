@@ -20,13 +20,13 @@ const ProductsList = ({ searchItem }: { searchItem: string }) => {
   }, [searchItem]);
 
   return (
-    <div className="max-w-[1300px] mt-24">
+    <div className="mt-24 max-w-[1300px]">
       <div className="flex justify-center">
         <ProductSearch />
       </div>
-      <ul className="flex flex-wrap gap-4 mt-12">
+      <ul className="mt-12 flex flex-wrap gap-4">
         {items.map((item: any) => (
-          <li className="flex">
+          <li className="flex" key={item.id}>
             <ClothingCard clothing={item} />
           </li>
         ))}

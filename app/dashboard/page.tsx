@@ -5,7 +5,7 @@ import { findUniqueProducts, findUniqueProfile } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 // import AllProducts from "@/components/AllProducts";
-import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
+// import { HiChatBubbleBottomCenterText } from "react-icons/hi2";
 import FavoriteProducts from "@/components/FavoriteProducts";
 
 const MyDashboard = async () => {
@@ -31,7 +31,7 @@ const MyDashboard = async () => {
         <div className="flex flex-col items-center justify-center md:flex-row">
           <Dashboard userProfile={fetchUserProfile} />
         </div>
-        <div className="container h-[800px]">
+        <div className="mt-8">
           <FavoriteProducts userProducts={fetchUserProducts} />
         </div>
       </div>

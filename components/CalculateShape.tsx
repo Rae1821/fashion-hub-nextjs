@@ -136,6 +136,7 @@ const CalculateShape = () => {
                 {shapeResults}
               </span>
             </p>
+
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
@@ -145,6 +146,7 @@ const CalculateShape = () => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{isCopied ? "Copied!" : "Copy to Clipboard"}</p>
+                  {/* <p>Copy to clipboard</p> */}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

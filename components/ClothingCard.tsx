@@ -38,7 +38,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
   const handleAddToFavorites = async (clothing: ClothingProps) => {
     try {
       const result = await addProduct(clothing);
-      // console.log(result);
+      console.log(result);
       setAddFavorite((prevAddFavorite) => !prevAddFavorite);
     } catch (error) {
       console.log("Error adding product: ", error);

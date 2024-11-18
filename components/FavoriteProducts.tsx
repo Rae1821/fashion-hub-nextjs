@@ -9,11 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
-import ProductsList from "./ProductsList";
+// import ProductsList from "./ProductsList";
 // import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { HiOutlineMinus } from "react-icons/hi2";
 
 type ProductDetails = {
   id: string;
@@ -36,7 +37,7 @@ const FavoriteProducts = ({
 }: {
   userProducts: UserProductsType;
 }) => {
-  const [showProducts, setShowProducts] = useState(false);
+  // const [showProducts, setShowProducts] = useState(false);
   const productsArr = userProducts.products;
   const favProducts = productsArr?.map((product: any) => {
     return {
@@ -50,27 +51,42 @@ const FavoriteProducts = ({
     };
   });
 
+  const handleRemoveFromFavorites = () => {
+    console.log("Remove from favorites");
+  };
+
   // console.log(favProducts?.map((product) => product.product_title));
 
-  const handleFindProducts = () => {
-    setShowProducts((prevShowProducts) => !prevShowProducts);
-  };
+  // const handleFindProducts = () => {
+  //   setShowProducts((prevShowProducts) => !prevShowProducts);
+  // };
 
   return (
     <div className="w-full">
       <div className="">
         <Card>
-          <CardHeader>
+          <CardHeader className="">
             <CardTitle>Your Favorite Products</CardTitle>
             <CardDescription>
               Here you&apos;ll find all the products you favorited
-              <Button onClick={handleFindProducts}>Search Products</Button>
             </CardDescription>
+            <Button asChild className="w-full md:w-1/4">
+              <Link href="/products"> Search Products</Link>
+            </Button>
           </CardHeader>
           <CardContent>
             {favProducts?.map((product) => (
               <div className="product-card" key={product.product_title}>
                 <div className="product-card_img-container">
+                  <div className="flex justify-end">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={handleRemoveFromFavorites}
+                    >
+                      <HiOutlineMinus className="" />
+                    </Button>
+                  </div>
                   <Image
                     src={product.product_photo}
                     width={200}
