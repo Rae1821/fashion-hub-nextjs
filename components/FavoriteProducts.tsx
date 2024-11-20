@@ -11,10 +11,12 @@ import {
 import { Button } from "./ui/button";
 // import ProductsList from "./ProductsList";
 // import Link from "next/link";
-import { useState } from "react";
+// import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineMinus } from "react-icons/hi2";
+import { findUniqueProducts } from "@/actions/auth";
+// import { findUniqueProducts } from "@/actions/auth";
 
 type ProductDetails = {
   id: string;
@@ -51,15 +53,40 @@ const FavoriteProducts = ({
     };
   });
 
-  const handleRemoveFromFavorites = () => {
-    console.log("Remove from favorites");
-  };
+  // const handleRemoveFromFavorites = () => {
+  //   console.log("Remove from favorites");
+  //   const fetchProductReturns = findUniqueProducts();
+  //   console.log(fetchProductReturns);
+  // };
 
   // console.log(favProducts?.map((product) => product.product_title));
 
   // const handleFindProducts = () => {
   //   setShowProducts((prevShowProducts) => !prevShowProducts);
   // };
+
+  // const getUserFavoriteProducts = async () => {
+  //   try {
+  //     const userProducts = await findUniqueProducts();
+  //     console.log(userProducts); // Access the returned object here
+
+  //     // You can now work with the userProducts object
+  //     if (userProducts && userProducts.products) {
+  //       userProducts.products.forEach((product: ProductDetails) => {
+  //         console.log(product.product_title);
+  //         // Access other product properties as needed
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user's favorite products:", error);
+  //   }
+  // };
+
+  // getUserFavoriteProducts();
+
+  const handleDeleteFavorite = async () => {
+    console.log(findUniqueProducts());
+  };
 
   return (
     <div className="w-full">
@@ -79,13 +106,10 @@ const FavoriteProducts = ({
               <div className="product-card" key={product.product_title}>
                 <div className="product-card_img-container">
                   <div className="flex justify-end">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={handleRemoveFromFavorites}
-                    >
-                      <HiOutlineMinus className="" />
-                    </Button>
+                    <HiOutlineMinus
+                      className=""
+                      onClick={handleDeleteFavorite}
+                    />
                   </div>
                   <Image
                     src={product.product_photo}

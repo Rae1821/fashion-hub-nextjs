@@ -18,6 +18,7 @@ interface ClothingProps {
   product_num_ratings: number;
   product_url: string;
   product_photo: string;
+  asin: string;
 }
 
 const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
@@ -29,6 +30,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     product_num_ratings: productNumRatings,
     product_url: productUrl,
     product_photo: productPhoto,
+    asin: productId,
   } = clothing;
 
   // console.log(clothing);
@@ -44,6 +46,8 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
       console.log("Error adding product: ", error);
     }
   };
+
+  console.log(productId);
 
   const newProductTitle = productTitle.replace(/[^\w\s]/gi, "");
 

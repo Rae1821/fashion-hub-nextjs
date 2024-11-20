@@ -13,7 +13,7 @@ const ProductsList = ({ searchItem }: { searchItem: string }) => {
       if (searchItem) {
         const products = await fetchClothing({ searchItem });
         setItems(products);
-        console.log(items);
+        console.log(products);
       }
     };
     fetchData();
@@ -26,7 +26,7 @@ const ProductsList = ({ searchItem }: { searchItem: string }) => {
       </div>
       <ul className="mt-12 flex flex-wrap gap-4">
         {items.map((item: any) => (
-          <li className="flex" key={item.id}>
+          <li className="flex" key={item.asin}>
             <ClothingCard clothing={item} />
           </li>
         ))}

@@ -32,8 +32,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   profile Profile?
-  products Products[]
+  // products Product @relation(fields: [product], references: [id])
+  products Product[]
 }
+
+
 
 model Profile {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -46,17 +49,38 @@ model Profile {
 
 }
 
-model Products {
+// model Product {
+//   id String   @id @default(auto()) @map("_id") @db.ObjectId
+//   user User @relation(fields: [userEmail], references: [email])
+//   userEmail String @unique
+//   product_title String?
+//   product_price String?
+//   product_original_price String?
+//   product_star_rating String?
+//   product_num_ratings Int?
+//   product_url String?
+//   product_photo String?
+//   asin String?
+// }
+
+model Product {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
   user User @relation(fields: [userEmail], references: [email])
+  productId String?
   userEmail String @unique
-  product_title String?
+  details ProductDetails[]
+
+}
+
+type ProductDetails {
+ product_title String?
   product_price String?
   product_original_price String?
   product_star_rating String?
   product_num_ratings Int?
   product_url String?
   product_photo String?
+  asin String?
 }
 
 
