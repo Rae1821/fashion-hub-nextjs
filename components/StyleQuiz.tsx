@@ -11,6 +11,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { updateUser } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 type Answer = {
   index: number;
@@ -19,13 +21,14 @@ type Answer = {
 };
 
 const StyleQuiz = () => {
-  const [result, setResult] = useState<string>("");
+  const router = useRouter();
+
+  const [styleResult, setStyleResult] = useState<string>("");
   const [answersArr, setAnswersArr] = useState<Answer[]>([]);
   const [styleObj, setStyleObj] = useState({});
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
-  const [isCopied, setIsCopied] = useState(false);
 
   const handleAnswerClick = (
     questionIndex: number,
@@ -130,25 +133,44 @@ const StyleQuiz = () => {
         winningCategory = style;
       }
     }
-    return setResult(winningCategory);
+    return setStyleResult(winningCategory);
   }
 
-  const copyToClipboard = async () => {
-    console.log("click");
+  // save style to database
+  const handleSaveStyle = async () => {
     try {
-      await navigator.clipboard.writeText(result);
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 5000);
-    } catch (err) {
-      console.log("Failed to copy to clipboard", err);
+      const result = await updateUser({ fashionStyle: styleResult });
+      console.log("Update result:", result);
+      router.push("/dashboard");
+    } catch (error) {
+      console.log("Error saving to profile: ", error);
     }
   };
 
+  // const saveStyleToProfile = async () => {
+  //   console.log(styleResult);
+  //   try {
+  //     const fashionResults = styleResult;
+  //     console.log(styleResult);
+  //     // const fashionResults = "Edgy";
+
+  //     if (!fashionResults) {
+  //       throw new Error("Invalid data");
+  //     }
+  //     const result = await updateUser({
+  //       fashionStyle: fashionResults,
+  //     });
+  //     console.log("Update userStyle:", result);
+  //     console.log("Saving to profile:", fashionResults);
+  //   } catch (error) {
+  //     console.log("Error saving to profile: ", error);
+  //   }
+  //   router.push("/dashboard");
+  // };
+
   function handleStartOver() {
     setStyleObj({});
-    setResult("");
+    setStyleResult("");
     setSelectedAnswers({});
     setAnswersArr([]);
   }
@@ -199,20 +221,20 @@ const StyleQuiz = () => {
       </div>
       {/* Display the result */}
       <div className="mt-12 h-[300px] w-full">
-        {result && (
+        {styleResult && (
           <div id="result" className="flex h-24 w-full items-center gap-4">
             <h2 className="text-2xl font-semibold">
-              Your Fashion Style is: <span>{result}</span>
+              Your Fashion Style is: <span>{styleResult}</span>
             </h2>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger>
-                  <Button variant="ghost" onClick={copyToClipboard}>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" onClick={handleSaveStyle}>
                     <FaRegCopy className="size-6" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{isCopied ? "Copied!" : "Copy to Clipboard"}</p>
+                  <p>Save to profile</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

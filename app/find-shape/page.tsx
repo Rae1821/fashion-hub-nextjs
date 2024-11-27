@@ -9,7 +9,7 @@ const findShapePage = () => {
     <div className="">
       <div className="mb-12 mt-2">
         <Button variant="link" asChild>
-          <Link href="/profile" className="flex gap-2">
+          <Link href="/dashboard" className="flex gap-2">
             <span className="">
               <BsArrowLeft className="size-4" />
             </span>

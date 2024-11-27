@@ -12,7 +12,7 @@ const CreateProfilePage = async () => {
     <div className="container mt-8">
       <div className="mb-8">
         <Button variant="link" asChild className="pl-0">
-          <Link href="/profile" className="flex gap-2">
+          <Link href="/dashboard" className="flex gap-2">
             <span className="">
               <BsArrowLeft className="size-4" />
             </span>
@@ -23,7 +23,7 @@ const CreateProfilePage = async () => {
 
       <h2 className="text-xl font-semibold">Hello, {session?.user?.name}</h2>
       <p className="pb-12">
-        Please fill out the fields below to compolete your profile
+        Please fill out the fields below to complete your profile
       </p>
       <ProfileForm session={session} />
     </div>

@@ -35,7 +35,7 @@ const ProfileForm = ({ session }: any) => {
         console.log("Error creating profile: ", error);
       }
     });
-    router.push("/profile");
+    router.push("/dashboard");
   };
 
   return (

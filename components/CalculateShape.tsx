@@ -5,29 +5,14 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { FaRegCopy } from "react-icons/fa6";
-
-// type ButtonProps = {
-//   title: string;
-// };
+import { useRouter } from "next/navigation";
+import { updateUser } from "@/actions/auth";
 
 const CalculateShape = () => {
+  const router = useRouter();
+
   const [shapeResults, setShapeResults] = useState<string>("");
-  const [isCopied, setIsCopied] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,87 +57,64 @@ const CalculateShape = () => {
     setShapeResults("");
   };
 
-  const copyToClipboard = async () => {
-    console.log("click");
+  // save shape to database
+  const handleSaveShape = async () => {
     try {
-      await navigator.clipboard.writeText(shapeResults);
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 5000);
-    } catch (err) {
-      console.log("Failed to copy to clipboard", err);
+      const result = await updateUser({ bodyShape: shapeResults });
+      console.log("Update result:", result);
+      router.push("/dashboard");
+    } catch (error) {
+      console.log("Error saving to profile: ", error);
     }
   };
 
   return (
     <div className="container">
-      <Card>
-        <CardHeader>
-          <CardTitle>Body Shape Calculator</CardTitle>
-          <CardDescription>
-            Measure around each area using inches
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <div>
-              <Label htmlFor="shoulders">Shoulders Measurement</Label>
-              <Input
-                name="shoulders"
-                type="shoulders"
-                placeholder="shoulders"
-                id="shoulders"
-              />
-            </div>
-            <div>
-              <Label htmlFor="waist">Waist Measurement</Label>
-              <Input name="waist" type="waist" placeholder="waist" id="waist" />
-            </div>
-            <div>
-              <Label htmlFor="hips">Hip Measurement</Label>
-              <Input name="hips" type="hips" placeholder="hips" id="hips" />
-            </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <Button type="submit">Calculate Shape</Button>
-                <Button
-                  type="reset"
-                  variant="ghost"
-                  onClick={handleReset}
-                  className="decoration-red-300 decoration-2 hover:bg-transparent hover:underline hover:underline-offset-4"
-                >
-                  Start Over
-                </Button>
-              </div>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <div className="mt-4 flex items-center justify-center gap-4">
-            <p className="text-sm font-medium leading-none">
-              Your body shape is:{" "}
-              <span className="ml-2 text-lg font-semibold text-red-300">
-                {shapeResults}
-              </span>
-            </p>
-
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button variant="ghost" onClick={copyToClipboard}>
-                    <FaRegCopy className="size-6" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{isCopied ? "Copied!" : "Copy to Clipboard"}</p>
-                  {/* <p>Copy to clipboard</p> */}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <div>
+          <Label htmlFor="shoulders">Shoulders Measurement</Label>
+          <Input
+            name="shoulders"
+            type="shoulders"
+            placeholder="shoulders"
+            id="shoulders"
+          />
+        </div>
+        <div>
+          <Label htmlFor="waist">Waist Measurement</Label>
+          <Input name="waist" type="waist" placeholder="waist" id="waist" />
+        </div>
+        <div>
+          <Label htmlFor="hips">Hip Measurement</Label>
+          <Input name="hips" type="hips" placeholder="hips" id="hips" />
+        </div>
+        <div>
+          <div className="flex items-center justify-between">
+            <Button type="submit">Calculate Shape</Button>
+            <Button
+              type="reset"
+              variant="ghost"
+              onClick={handleReset}
+              className="decoration-red-300 decoration-2 hover:bg-transparent hover:underline hover:underline-offset-4"
+            >
+              Start Over
+            </Button>
           </div>
-        </CardFooter>
-      </Card>
+        </div>
+      </form>
+      <div>
+        <p className="text-sm font-medium leading-none">
+          Your body shape is:{" "}
+          <span className="ml-2 text-lg font-semibold text-red-300">
+            {shapeResults}
+          </span>
+          <span>
+            <Button variant="ghost" onClick={handleSaveShape}>
+              <FaRegCopy className="size-6" />
+            </Button>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

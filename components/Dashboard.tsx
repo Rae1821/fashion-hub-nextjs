@@ -10,7 +10,6 @@ import {
 import { IoShirtOutline } from "react-icons/io5";
 import { HiMiniFire, HiMiniBolt } from "react-icons/hi2";
 
-// import FavoriteProducts from "./FavoriteProducts";
 import CoolButton from "./CoolButton";
 import {
   pearBodyCharacteristic,
@@ -34,34 +33,93 @@ import {
   bestHourglassProducts,
   bestInvertedTriangleProducts,
 } from "@/constants";
+// import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-type ProfileDetails = {
-  id: string;
-  userEmail: string;
-  height: string | null;
-  weight?: string | null;
-  shape?: string | null;
-  style?: string | null;
-};
-type UserProfileType = {
-  email?: string | null;
-  profile?: ProfileDetails | null;
-  shape?: string | null; // Add the 'shape' property
-};
+import CalculateShape from "./CalculateShape";
+import StyleQuiz from "./StyleQuiz";
 
-const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
-  console.log(userProfile.profile?.style);
+interface ProfileDetails {
+  id: string | null;
+  email: string | null;
+  name: string | null;
+  bodyShape: string | null;
+  fashionStyle: string | null;
+}
+
+const Dashboard = ({ userProfile }: { userProfile: ProfileDetails }) => {
+  // const [shapeResults, setShapeResults] = useState("");
+  // const [styleResult, setStyleResult] = useState("");
+  // const [profileObj, setpProfileObj] = useState({
+  //   bodyShape: "",
+  //   fashionStyle: "",
+  // });
+
+  // const handleCalculatorSubmit = async (
+  //   event: React.FormEvent<HTMLFormElement>
+  // ) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+
+  //   const data = {
+  //     shoulders: formData.get("shoulders") as string,
+  //     waist: formData.get("waist") as string,
+  //     hips: formData.get("hips") as string,
+  //   };
+
+  //   const shoulders = parseInt(data.shoulders);
+  //   const waist = parseInt(data.waist);
+  //   const hips = parseInt(data.hips);
+
+  //   try {
+  //     if (hips / shoulders >= 1.05 && waist < hips) {
+  //       // setShapeResults("Pear");
+  //       setpProfileObj({ ...profileObj, bodyShape: "Pear" });
+  //     } else if (shoulders / hips >= 1.05 && waist === shoulders) {
+  //       // setShapeResults("Apple");
+  //       setpProfileObj({ ...profileObj, bodyShape: "Apple" });
+  //     } else if (
+  //       waist / shoulders <= 0.75 &&
+  //       waist / hips < 0.75 &&
+  //       hips * 0.95 < shoulders
+  //     ) {
+  //       // setShapeResults("Hourglass");
+  //       setpProfileObj({ ...profileObj, bodyShape: "Hourglass" });
+  //     } else if (shoulders / hips >= 1.05 && waist < shoulders) {
+  //       // setShapeResults("Triangle");
+  //       setpProfileObj({ ...profileObj, bodyShape: "Triangle" });
+  //     } else if (waist / shoulders >= 0.75 && shoulders * 0.95 < hips) {
+  //       // setShapeResults("Rectangle");
+  //       setpProfileObj({ ...profileObj, bodyShape: "Rectangle" });
+  //     } else if (shoulders === null || waist === null || hips === null) {
+  //       console.log("Please fill in all fields");
+  //     }
+
+  //     return profileObj;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div className="w-full">
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col gap-8 md:flex-row">
         {/* Body Shape Card  */}
         <div className="w-full">
-          <Card className="relative h-[600px] md:h-[560px] w-full">
+          <Card className="relative h-[600px] w-full md:h-[560px]">
             <CardHeader>
               <CardTitle>Your Body Shape is:</CardTitle>
               <CardDescription className="pt-2 text-4xl font-semibold">
-                {userProfile.profile?.shape}
+                {userProfile?.bodyShape}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -69,7 +127,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                 <p className="font-medium">
                   Characteristics for your shape include:
                 </p>
-                {userProfile.profile?.shape === "Pear" ? (
+                {userProfile.bodyShape === "Pear" ? (
                   <div>
                     <ul>
                       {pearBodyCharacteristic.map((item) => (
@@ -80,7 +138,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       ))}
                     </ul>
                   </div>
-                ) : userProfile.profile?.shape === "Apple" ? (
+                ) : userProfile.bodyShape === "Apple" ? (
                   <ul>
                     {appleBodyCharacteristic.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -89,7 +147,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Rectangle" ? (
+                ) : userProfile.bodyShape === "Rectangle" ? (
                   <ul>
                     {rectangleBodyCharacteristic.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -99,7 +157,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Hourglass" ? (
+                ) : userProfile.bodyShape === "Hourglass" ? (
                   <ul>
                     {hourglassBodyCharacteristic.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -109,7 +167,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Inverted Triangle" ? (
+                ) : userProfile.bodyShape === "Inverted Triangle" ? (
                   <ul>
                     {invertedTriangleBodyCharacteristic.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -123,7 +181,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               </div>
               <div className="mt-4">
                 <p className="font-medium">Common clothing items include:</p>
-                {userProfile.profile?.shape === "Pear" ? (
+                {userProfile.bodyShape === "Pear" ? (
                   <ul>
                     {bestPearProducts.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -132,7 +190,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Apple" ? (
+                ) : userProfile.bodyShape === "Apple" ? (
                   <ul>
                     {bestAppleProducts.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -141,7 +199,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Rectangle" ? (
+                ) : userProfile.bodyShape === "Rectangle" ? (
                   <ul>
                     {bestRectangleProducts.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -150,7 +208,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Hourglass" ? (
+                ) : userProfile.bodyShape === "Hourglass" ? (
                   <ul>
                     {bestHourglassProducts.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -159,7 +217,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.shape === "Inverted Triangle" ? (
+                ) : userProfile.bodyShape === "Inverted Triangle" ? (
                   <ul>
                     {bestInvertedTriangleProducts.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -172,18 +230,34 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               </div>
             </CardContent>
             <CardFooter className="absolute bottom-0">
-              <CoolButton href="/find-shape" title="Calculate Shape" />
+              <Dialog>
+                <DialogTrigger>
+                  {/* <Button variant="outline">Calculate Shape</Button> */}
+                  <CoolButton title="Calculate Shape" />
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Body Shape Calculator</DialogTitle>
+                    <DialogDescription>
+                      Measure around each area using inches
+                    </DialogDescription>
+                  </DialogHeader>
+                  {/* Calculate Shape Component */}
+                  <CalculateShape />
+                  <DialogFooter></DialogFooter>
+                </DialogContent>
+              </Dialog>
             </CardFooter>
           </Card>
         </div>
         {/* Fashion Quiz Card */}
         <div className="w-full">
-          <Card className="relative h-[560px] md:h-[560px] w-full">
+          <Card className="relative h-[560px] w-full md:h-[560px]">
             <CardHeader>
               <CardTitle>Your Fashion Style is:</CardTitle>
               <CardDescription className="pt-4">
                 <span className="text-4xl font-semibold">
-                  {userProfile.profile?.style}
+                  {userProfile.fashionStyle}
                 </span>
                 {/* want to add in ideas for this style here - maybe even stores that are known for this fashion style? */}
               </CardDescription>
@@ -191,7 +265,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
             <CardContent>
               <div>
                 Characteristics for your style include:
-                {userProfile.profile?.style === "Classic" ? (
+                {userProfile.fashionStyle === "Classic" ? (
                   <ul>
                     {classicStyle.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -200,7 +274,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Boho" ? (
+                ) : userProfile.fashionStyle === "Boho" ? (
                   <ul>
                     {bohoStyle.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -209,7 +283,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Chic" ? (
+                ) : userProfile.fashionStyle === "Chic" ? (
                   <ul>
                     {chicStyle.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -218,7 +292,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Sporty" ? (
+                ) : userProfile.fashionStyle === "Sporty" ? (
                   <ul>
                     {sportyStyle.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -227,7 +301,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Edgy" ? (
+                ) : userProfile.fashionStyle === "Edgy" ? (
                   <ul>
                     {edgyStyle.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -240,7 +314,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               </div>
               <div className="mt-4">
                 <p className="font-medium">Common clothing items include:</p>
-                {userProfile.profile?.style === "Classic" ? (
+                {userProfile.fashionStyle === "Classic" ? (
                   <ul>
                     {classicClothing.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -249,7 +323,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Boho" ? (
+                ) : userProfile.fashionStyle === "Boho" ? (
                   <ul>
                     {bohoClothing.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -258,7 +332,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Chic" ? (
+                ) : userProfile.fashionStyle === "Chic" ? (
                   <ul>
                     {chicClothing.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -267,7 +341,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Sporty" ? (
+                ) : userProfile.fashionStyle === "Sporty" ? (
                   <ul>
                     {sportyClothing.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -276,7 +350,7 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
                       </li>
                     ))}
                   </ul>
-                ) : userProfile.profile?.style === "Edgy" ? (
+                ) : userProfile.fashionStyle === "Edgy" ? (
                   <ul>
                     {edgyClothing.map((item) => (
                       <li key={item} className="flex items-center gap-1">
@@ -289,7 +363,23 @@ const Dashboard = ({ userProfile }: { userProfile: UserProfileType }) => {
               </div>
             </CardContent>
             <CardFooter className="absolute bottom-0">
-              <CoolButton href="/find-style" title="Take Style Quiz" />
+              <Dialog>
+                <DialogTrigger>
+                  <CoolButton title="Find Style" />
+                  {/* <CoolButton></CoolButton> */}
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Fashion Style Quiz</DialogTitle>
+                    <DialogDescription>
+                      Answer the questions below to uncover your fashion style.
+                    </DialogDescription>
+                  </DialogHeader>
+                  {/* Style Quiz Component */}
+                  <StyleQuiz />
+                  <DialogFooter></DialogFooter>
+                </DialogContent>
+              </Dialog>
             </CardFooter>
           </Card>
         </div>

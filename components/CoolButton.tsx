@@ -1,24 +1,23 @@
 "use client";
 
-import Link from "next/link";
+// import Link from "next/link";
 import React from "react";
+import { Button } from "./ui/button";
 
 type ButtonProps = {
   title: string;
-  href: string;
+  // onClick: () => void;
+  // href: string;
 };
 
-const CoolButton = ({ title, href }: ButtonProps) => {
+const CoolButton = ({ title }: ButtonProps) => {
   return (
     <>
-      <Link
-        href={href}
-        className="group relative px-6 py-3 font-semibold text-black"
-      >
+      <Button className="group relative px-6 py-3 font-semibold text-black">
         <span className="absolute inset-0 size-full -translate-x-2 -translate-y-2 bg-red-300 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"></span>
         <span className="absolute inset-0 size-full border-4 border-black"></span>
         <span className="relative">{title}</span>
-      </Link>
+      </Button>
       {/* <Link href="#_" className="group relative inline-block">
         <span className="relative z-10 block overflow-hidden rounded-lg border-2 border-red-300 px-5 py-3 font-medium leading-tight text-red-300 transition-colors duration-300 ease-out group-hover:text-white">
           <span className="absolute inset-0 size-full rounded-lg bg-gray-50 px-5 py-3"></span>
