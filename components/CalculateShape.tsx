@@ -5,14 +5,23 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { FaRegCopy } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { updateUser } from "@/actions/auth";
+import { MdOutlineLibraryAdd } from "react-icons/md";
+import { MdOutlineLibraryAddCheck } from "react-icons/md";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const CalculateShape = () => {
   const router = useRouter();
 
   const [shapeResults, setShapeResults] = useState<string>("");
+  const [addToDashboard, setAddToDashboard] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,12 +64,15 @@ const CalculateShape = () => {
 
   const handleReset = () => {
     setShapeResults("");
+    setAddToDashboard(false);
   };
 
   // save shape to database
   const handleSaveShape = async () => {
     try {
       const result = await updateUser({ bodyShape: shapeResults });
+      setAddToDashboard((prevAddToDashboard) => !prevAddToDashboard);
+
       console.log("Update result:", result);
       router.push("/dashboard");
     } catch (error) {
@@ -102,18 +114,28 @@ const CalculateShape = () => {
           </div>
         </div>
       </form>
-      <div>
+      <div className="flex items-center gap-2 mt-8">
         <p className="text-sm font-medium leading-none">
           Your body shape is:{" "}
           <span className="ml-2 text-lg font-semibold text-red-300">
             {shapeResults}
           </span>
-          <span>
-            <Button variant="ghost" onClick={handleSaveShape}>
-              <FaRegCopy className="size-6" />
-            </Button>
-          </span>
         </p>
+
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger onClick={handleSaveShape}>
+              {addToDashboard ? (
+                <MdOutlineLibraryAddCheck />
+              ) : (
+                <MdOutlineLibraryAdd />
+              )}
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Add to Dashboard</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </div>
   );

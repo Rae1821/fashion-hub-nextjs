@@ -76,7 +76,7 @@ const MoodboardPage = () => {
         </Card>
       </div> */}
       {/* Favorite products */}
-      <div>
+      {/* <div>
         <Card>
           <CardHeader>
             <CardTitle>Favorite Products</CardTitle>
@@ -110,7 +110,7 @@ const MoodboardPage = () => {
           </CardContent>
           <CardFooter></CardFooter>
         </Card>
-      </div>
+      </div> */}
 
       {/* add a way to upload your own photos */}
 

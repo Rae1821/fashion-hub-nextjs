@@ -10,7 +10,6 @@ import {
 import { IoShirtOutline } from "react-icons/io5";
 import { HiMiniFire, HiMiniBolt } from "react-icons/hi2";
 
-import CoolButton from "./CoolButton";
 import {
   pearBodyCharacteristic,
   appleBodyCharacteristic,
@@ -35,6 +34,7 @@ import {
 } from "@/constants";
 // import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -57,59 +57,6 @@ interface ProfileDetails {
 }
 
 const Dashboard = ({ userProfile }: { userProfile: ProfileDetails }) => {
-  // const [shapeResults, setShapeResults] = useState("");
-  // const [styleResult, setStyleResult] = useState("");
-  // const [profileObj, setpProfileObj] = useState({
-  //   bodyShape: "",
-  //   fashionStyle: "",
-  // });
-
-  // const handleCalculatorSubmit = async (
-  //   event: React.FormEvent<HTMLFormElement>
-  // ) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(event.currentTarget);
-
-  //   const data = {
-  //     shoulders: formData.get("shoulders") as string,
-  //     waist: formData.get("waist") as string,
-  //     hips: formData.get("hips") as string,
-  //   };
-
-  //   const shoulders = parseInt(data.shoulders);
-  //   const waist = parseInt(data.waist);
-  //   const hips = parseInt(data.hips);
-
-  //   try {
-  //     if (hips / shoulders >= 1.05 && waist < hips) {
-  //       // setShapeResults("Pear");
-  //       setpProfileObj({ ...profileObj, bodyShape: "Pear" });
-  //     } else if (shoulders / hips >= 1.05 && waist === shoulders) {
-  //       // setShapeResults("Apple");
-  //       setpProfileObj({ ...profileObj, bodyShape: "Apple" });
-  //     } else if (
-  //       waist / shoulders <= 0.75 &&
-  //       waist / hips < 0.75 &&
-  //       hips * 0.95 < shoulders
-  //     ) {
-  //       // setShapeResults("Hourglass");
-  //       setpProfileObj({ ...profileObj, bodyShape: "Hourglass" });
-  //     } else if (shoulders / hips >= 1.05 && waist < shoulders) {
-  //       // setShapeResults("Triangle");
-  //       setpProfileObj({ ...profileObj, bodyShape: "Triangle" });
-  //     } else if (waist / shoulders >= 0.75 && shoulders * 0.95 < hips) {
-  //       // setShapeResults("Rectangle");
-  //       setpProfileObj({ ...profileObj, bodyShape: "Rectangle" });
-  //     } else if (shoulders === null || waist === null || hips === null) {
-  //       console.log("Please fill in all fields");
-  //     }
-
-  //     return profileObj;
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   return (
     <div className="w-full">
       <div className="flex flex-col gap-8 md:flex-row">
@@ -231,11 +178,16 @@ const Dashboard = ({ userProfile }: { userProfile: ProfileDetails }) => {
             </CardContent>
             <CardFooter className="absolute bottom-0">
               <Dialog>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                   {/* <Button variant="outline">Calculate Shape</Button> */}
-                  <CoolButton title="Calculate Shape" />
+                  {/* <CoolButton title="Calculate Shape" /> */}
+                  <Button className="group relative bg-transparent px-6 py-4 font-semibold text-black">
+                    <span className="absolute inset-0 size-full -translate-x-2 -translate-y-2 bg-red-300 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                    <span className="absolute inset-0 size-full border-4 border-black"></span>
+                    <span className="relative">Calculate Shape</span>
+                  </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Body Shape Calculator</DialogTitle>
                     <DialogDescription>
@@ -364,11 +316,15 @@ const Dashboard = ({ userProfile }: { userProfile: ProfileDetails }) => {
             </CardContent>
             <CardFooter className="absolute bottom-0">
               <Dialog>
-                <DialogTrigger>
-                  <CoolButton title="Find Style" />
-                  {/* <CoolButton></CoolButton> */}
+                <DialogTrigger asChild>
+                  <Button className="group relative bg-transparent px-6 py-4 font-semibold text-black">
+                    <span className="absolute inset-0 size-full -translate-x-2 -translate-y-2 bg-red-300 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"></span>
+                    <span className="absolute inset-0 size-full border-4 border-black"></span>
+                    <span className="relative">Find Style</span>
+                  </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+
+                <DialogContent className="max-h-screen overflow-y-scroll">
                   <DialogHeader>
                     <DialogTitle>Fashion Style Quiz</DialogTitle>
                     <DialogDescription>

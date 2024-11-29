@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { questions } from "@/constants";
 import { useState } from "react";
-import { FaRegCopy } from "react-icons/fa6";
+import { MdOutlineLibraryAdd } from "react-icons/md";
+import { MdOutlineLibraryAddCheck } from "react-icons/md";
 
 import {
   Tooltip,
@@ -26,6 +27,7 @@ const StyleQuiz = () => {
   const [styleResult, setStyleResult] = useState<string>("");
   const [answersArr, setAnswersArr] = useState<Answer[]>([]);
   const [styleObj, setStyleObj] = useState({});
+  const [addToDashboard, setAddToDashboard] = useState<boolean>(false);
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
@@ -140,6 +142,7 @@ const StyleQuiz = () => {
   const handleSaveStyle = async () => {
     try {
       const result = await updateUser({ fashionStyle: styleResult });
+      setAddToDashboard((prevAddToDashboard) => !prevAddToDashboard);
       console.log("Update result:", result);
       router.push("/dashboard");
     } catch (error) {
@@ -176,15 +179,15 @@ const StyleQuiz = () => {
   }
 
   return (
-    <div className="container">
+    <div className="max-h-screen">
       <div id="quiz">
         {questions.map((option, i) => (
           <div key={i}>
-            <p className="mb-2 mt-8 font-semibold md:text-lg">
+            <p className="mb-2 mt-8 font-semibold">
               <span>{option.id}.</span>
               {option.text}
             </p>
-            <div className="flex w-[275px] flex-col justify-center md:h-[47px] md:w-full md:flex-row md:items-center md:justify-start">
+            <div className="">
               {option.answers.map((answer, j) => (
                 <p
                   className={`${
@@ -228,13 +231,15 @@ const StyleQuiz = () => {
             </h2>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" onClick={handleSaveStyle}>
-                    <FaRegCopy className="size-6" />
-                  </Button>
+                <TooltipTrigger onClick={handleSaveStyle}>
+                  {addToDashboard ? (
+                    <MdOutlineLibraryAddCheck />
+                  ) : (
+                    <MdOutlineLibraryAdd />
+                  )}
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Save to profile</p>
+                  <p>Add to Dashboard</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

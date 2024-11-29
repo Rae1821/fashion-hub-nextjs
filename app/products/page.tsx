@@ -1,5 +1,6 @@
 // import ProductSearch from "@/components/ProductSearch";
-import { findUniqueProfile } from "@/actions/auth";
+// import { findUniqueProfile } from "@/actions/auth";
+import { getUserByEmail } from "@/actions/auth";
 import { auth } from "@/auth";
 import ProductsList from "@/components/ProductsList";
 import React from "react";
@@ -12,35 +13,45 @@ const ProductsPage = async ({
   const { searchItem } = await searchParams;
   const session = await auth();
 
-  const fetchUserProfile = await findUniqueProfile();
-  // console.log(fetchUserProfile);
-  const userProfile = fetchUserProfile.profile;
-  // console.log(userProfile.shape);
+  const user = session?.user?.email;
+
+  const userInfo = await getUserByEmail(user as string);
+
+  const bodyShape = userInfo?.bodyShape;
+  const fashionStyle = userInfo?.fashionStyle;
 
   return (
     <div className="container mx-auto max-w-[1300px] px-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 mt-10 grid-rows-2 gap-4">
-        <div className="row-span-2 bg-red-300/10 p-8 rounded shadow-sm">
-          <h2 className="text-2xl font-semibold">
+      <div className="mt-10 grid grid-cols-1 grid-rows-2 gap-4 md:grid-cols-2">
+        <div className="row-span-2 rounded bg-red-300/80 p-8 shadow">
+          <h2 className="text-2xl font-semibold text-[#09090B]">
             Hello, {session?.user?.name}
           </h2>
-          <p className="tracking-tight">
+          <p className="mt-2 text-sm font-normal tracking-tight">
             Use the search box below to find items that are perfect for your
             body shape and fashion style.
           </p>
-          <p className="tracking-tight mt-4">
+          <p className="mt-2 text-sm font-normal tracking-tight">
             Click the plus icon at the top of each products to save it to the
             favorites section on your dashboard.
           </p>
         </div>
-        <div className="grid grid-cols-1 grid-rows-2 gap-4 row-span-2">
-          <div className="bg-red-300/10 p-6 h-24 rounded shadow-sm">
-            <p className="">Your fashion style is:</p>
-            <p className="font-semibold text-lg">{userProfile.style}</p>
+        <div className="row-span-2 grid grid-cols-1 grid-rows-2 gap-4">
+          <div className="h-24 rounded bg-red-300/80 p-6 shadow">
+            <p className="text-sm tracking-tight">
+              Your fashion style is:{" "}
+              <span className="block text-2xl font-semibold text-[#09090B]">
+                {fashionStyle}
+              </span>
+            </p>
           </div>
-          <div className="bg-red-300/10 p-6 h-24 rounded shadow-sm">
-            <p>Your body shape is:</p>
-            <p className="font-semibold text-lg">{userProfile.shape}</p>
+          <div className="h-24 rounded bg-red-300/80 p-6 shadow">
+            <p className="text-sm tracking-tight">
+              Your body shape is:{" "}
+              <span className="block text-2xl font-semibold text-[#09090B]">
+                {bodyShape}
+              </span>
+            </p>
           </div>
         </div>
       </div>

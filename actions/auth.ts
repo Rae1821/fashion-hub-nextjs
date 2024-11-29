@@ -110,160 +110,6 @@ export const updateUser = async (input: UpdateUserInput) => {
   }
 };
 
-// Find profile
-// export const findUniqueProfile = async () => {
-//   try {
-//     const session = await auth();
-//     if (!session || !session.user || !session.user.email) {
-//       throw new Error("User not authenticated");
-//     }
-
-//     const userId = session.user.id;
-
-//     const findProfile = await db.user.findUnique({
-//       where: {
-//         id: userId,
-//       },
-//       select: {
-//         email: true,
-//         profile: true,
-//       },
-//     });
-
-//     return JSON.parse(JSON.stringify(findProfile));
-//   } catch (error) {
-//     console.log("Error finding profile:", error);
-//     throw error;
-//   }
-// };
-
-// Update or Create Profile
-// export const updateOrCreateProfile = async (input: any) => {
-//   try {
-//     const session = await auth();
-//     if (!session || !session.user || !session.user.email) {
-//       throw new Error("User not authenticated");
-//     }
-//     const userId = session.user.id;
-//     console.log(userId);
-
-//     const upsertProfile = await db.profile.upsert({
-//       where: {
-//         userId,
-//       },
-//       update: {
-//         shape: input.shape,
-//         style: input.style,
-//       },
-//       create: {
-//         shape: input.shape,
-//         style: input.style,
-//         user: {
-//           connect: { id: userId },
-//         },
-//       },
-//     });
-//     revalidatePath("/dashboard");
-
-//     return JSON.parse(JSON.stringify(upsertProfile));
-//   } catch (error) {
-//     console.log("Error updating or creating profile", error);
-//   }
-// };
-
-// Create profile
-// interface CreateProfileInput {
-//   shape?: string;
-//   style?: string;
-// }
-
-// export const createProfile = async (input: CreateProfileInput) => {
-//   try {
-//     const session = await auth();
-//     if (!session || !session.user || !session.user.email) {
-//       throw new Error("User not authenticated");
-//     }
-
-//     const userEmail = session.user.email;
-
-//     const profileCheck = findUniqueProfile();
-
-//     if (!profileCheck) {
-//       const newProfile = await db.profile.create({
-//         data: {
-//           shape: input.shape,
-//           style: input.style,
-//           user: {
-//             connect: { email: userEmail },
-//           },
-//         },
-//       });
-//       return newProfile;
-//     }
-//   } catch (error: any) {
-//     console.log("Error creating profile:", error);
-//     throw error;
-//   }
-// };
-
-// Update profile
-
-// interface UpdateProfileInput {
-//   shape?: string;
-//   style?: string;
-// }
-// export const updateProfile = async (input: UpdateProfileInput) => {
-//   try {
-//     const session = await auth();
-
-//     const userId = session?.user?.id;
-
-//     const updateProfile = await db.profile.update({
-//       where: {
-//         id: userId,
-//       },
-//       data: {
-//         shape: input.shape,
-//         style: input.style,
-//         user: {
-//           connect: { id: userId },
-//         },
-//       },
-//     });
-
-//     return updateProfile;
-//   } catch (error) {
-//     console.log("Error updating profile", error);
-//     throw error;
-//   }
-// };
-
-// Delete profile
-// interface DeleteProfileInput {
-//   height?: string;
-//   weight?: string;
-//   shape?: string;
-//   style?: string;
-// }
-// export const deleteProfile = async (input: DeleteProfileInput) => {
-//   try {
-//     const session = await auth();
-
-//     const userId = session?.user?.id;
-
-//     const deleteProfile = await db.profile.delete({
-//       where: {
-//         id: userId,
-//       },
-//     });
-
-//     return deleteProfile;
-//   } catch (error) {
-//     console.log("Error deleting profile", error);
-//     throw error;
-//   }
-// };
-
 // Favorite Products
 
 // Find user's favorite products
@@ -273,56 +119,98 @@ export const findUniqueProducts = async () => {
     if (!session || !session.user || !session.user.email) {
       throw new Error("User not authenticated");
     }
-    // const userId = session.user.id;
 
-    const userProducts = await db.user.findFirst({
-      include: {
+    const findProducts = await db.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+      select: {
         products: true,
       },
     });
-    // const findProducts = await db.user.findUnique({
-    //   where: {
-    //     id: userId,
-    //   },
-    //   select: {
-    //     products: true,
-    //   },
-    // });
 
-    return userProducts;
-
-    // return JSON.parse(JSON.stringify(userProducts));
+    return JSON.parse(JSON.stringify(findProducts));
   } catch (error) {
     console.log("Error finding products:", error);
     throw error;
   }
 };
 
-export const getUserFavoriteProducts = async () => {
-  try {
-    const products = await findUniqueProducts();
-    console.log(products);
+// export const getUserFavoriteProducts = async () => {
+//   try {
+//     const products = await findUniqueProducts();
+//     console.log(products);
 
-    // products?.forEach((product: any) => {
-    //   const productTitle = product.product_title;
-    //   return productTitle;
-    // });
-  } catch (error) {
-    console.error("Error fetching user's favorite products:", error);
+//     // products?.forEach((product: any) => {
+//     //   const productTitle = product.product_title;
+//     //   return productTitle;
+//     // });
+//   } catch (error) {
+//     console.error("Error fetching user's favorite products:", error);
+//   }
+// };
+
+interface AddProductInput {
+  id?: string;
+  product_title?: string;
+  product_price?: string;
+  product_original_price?: string;
+  product_star_rating?: string;
+  product_num_ratings?: number;
+  product_url?: string;
+  product_photo?: string;
+  asin?: string;
+}
+
+export const addFavoriteProduct = async (product: AddProductInput) => {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const addNewProduct = await db.product.create({
+      data: {
+        user: { connect: { email: session.user.email } },
+        product_title: product.product_title,
+        product_price: product.product_price,
+        product_original_price: product.product_original_price,
+        product_star_rating: product.product_star_rating,
+        product_num_ratings: product.product_num_ratings,
+        product_url: product.product_url,
+        product_photo: product.product_photo,
+        asin: product.asin,
+      },
+    });
+
+    console.log(addNewProduct, "Product added to favorites");
+    return addNewProduct;
+  } catch (error: any) {
+    console.log("Error adding product:", error);
+    throw error;
   }
 };
 
-// interface AddProductInput {
-//   id?: string;
-//   product_title?: string;
-//   product_price?: string;
-//   product_original_price?: string;
-//   product_star_rating?: string;
-//   product_num_ratings?: number;
-//   product_url?: string;
-//   product_photo?: string;
-//   asin?: string;
-// }
+export const deleteFavoriteProduct = async (asin: string) => {
+  try {
+    const session = await auth();
+
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const deleteProduct = await db.product.delete({
+      where: {
+        id: asin,
+      },
+    });
+
+    return deleteProduct;
+  } catch (error: any) {
+    console.log("Error deleting product:", error);
+    throw error;
+  }
+};
 
 // Add product to favorites
 // export const addProduct = async (input: AddProductInput) => {
@@ -357,7 +245,7 @@ export const getUserFavoriteProducts = async () => {
 //     // use for debugging
 //     console.log("New Product:", newProduct);
 
-//     const productId = input.asin;
+//
 
 //     await db.products.upsert({
 //       where: {

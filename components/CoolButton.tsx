@@ -1,6 +1,6 @@
 "use client";
 
-// import Link from "next/link";
+import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 
@@ -13,7 +13,7 @@ type ButtonProps = {
 const CoolButton = ({ title }: ButtonProps) => {
   return (
     <>
-      <Button className="group relative px-6 py-3 font-semibold text-black">
+      <Button className="group relative px-6 py-4 font-semibold text-black bg-transparent">
         <span className="absolute inset-0 size-full -translate-x-2 -translate-y-2 bg-red-300 transition duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"></span>
         <span className="absolute inset-0 size-full border-4 border-black"></span>
         <span className="relative">{title}</span>

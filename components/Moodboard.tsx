@@ -50,8 +50,8 @@ const Moodboard = () => {
         <div ref={imageRef}>
           <Image
             src="/images/black-booties.png"
-            height={350}
-            width={350}
+            height={150}
+            width={150}
             alt="booties"
           />
         </div>
@@ -87,34 +87,6 @@ const Moodboard = () => {
             />
           </div>
         </div>
-      </div>
-      <div>
-        {" "}
-        {/* <Card className="h-[1000px]">
-          <CardHeader>
-            <CardTitle>Uploaded Images</CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
-          <CardContent className="flex gap-2">
-            <div ref={imageRef}>
-              <Image
-                src="/images/black-booties.png"
-                height={350}
-                width={350}
-                alt="booties"
-              />
-            </div>
-            <div>
-              <Image
-                src="/images/black-booties.png"
-                height={350}
-                width={350}
-                alt="booties"
-              />
-            </div>
-          </CardContent>
-          <CardFooter></CardFooter>
-        </Card> */}
       </div>
     </div>
   );

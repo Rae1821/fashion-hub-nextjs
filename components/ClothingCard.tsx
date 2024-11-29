@@ -2,13 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import { FaPlus, FaCheck } from "react-icons/fa6";
+import { FaPlus, FaCheck } from "react-icons/fa6";
 import { Button } from "./ui/button";
-import { findUniqueProducts, getUserFavoriteProducts } from "@/actions/auth";
-// import { addProduct, findUniqueProducts } from "@/actions/auth";
-// import { useState } from "react";
-// import { Toggle } from "@/components/ui/toggle";
-// import { useState } from "react";
+import { addFavoriteProduct } from "@/actions/auth";
+import { useState } from "react";
 
 interface ClothingProps {
   product_title: string;
@@ -34,23 +31,21 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     asin: productAsin,
   } = clothing;
 
-  // console.log(clothing);
+  console.log(productAsin);
 
-  // const [addFavorite, setAddFavorite] = useState(false);
+  const [addFavorite, setAddFavorite] = useState(false);
 
   const handleAddToFavorites = async (clothing: ClothingProps) => {
-    console.log(findUniqueProducts());
-    console.log(getUserFavoriteProducts());
-    // try {
-    //   const result = await addProduct(clothing);
-    //   console.log(result);
-    //   setAddFavorite((prevAddFavorite) => !prevAddFavorite);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    // console.log(clothing);
+    console.log(addFavoriteProduct);
+    try {
+      const result = await addFavoriteProduct(clothing);
+      console.log(result);
+      setAddFavorite((prevAddFavorite) => !prevAddFavorite);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  // console.log(productId);
 
   const newProductTitle = productTitle.replace(/[^\w\s]/gi, "");
 
@@ -64,11 +59,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
             size="icon"
             onClick={() => handleAddToFavorites(clothing)}
           >
-            {/* {addFavorite ? (
-              <FaCheck className="" />
-            ) : (
-              <FaPlus className="product-card_plus-icon" />
-            )} */}
+            {addFavorite ? <FaCheck /> : <FaPlus />}
           </Button>
         </div>
         <Image
