@@ -2,24 +2,25 @@
 
 import { useEffect, useRef } from "react";
 // import { motion } from "framer-motion";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "./ui/card";
+// import {
+//   Card,
+//   CardHeader,
+//   CardTitle,
+//   CardDescription,
+//   CardContent,
+//   CardFooter,
+// } from "./ui/card";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
+import FavoriteProducts from "./FavoriteProducts";
 // cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js
 
 gsap.registerPlugin(useGSAP);
 // gsap.registerPlugin(Draggable);
 
-const Moodboard = () => {
+const Moodboard = ({ userProducts }: { userProducts: ProductDetails }) => {
   // const constraintsRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -69,24 +70,7 @@ const Moodboard = () => {
       </div>
       <div>
         <h2>Favorite Products</h2>
-        <div>
-          <div>
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-            />
-          </div>
-          <div>
-            <Image
-              src="/images/black-booties.png"
-              height={350}
-              width={350}
-              alt="booties"
-            />
-          </div>
-        </div>
+        <FavoriteProducts />
       </div>
     </div>
   );

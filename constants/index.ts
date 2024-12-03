@@ -164,10 +164,10 @@ export const invertedTriangleBodyCharacteristic = [
 // Fashion Styles
 
 export const classicStyle = [
-  "simple",
-  "clean lines",
-  "neutral color palettes",
-  "focus on quality over quantitiy",
+  "Simple",
+  "Clean lines",
+  "Neutral color palettes",
+  "Focus on quality over quantitiy",
 ];
 
 export const classicClothing = [
@@ -180,8 +180,8 @@ export const classicClothing = [
 
 export const bohoStyle = [
   "Earthy tones",
-  "flowing fabrics",
-  "vintage-inspired electic prints",
+  "Flowing fabrics",
+  "Vintage-inspired electic prints",
 ];
 
 export const bohoClothing = [
@@ -196,8 +196,8 @@ export const bohoClothing = [
 
 export const chicStyle = [
   "Tailored silhouettes",
-  "monochromatic color schemes",
-  "minimalistic accessories",
+  "Monochromatic color schemes",
+  "Minimalistic accessories",
 ];
 
 export const chicClothing = [
@@ -211,7 +211,7 @@ export const chicClothing = [
 
 export const sportyStyle = [
   "Fusion of athletic wear and casual style",
-  "prioritizing comfort while maintaining a chic look",
+  "Prioritizing comfort while maintaining a chic look",
 ];
 
 export const sportyClothing = [

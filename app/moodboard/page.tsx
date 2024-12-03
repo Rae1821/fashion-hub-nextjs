@@ -1,17 +1,13 @@
 import ImageUpload from "@/components/ImageUpload";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Chatbot from "@/components/Chatbot";
-import Image from "next/image";
-import Moodboard from "@/components/Moodboard";
 
-const MoodboardPage = () => {
+import Chatbot from "@/components/Chatbot";
+// import Image from "next/image";
+import Moodboard from "@/components/Moodboard";
+import { findUniqueProducts } from "@/actions/auth";
+
+const MoodboardPage = async () => {
+  const fetchUserProducts = await findUniqueProducts();
+
   return (
     <div className="container min-h-screen">
       <div className="mt-4">
@@ -62,7 +58,7 @@ const MoodboardPage = () => {
           <CardFooter></CardFooter>
         </Card> */}
       </div>
-      <Moodboard />
+      <Moodboard userProducts={fetchUserProducts} />
       {/* Moodboard area  */}
       {/* Need a way to persist these - localstorage or add to database? Maybe having kanbans would be easier to group */}
       {/* <div className="my-4">
