@@ -16,7 +16,7 @@ const ImageUpload = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [imageName, setImageName] = useState("");
 
-  console.log(imageUrl);
+  // console.log(imageUrl);
 
   return (
     <div>
@@ -43,7 +43,7 @@ const ImageUpload = () => {
               <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
-              <Image src={imageUrl} alt="my image" width={200} height={400} />
+              <Image src={imageUrl} alt="my image" width={200} height={300} />
             </CardContent>
             <CardFooter></CardFooter>
           </Card>

@@ -34,6 +34,7 @@ model User {
   bodyShape String?
   fashionStyle String?
   products Product[]
+  images Image[]
 
 }
 
@@ -52,6 +53,16 @@ model Product {
   asin String?
 }
 
+model Image {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId // relation scalar field (used in the `@relation` attribute above)
+  userEmail String?
+  image_url String?
+  image_name String?
+  image_size Int?
+  image_key String?
+}
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId

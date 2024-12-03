@@ -136,20 +136,6 @@ export const findUniqueProducts = async () => {
   }
 };
 
-// export const getUserFavoriteProducts = async () => {
-//   try {
-//     const products = await findUniqueProducts();
-//     console.log(products);
-
-//     // products?.forEach((product: any) => {
-//     //   const productTitle = product.product_title;
-//     //   return productTitle;
-//     // });
-//   } catch (error) {
-//     console.error("Error fetching user's favorite products:", error);
-//   }
-// };
-
 interface AddProductInput {
   id?: string;
   product_title?: string;
@@ -212,186 +198,31 @@ export const deleteFavoriteProduct = async (asin: string) => {
   }
 };
 
-// Add product to favorites
-// export const addProduct = async (input: AddProductInput) => {
-//   try {
-//     const session = await auth();
-//     if (!session || !session.user || !session.user.email) {
-//       throw new Error("User not authenticated");
-//     }
+// Moodboard
 
-//     // const userId = session.user.id;
-//     const userEmail = session.user.email;
+interface addUploadedImagesInput {
+  image_url: string;
+  image_name: string;
+}
 
-//     // Ensure the input is not null or undefined
-//     if (!input) {
-//       throw new Error("Invalid input");
-//     }
+export const addUploadedImages = async (image: addUploadedImagesInput) => {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
 
-//     // Use for debugging
-//     console.log("Input:", input);
+    const addImage = await db.image.create({
+      data: {
+        user: { connect: { email: session.user.email } },
+        image_url: image.image_url,
+        image_name: image.image_name,
+      },
+    });
 
-//     const newProduct = {
-//       product_title: input.product_title,
-//       product_price: input.product_price,
-//       product_original_price: input.product_original_price,
-//       product_star_rating: input.product_star_rating,
-//       product_num_ratings: input.product_num_ratings,
-//       product_url: input.product_url,
-//       product_photo: input.product_photo,
-//       asin: input.asin,
-//     };
-
-//     // use for debugging
-//     console.log("New Product:", newProduct);
-
-//
-
-//     await db.products.upsert({
-//       where: {
-//         id: productId,
-//         userEmail,
-//       },
-//       update: newProduct,
-//       create: {
-//         ...newProduct,
-//         userEmail,
-//       },
-//     });
-//     console.log("Product added to favorites");
-//     // return addProduct;
-//   } catch (error: any) {
-//     console.log("Error adding product:", error);
-//     throw error;
-//   }
-// };
-
-// export const addProduct = async (product: AddProductInput) => {
-//   try {
-//     const session = await auth();
-//     if (!session || !session.user || !session.user.email) {
-//       throw new Error("User not authenticated");
-//     }
-
-//     // const userEmail = session.user.email;
-//     const userId = session.user.id;
-
-//     if (!product) {
-//       throw new Error("Invalid input");
-//     }
-
-//     const productObj = {
-//       product_title: product.product_title,
-//       product_price: product.product_price,
-//       product_original_price: product.product_original_price,
-//       product_star_rating: product.product_star_rating,
-//       product_num_ratings: product.product_num_ratings,
-//       product_url: product.product_url,
-//       product_photo: product.product_photo,
-//       asin: product.asin,
-//     };
-
-//     const addNewProduct = await db.user.update({
-//       where: {
-//         id: userId,
-//       },
-//       data: {
-//         products: {
-//           create: productObj,
-//         },
-//       },
-//     });
-//     console.log(addNewProduct, "Product added to favorites");
-//     return addNewProduct;
-//   } catch (error: any) {
-//     console.log("Error adding product:", error);
-//     throw error;
-//   }
-// };
-
-// interface DeleteProductInput {
-//   asin: string;
-//   product_title?: string;
-//   product_price?: string;
-//   product_original_price?: string;
-//   product_star_rating?: string;
-//   product_num_ratings?: number;
-//   product_url?: string;
-//   product_photo?: string;
-// }
-
-// delete product from favorites
-// export const deleteProduct = async (input: DeleteProductInput) => {
-//   try {
-//     const session = await auth();
-
-//     const userId = session?.user?.id;
-
-//     const productId = findUniqueProducts();
-
-//     const deleteProduct = await db.user.update({
-//       where: {
-//         id: userId,
-//       },
-//       data: {
-//         products: {
-//           delete: {
-//             id: productId,
-//           },
-//         },
-//       },
-//     });
-
-//     return deleteProduct;
-//   } catch (error) {
-//     console.log("Error deleting profile", error);
-//     throw error;
-//   }
-// };
-
-// delete product from favorites
-// export const deleteProduct = async (input: DeleteProductInput) => {
-//   try {
-//     const session = await auth();
-
-//     if (!session || !session.user || !session.user.id) {
-//       throw new Error("User not authenticated");
-//     }
-
-//     const userId = session.user.id;
-
-//     // Assuming findUniqueProducts is a function that returns the user's products
-//     const userProducts = await findUniqueProducts();
-
-//     if (!userProducts || !userProducts.products) {
-//       throw new Error("User's products not found");
-//     }
-
-//     // Find the product ID to delete
-//     const productId: string | undefined = userProducts.products.findUnique(
-//       (product: { id: string }) => product.id === input.asin
-//     )?.id;
-
-//     if (!productId) {
-//       throw new Error("Product not found");
-//     }
-
-//     const deleteProduct = await db.user.update({
-//       where: {
-//         id: userId,
-//       },
-//       data: {
-//         products: {
-//           delete: {
-//             id: productId,
-//           },
-//         },
-//       },
-//     });
-
-//     return deleteProduct;
-//   } catch (error) {
-//     console.log("Error deleting product", error);
-//     throw error; // Re-throw the error after logging it
-//   }
-// };
+    return addImage;
+  } catch (error: any) {
+    console.log("Error adding image:", error);
+    throw error;
+  }
+};

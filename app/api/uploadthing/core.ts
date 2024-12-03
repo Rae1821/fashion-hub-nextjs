@@ -1,3 +1,4 @@
+import { addUploadedImages } from "@/actions/auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 
@@ -22,12 +23,16 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
+      const newImage = await addUploadedImages({
+        image_url: file.url,
+        image_name: file.name,
+      });
       console.log("Upload complete for userId:", metadata.userId);
 
       console.log("file url", file.url);
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      return { newImage, uploadedBy: metadata.userId };
     }),
 } satisfies FileRouter;
 
