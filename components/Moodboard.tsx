@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import Image from "next/image";
 import gsap from "gsap";
@@ -9,19 +9,10 @@ import { Draggable } from "gsap/Draggable";
 import { Button } from "./ui/button";
 // import { FiMinusCircle } from "react-icons/fi";
 import Link from "next/link";
-// import ImageUpload from "./ImageUpload";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+
 import { UploadButton } from "@/utils/uploadthing";
 
 gsap.registerPlugin(useGSAP);
-// gsap.registerPlugin(Draggable);
 
 type ProductDetails = {
   id: string;
@@ -40,10 +31,23 @@ type UserProductsType = {
   products?: ProductDetails[];
 };
 
-const Moodboard = ({ userProducts }: { userProducts: UserProductsType }) => {
+type ImageDetails = {
+  id: string;
+  userEmail: string;
+  image_url?: string | null;
+  image_name?: string | null;
+};
+
+interface MoodboardProps {
+  userProducts: UserProductsType;
+  userImages: ImageDetails[];
+}
+
+const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
+  console.log(userImages);
   // Image upload
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [imageName, setImageName] = useState("");
+  // const [imageUrl, setImageUrl] = useState<string>("");
+  // const [imageName, setImageName] = useState("");
 
   // favorite products
   const productsArr = userProducts.products;
@@ -59,6 +63,16 @@ const Moodboard = ({ userProducts }: { userProducts: UserProductsType }) => {
       asin: product.id,
     };
   });
+
+  // const userImagesArr = userImages.images;
+  // const uploadedImagesArr = userImagesArr?.map((image: any) => {
+  //   return {
+  //     image_url: image.image_url as string,
+  //     image_name: image.image_name,
+  //   };
+  // });
+
+  // console.log(uploadedImagesArr);
 
   // GSAP
   const imageRef = useRef(null);
@@ -81,48 +95,36 @@ const Moodboard = ({ userProducts }: { userProducts: UserProductsType }) => {
         onClientUploadComplete={(res) => {
           // Do something with the response
           console.log("Files: ", res);
-          setImageUrl(res[0].url);
-          setImageName(res[0].name);
+          alert("Upload complete");
+          // setImageUrl(res[0].url);
+          // console.log(imageUrl);
+          // setImageName(res[0].name);
+          // console.log(imageName);
         }}
         onUploadError={(error: Error) => {
           // Do something with the error.
           alert(`ERROR! ${error.message}`);
         }}
       />
-      {imageUrl.length ? (
-        <div>
-          <Card className="h-[400px] w-[250px]">
-            <CardHeader>
-              <CardTitle>{imageName}</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Image src={imageUrl} alt="my image" width={200} height={300} />
-            </CardContent>
-            <CardFooter></CardFooter>
-          </Card>
-        </div>
-      ) : null}
-      <div className="flex gap-2">
-        <div ref={imageRef}>
+      {userImages.map((image: any) => (
+        <div ref={imageRef} key={image.id}>
           <Image
-            src="/images/black-booties.png"
+            src={image.image_url}
             height={150}
             width={150}
-            alt="booties"
+            alt={image.image_name}
           />
         </div>
+      ))}
+
+      {/* {imageUrl.length ? (
         <div ref={imageRef}>
-          <Image
-            src="/images/black-booties.png"
-            height={350}
-            width={350}
-            alt="booties"
-          />
+          <Image src={imageUrl} height={150} width={150} alt="imageName" />
         </div>
-      </div>
+      ) : null} */}
+
       <div className="h-[600px] w-full">
-        <p>Moodboard</p>
+        <h3 className="font-semibold tracking-tight">Moodboard</h3>
       </div>
       <div>
         <h2>Favorite Products</h2>

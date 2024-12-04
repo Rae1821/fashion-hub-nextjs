@@ -60,8 +60,7 @@ model Image {
   userEmail String?
   image_url String?
   image_name String?
-  image_size Int?
-  image_key String?
+
 }
 
 model Account {

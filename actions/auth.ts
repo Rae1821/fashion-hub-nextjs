@@ -201,20 +201,17 @@ export const deleteFavoriteProduct = async (asin: string) => {
 // Moodboard
 
 interface addUploadedImagesInput {
-  image_url: string;
-  image_name: string;
+  id?: string;
+  email: string;
+  image_url?: string;
+  image_name?: string;
 }
 
 export const addUploadedImages = async (image: addUploadedImagesInput) => {
   try {
-    const session = await auth();
-    if (!session || !session.user || !session.user.email) {
-      throw new Error("User not authenticated");
-    }
-
     const addImage = await db.image.create({
       data: {
-        user: { connect: { email: session.user.email } },
+        user: { connect: { email: image.email } },
         image_url: image.image_url,
         image_name: image.image_name,
       },
@@ -223,6 +220,32 @@ export const addUploadedImages = async (image: addUploadedImagesInput) => {
     return addImage;
   } catch (error: any) {
     console.log("Error adding image:", error);
+    throw error;
+  }
+};
+
+export const findUniqueImages = async () => {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const findImages = await db.image.findMany({
+      where: {
+        user: {
+          email: session.user.email,
+        },
+      },
+      select: {
+        image_url: true,
+        image_name: true,
+      },
+    });
+
+    return JSON.parse(JSON.stringify(findImages));
+  } catch (error) {
+    console.log("Error finding images:", error);
     throw error;
   }
 };

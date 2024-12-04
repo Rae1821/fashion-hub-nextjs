@@ -3,10 +3,12 @@
 import Chatbot from "@/components/Chatbot";
 // import Image from "next/image";
 import Moodboard from "@/components/Moodboard";
-import { findUniqueProducts } from "@/actions/auth";
+import { findUniqueImages, findUniqueProducts } from "@/actions/auth";
 
 const MoodboardPage = async () => {
   const fetchUserProducts = await findUniqueProducts();
+  const fetchImages = await findUniqueImages();
+  console.log(fetchImages);
 
   return (
     <div className="container min-h-screen">
@@ -58,7 +60,7 @@ const MoodboardPage = async () => {
           <CardFooter></CardFooter>
         </Card> */}
       </div>
-      <Moodboard userProducts={fetchUserProducts} />
+      <Moodboard userProducts={fetchUserProducts} userImages={fetchImages} />
 
       <div className="">
         <Chatbot />
