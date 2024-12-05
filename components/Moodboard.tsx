@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 import Image from "next/image";
 import gsap from "gsap";
@@ -11,6 +11,12 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 import { UploadButton } from "@/utils/uploadthing";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@radix-ui/react-accordion";
 
 gsap.registerPlugin(useGSAP);
 
@@ -64,24 +70,11 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
     };
   });
 
-  // const userImagesArr = userImages.images;
-  // const uploadedImagesArr = userImagesArr?.map((image: any) => {
-  //   return {
-  //     image_url: image.image_url as string,
-  //     image_name: image.image_name,
-  //   };
-  // });
-
-  // console.log(uploadedImagesArr);
-
-  // GSAP
-  const imageRef = useRef(null);
-
   // GSAP Dragging
   useEffect(() => {
     gsap.registerPlugin(Draggable);
 
-    Draggable.create(imageRef.current, {
+    Draggable.create([".image"], {
       bounds: "#container",
     });
   });
@@ -106,32 +99,42 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           alert(`ERROR! ${error.message}`);
         }}
       />
-      {userImages.map((image: any) => (
-        <div ref={imageRef} key={image.id}>
-          <Image
-            src={image.image_url}
-            height={150}
-            width={150}
-            alt={image.image_name}
-          />
-        </div>
-      ))}
-
-      {/* {imageUrl.length ? (
-        <div ref={imageRef}>
-          <Image src={imageUrl} height={150} width={150} alt="imageName" />
-        </div>
-      ) : null} */}
+      <div className="mt-8 flex gap-4">
+        {userImages.map((image: any) => (
+          <div key={image.id}>
+            <Image
+              // ref={imageRef}
+              src={image.image_url}
+              height={250}
+              width={250}
+              alt={image.image_name}
+              // eslint-disable-next-line tailwindcss/no-custom-classname
+              className="image aspect-square rounded"
+            />
+          </div>
+        ))}
+      </div>
 
       <div className="h-[600px] w-full">
         <h3 className="font-semibold tracking-tight">Moodboard</h3>
+        <div className="w-[300px]">
+          <Accordion type="single" collapsible className="shadow">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Is it accessible?</AccordionTrigger>
+              <AccordionContent className="h-[500px] w-[300px]">
+                Yes. It adheres to the WAI-ARIA design pattern.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
       </div>
       <div>
         <h2>Favorite Products</h2>
         <div className="mt-4 flex flex-col gap-4 md:flex-row">
           {favProducts?.map((product) => (
             <div
-              className="product-card bg-red-300"
+              // eslint-disable-next-line tailwindcss/no-custom-classname
+              className="product-card image bg-red-300"
               key={product.product_title}
             >
               <div className="product-card_img-container">
@@ -150,10 +153,12 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
                 />
               </div>
 
-              <div className="flex flex-col gap-3">
-                <h3 className="product-title">{product.product_title}</h3>
+              <div className="hidden flex-col gap-3 md:flex">
+                <h3 className="truncate text-center text-sm font-semibold">
+                  {product.product_title.replace(/[^\w\s]/gi, "")}
+                </h3>
                 <div className="flex justify-between">
-                  <p className="flex items-center gap-2 capitalize text-black opacity-50">
+                  <p className="flex items-center gap-2 text-sm text-black opacity-50">
                     <span>
                       <Image
                         src="/icons/star.svg"
@@ -164,16 +169,16 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
                     </span>
                     {product.product_starRating} / {product.product_numRatings}
                   </p>
-                  <p className="font-semibold text-black">
+                  <p className="text-sm font-semibold text-black">
                     <span>{product.product_price}</span>
-                    <span className="ml-2 font-light text-gray-400 line-through">
+                    <span className="ml-2 text-sm font-light text-gray-400 line-through">
                       {product.product_originalPrice}
                     </span>
                   </p>
                 </div>
               </div>
               <div>
-                <Button asChild className="mt-4 w-full bg-red-300">
+                <Button asChild className="hidden w-full bg-red-300">
                   <Link href={product.product_url}>See More</Link>
                 </Button>
               </div>

@@ -3,8 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { questions } from "@/constants";
 import { useState } from "react";
-import { MdOutlineLibraryAdd } from "react-icons/md";
-import { MdOutlineLibraryAddCheck } from "react-icons/md";
+import { MdOutlineLibraryAdd, MdOutlineLibraryAddCheck } from "react-icons/md";
 
 import {
   Tooltip,

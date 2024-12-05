@@ -100,7 +100,9 @@ const FavoriteProducts = ({
               </div>
 
               <div className="flex flex-col gap-3">
-                <h3 className="product-title">{product.product_title}</h3>
+                <h3 className="product-title">
+                  {product.product_title.replace(/[^\w\s]/gi, "")}
+                </h3>
                 <div className="flex justify-between">
                   <p className="flex items-center gap-2 capitalize text-black opacity-50">
                     <span>
