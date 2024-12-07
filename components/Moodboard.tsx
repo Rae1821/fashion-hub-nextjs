@@ -9,6 +9,7 @@ import { Draggable } from "gsap/Draggable";
 import { Button } from "./ui/button";
 // import { FiMinusCircle } from "react-icons/fi";
 import Link from "next/link";
+import { HiOutlineX } from "react-icons/hi";
 
 import { UploadButton } from "@/utils/uploadthing";
 import {
@@ -17,6 +18,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@radix-ui/react-accordion";
+import { deleteUploadedImage } from "@/actions/auth";
 
 gsap.registerPlugin(useGSAP);
 
@@ -79,6 +81,16 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
     });
   });
 
+  const handleDeleteUploadedImage = async () => {
+    try {
+      const result = await deleteUploadedImage();
+
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div id="container" className="min-h-screen">
       <h2 className="font-semibold tracking-tight">Uploaded Images</h2>
@@ -134,7 +146,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           {favProducts?.map((product) => (
             <div
               // eslint-disable-next-line tailwindcss/no-custom-classname
-              className="product-card image bg-red-300"
+              className="sm:w-[192px] sm:max-w-[192px] w-full flex-1 flex flex-col gap-4 rounded-md border border-gray-200 p-2 shadow hover:shadow-lg hover:-translate-y-1 hover:transition-all bg-white; image"
               key={product.product_title}
             >
               <div className="product-card_img-container">
@@ -143,6 +155,9 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
                     {" "}
                     {deleteProduct ? <FiMinusCircle /> : <FaPlus />}
                   </Button> */}
+                  <Button onClick={() => handleDeleteImage(product.asin)}>
+                    <HiOutlineX />
+                  </Button>
                 </div>
                 <Image
                   src={product.product_photo}
@@ -153,8 +168,8 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
                 />
               </div>
 
-              <div className="hidden flex-col gap-3 md:flex">
-                <h3 className="truncate text-center text-sm font-semibold">
+              <div className="flex-col gap-3 flex">
+                <h3 className="truncate text-center text-xs font-semibold">
                   {product.product_title.replace(/[^\w\s]/gi, "")}
                 </h3>
                 <div className="flex justify-between">

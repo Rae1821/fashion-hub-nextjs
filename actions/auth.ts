@@ -249,3 +249,24 @@ export const findUniqueImages = async () => {
     throw error;
   }
 };
+
+export const deleteUploadedImage = async (id: string) => {
+  try {
+    const session = await auth();
+
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const deleteImage = await db.image.delete({
+      where: {
+        id,
+      },
+    });
+
+    return deleteImage;
+  } catch (error: any) {
+    console.log("Error deleting image:", error);
+    throw error;
+  }
+};
