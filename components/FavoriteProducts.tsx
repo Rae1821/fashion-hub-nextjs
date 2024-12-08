@@ -14,8 +14,6 @@ import { FiMinusCircle } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 import { deleteFavoriteProduct } from "@/actions/auth";
-import { useState } from "react";
-import { FaPlus } from "react-icons/fa6";
 
 type ProductDetails = {
   id: string;
@@ -40,10 +38,11 @@ const FavoriteProducts = ({
   userProducts: UserProductsType;
 }) => {
   // const [showProducts, setShowProducts] = useState(false);
-  const [deleteProduct, setDeleteProduct] = useState(false);
   const productsArr = userProducts.products;
   const favProducts = productsArr?.map((product: any) => {
     return {
+      id: product.id,
+      email: product.userEmail,
       product_title: product.product_title as string,
       product_price: product.product_price,
       product_originalPrice: product.product_original_price,
@@ -55,10 +54,22 @@ const FavoriteProducts = ({
     };
   });
 
-  const handleDeleteFavorite = async (asin: string) => {
+  // interface DeleteFavoriteProducts {
+  //   id?: string;
+  //   product_title?: string;
+  //   product_price?: string;
+  //   product_original_price?: string;
+  //   product_star_rating?: string;
+  //   product_num_ratings?: number;
+  //   product_url?: string;
+  //   product_photo?: string;
+  //   asin?: string;
+  // }
+
+  const handleDeleteFavorite = async (productId: string) => {
     try {
-      const result = await deleteFavoriteProduct(asin);
-      setDeleteProduct((prevDeleteProduct) => !prevDeleteProduct);
+      const result = await deleteFavoriteProduct(productId);
+
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -85,9 +96,10 @@ const FavoriteProducts = ({
             >
               <div className="product-card_img-container">
                 <div className="flex justify-end">
-                  <Button onClick={() => handleDeleteFavorite(product.asin)}>
+                  <Button onClick={() => handleDeleteFavorite(product.id)}>
                     {" "}
-                    {deleteProduct ? <FiMinusCircle /> : <FaPlus />}
+                    {/* {deleteProduct ? <FiMinusCircle /> : <FaPlus />} */}
+                    <FiMinusCircle />
                   </Button>
                 </div>
                 <Image

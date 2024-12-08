@@ -4,6 +4,7 @@ import { auth, signIn, signOut } from "@/auth";
 import { db } from "@/db";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { PHASE_PRODUCTION_BUILD } from "next/dist/shared/lib/constants";
 
 // For debugging purposes
 export const getUserByEmail = async (email: string) => {
@@ -177,7 +178,24 @@ export const addFavoriteProduct = async (product: AddProductInput) => {
   }
 };
 
-export const deleteFavoriteProduct = async (asin: string) => {
+interface DeleteFavoriteProducts {
+  id?: string;
+  email?: string;
+  product_title?: string;
+  product_price?: string;
+  product_original_price?: string;
+  product_star_rating?: string;
+  product_num_ratings?: number;
+  product_url?: string;
+  product_photo?: string;
+  asin?: string;
+}
+
+export const deleteFavoriteProduct = async (productId: string) => {
+  if (!productId) {
+    throw new Error("Product ID is required");
+  }
+
   try {
     const session = await auth();
 
@@ -187,7 +205,7 @@ export const deleteFavoriteProduct = async (asin: string) => {
 
     const deleteProduct = await db.product.delete({
       where: {
-        id: asin,
+        id: productId,
       },
     });
 
@@ -250,7 +268,7 @@ export const findUniqueImages = async () => {
   }
 };
 
-export const deleteUploadedImage = async (id: string) => {
+export const deleteUploadedImage = async (imageUrl: string) => {
   try {
     const session = await auth();
 
@@ -260,7 +278,9 @@ export const deleteUploadedImage = async (id: string) => {
 
     const deleteImage = await db.image.delete({
       where: {
-        id,
+        id: imageUrl,
+        // userEmail: session.user.email,
+        // userEmail: image.email,
       },
     });
 

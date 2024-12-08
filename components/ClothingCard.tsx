@@ -31,7 +31,7 @@ const ClothingCard = ({ clothing }: { clothing: ClothingProps }) => {
     asin: productAsin,
   } = clothing;
 
-  console.log(productAsin);
+  // console.log(productAsin);
 
   const [addFavorite, setAddFavorite] = useState(false);
 

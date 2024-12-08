@@ -18,7 +18,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@radix-ui/react-accordion";
-import { deleteUploadedImage } from "@/actions/auth";
+import { deleteFavoriteProduct, deleteUploadedImage } from "@/actions/auth";
 
 gsap.registerPlugin(useGSAP);
 
@@ -41,6 +41,7 @@ type UserProductsType = {
 
 type ImageDetails = {
   id: string;
+  userId: string;
   userEmail: string;
   image_url?: string | null;
   image_name?: string | null;
@@ -61,6 +62,8 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
   const productsArr = userProducts.products;
   const favProducts = productsArr?.map((product: any) => {
     return {
+      id: product.id,
+      email: product.userEmail,
       product_title: product.product_title as string,
       product_price: product.product_price,
       product_originalPrice: product.product_original_price,
@@ -80,10 +83,15 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
       bounds: "#container",
     });
   });
+  interface UserUploadedImageInput {
+    id: string;
+    image_url: string;
+  }
 
-  const handleDeleteUploadedImage = async () => {
+  const handleDeleteUploadedImage = async (imageUrl: string) => {
+    console.log("Image ID: ", imageUrl);
     try {
-      const result = await deleteUploadedImage();
+      const result = await deleteUploadedImage(imageUrl);
 
       console.log(result);
     } catch (error) {
@@ -91,9 +99,23 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
     }
   };
 
+  // const handleDeleteFavorite = async () => {
+  //   try {
+  //     const result = await deleteFavoriteProduct(asin);
+
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <div id="container" className="min-h-screen">
       <h2 className="font-semibold tracking-tight">Uploaded Images</h2>
+      <p className="text-sm mb-4">
+        Drag the images around to get outfit ideas. Click on the uploaded image
+        to delete it.
+      </p>
       <UploadButton
         className="ut-button:bg-red-300 ut-label:text-black ut-button:ut-readying:bg-red-300/50 ut-button:ut-uploading:bg-red-300/70"
         endpoint="imageUploader"
@@ -111,9 +133,12 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           alert(`ERROR! ${error.message}`);
         }}
       />
-      <div className="mt-8 flex gap-4">
+      <div className="mt-8 flex flex-col md:flex-row gap-2">
         {userImages.map((image: any) => (
-          <div key={image.id}>
+          <div
+            key={image.id}
+            className="relative hover:shadow-lg hover:transition-all bg-white"
+          >
             <Image
               // ref={imageRef}
               src={image.image_url}
@@ -122,27 +147,19 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
               alt={image.image_name}
               // eslint-disable-next-line tailwindcss/no-custom-classname
               className="image aspect-square rounded"
+              // onClick={() => handleDeleteUploadedImage(image.image_url)}
+              onClick={() => handleDeleteUploadedImage(image.image_url)}
             />
           </div>
         ))}
       </div>
 
-      <div className="h-[600px] w-full">
-        <h3 className="font-semibold tracking-tight">Moodboard</h3>
-        <div className="w-[300px]">
-          <Accordion type="single" collapsible className="shadow">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Is it accessible?</AccordionTrigger>
-              <AccordionContent className="h-[500px] w-[300px]">
-                Yes. It adheres to the WAI-ARIA design pattern.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </div>
-      <div>
-        <h2>Favorite Products</h2>
-        <div className="mt-4 flex flex-col gap-4 md:flex-row">
+      <div className="mt-8">
+        <h2 className="font-semibold tracking-tight">Favorite Products</h2>
+        <p className="text-sm">
+          Images you favorite from the products page will show up here
+        </p>
+        <div className="mt-4 flex gap-4 md:flex-row">
           {favProducts?.map((product) => (
             <div
               // eslint-disable-next-line tailwindcss/no-custom-classname
@@ -155,9 +172,9 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
                     {" "}
                     {deleteProduct ? <FiMinusCircle /> : <FaPlus />}
                   </Button> */}
-                  <Button onClick={() => handleDeleteImage(product.asin)}>
+                  {/* <Button onClick={() => handleFavoriteImage(product.asin)}>
                     <HiOutlineX />
-                  </Button>
+                  </Button> */}
                 </div>
                 <Image
                   src={product.product_photo}
