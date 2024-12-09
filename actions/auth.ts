@@ -4,7 +4,6 @@ import { auth, signIn, signOut } from "@/auth";
 import { db } from "@/db";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { PHASE_PRODUCTION_BUILD } from "next/dist/shared/lib/constants";
 
 // For debugging purposes
 export const getUserByEmail = async (email: string) => {
@@ -111,7 +110,7 @@ export const updateUser = async (input: UpdateUserInput) => {
   }
 };
 
-// Favorite Products
+// FAVORITE PRODUCTS
 
 // Find user's favorite products
 export const findUniqueProducts = async () => {
@@ -170,6 +169,7 @@ export const addFavoriteProduct = async (product: AddProductInput) => {
       },
     });
 
+    revalidatePath("dashboard");
     console.log(addNewProduct, "Product added to favorites");
     return addNewProduct;
   } catch (error: any) {
@@ -178,54 +178,16 @@ export const addFavoriteProduct = async (product: AddProductInput) => {
   }
 };
 
-interface DeleteFavoriteProducts {
-  id?: string;
-  email?: string;
-  product_title?: string;
-  product_price?: string;
-  product_original_price?: string;
-  product_star_rating?: string;
-  product_num_ratings?: number;
-  product_url?: string;
-  product_photo?: string;
-  asin?: string;
-}
+// UPLOADTHING MOODBOARD IMAGES
 
-export const deleteFavoriteProduct = async (productId: string) => {
-  if (!productId) {
-    throw new Error("Product ID is required");
-  }
-
-  try {
-    const session = await auth();
-
-    if (!session || !session.user || !session.user.email) {
-      throw new Error("User not authenticated");
-    }
-
-    const deleteProduct = await db.product.delete({
-      where: {
-        id: productId,
-      },
-    });
-
-    return deleteProduct;
-  } catch (error: any) {
-    console.log("Error deleting product:", error);
-    throw error;
-  }
-};
-
-// Moodboard
-
-interface addUploadedImagesInput {
+interface AddUploadedImagesInput {
   id?: string;
   email: string;
   image_url?: string;
   image_name?: string;
 }
 
-export const addUploadedImages = async (image: addUploadedImagesInput) => {
+export const addUploadedImages = async (image: AddUploadedImagesInput) => {
   try {
     const addImage = await db.image.create({
       data: {
@@ -235,6 +197,7 @@ export const addUploadedImages = async (image: addUploadedImagesInput) => {
       },
     });
 
+    revalidatePath("/moodboard");
     return addImage;
   } catch (error: any) {
     console.log("Error adding image:", error);
@@ -256,6 +219,7 @@ export const findUniqueImages = async () => {
         },
       },
       select: {
+        id: true,
         image_url: true,
         image_name: true,
       },
@@ -268,22 +232,26 @@ export const findUniqueImages = async () => {
   }
 };
 
-export const deleteUploadedImage = async (imageUrl: string) => {
+interface DeleteUploadedImageInput {
+  id: string;
+  image_url: string;
+  image_name: string;
+}
+
+export const deleteUploadedImage = async (image: DeleteUploadedImageInput) => {
   try {
     const session = await auth();
 
     if (!session || !session.user || !session.user.email) {
       throw new Error("User not authenticated");
     }
-
+    console.log(image.id);
     const deleteImage = await db.image.delete({
       where: {
-        id: imageUrl,
-        // userEmail: session.user.email,
-        // userEmail: image.email,
+        id: image.id,
       },
     });
-
+    revalidatePath("/moodboard");
     return deleteImage;
   } catch (error: any) {
     console.log("Error deleting image:", error);

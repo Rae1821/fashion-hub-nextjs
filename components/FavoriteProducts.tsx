@@ -9,11 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
-import { FiMinusCircle } from "react-icons/fi";
+// import { FiMinusCircle } from "react-icons/fi";
 
 import Image from "next/image";
 import Link from "next/link";
-import { deleteFavoriteProduct } from "@/actions/auth";
+// import { deleteFavoriteProduct } from "@/actions/auth";
 
 type ProductDetails = {
   id: string;
@@ -66,15 +66,15 @@ const FavoriteProducts = ({
   //   asin?: string;
   // }
 
-  const handleDeleteFavorite = async (productId: string) => {
-    try {
-      const result = await deleteFavoriteProduct(productId);
+  // const handleDeleteFavorite = async (productId: string) => {
+  //   try {
+  //     const result = await deleteFavoriteProduct(productId);
 
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className="w-full">
@@ -96,11 +96,11 @@ const FavoriteProducts = ({
             >
               <div className="product-card_img-container">
                 <div className="flex justify-end">
-                  <Button onClick={() => handleDeleteFavorite(product.id)}>
+                  {/* <Button onClick={() => handleDeleteFavorite(product.id)}>
                     {" "}
-                    {/* {deleteProduct ? <FiMinusCircle /> : <FaPlus />} */}
+
                     <FiMinusCircle />
-                  </Button>
+                  </Button> */}
                 </div>
                 <Image
                   src={product.product_photo}

@@ -22,11 +22,12 @@ export const ourFileRouter = {
       if (!user) throw new UploadThingError("Unauthorized");
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userEmail: user.email };
+      return { userEmail: user.email, id: user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
       const newImage = await addUploadedImages({
+        id: metadata.id,
         email: metadata.userEmail ?? "",
         image_url: file.url,
         image_name: file.name,

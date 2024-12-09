@@ -9,16 +9,11 @@ import { Draggable } from "gsap/Draggable";
 import { Button } from "./ui/button";
 // import { FiMinusCircle } from "react-icons/fi";
 import Link from "next/link";
-import { HiOutlineX } from "react-icons/hi";
 
 import { UploadButton } from "@/utils/uploadthing";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@radix-ui/react-accordion";
-import { deleteFavoriteProduct, deleteUploadedImage } from "@/actions/auth";
+
+import { deleteUploadedImage } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(useGSAP);
 
@@ -54,9 +49,8 @@ interface MoodboardProps {
 
 const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
   console.log(userImages);
-  // Image upload
-  // const [imageUrl, setImageUrl] = useState<string>("");
-  // const [imageName, setImageName] = useState("");
+
+  const router = useRouter();
 
   // favorite products
   const productsArr = userProducts.products;
@@ -83,16 +77,17 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
       bounds: "#container",
     });
   });
-  interface UserUploadedImageInput {
+
+  interface DeleteUserImage {
     id: string;
     image_url: string;
+    image_name: string;
   }
 
-  const handleDeleteUploadedImage = async (imageUrl: string) => {
-    console.log("Image ID: ", imageUrl);
+  const handleDeleteUploadedImage = async (image: DeleteUserImage) => {
+    console.log("Image ID: ", image);
     try {
-      const result = await deleteUploadedImage(imageUrl);
-
+      const result = await deleteUploadedImage(image);
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -112,7 +107,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
   return (
     <div id="container" className="min-h-screen">
       <h2 className="font-semibold tracking-tight">Uploaded Images</h2>
-      <p className="text-sm mb-4">
+      <p className="mb-4 text-sm">
         Drag the images around to get outfit ideas. Click on the uploaded image
         to delete it.
       </p>
@@ -122,7 +117,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
         onClientUploadComplete={(res) => {
           // Do something with the response
           console.log("Files: ", res);
-          alert("Upload complete");
+          router.push("/moodboard");
           // setImageUrl(res[0].url);
           // console.log(imageUrl);
           // setImageName(res[0].name);
@@ -133,11 +128,11 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           alert(`ERROR! ${error.message}`);
         }}
       />
-      <div className="mt-8 flex flex-col md:flex-row gap-2">
+      <div className="mt-8 flex flex-col gap-2 md:flex-row">
         {userImages.map((image: any) => (
           <div
             key={image.id}
-            className="relative hover:shadow-lg hover:transition-all bg-white"
+            className="relative bg-white hover:shadow-lg hover:transition-all"
           >
             <Image
               // ref={imageRef}
@@ -148,7 +143,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
               // eslint-disable-next-line tailwindcss/no-custom-classname
               className="image aspect-square rounded"
               // onClick={() => handleDeleteUploadedImage(image.image_url)}
-              onClick={() => handleDeleteUploadedImage(image.image_url)}
+              onClick={() => handleDeleteUploadedImage(image)}
             />
           </div>
         ))}
@@ -163,7 +158,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           {favProducts?.map((product) => (
             <div
               // eslint-disable-next-line tailwindcss/no-custom-classname
-              className="sm:w-[192px] sm:max-w-[192px] w-full flex-1 flex flex-col gap-4 rounded-md border border-gray-200 p-2 shadow hover:shadow-lg hover:-translate-y-1 hover:transition-all bg-white; image"
+              className="bg-white; image flex w-full flex-1 flex-col gap-4 rounded-md border border-gray-200 p-2 shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all sm:w-[192px] sm:max-w-[192px]"
               key={product.product_title}
             >
               <div className="product-card_img-container">
@@ -185,7 +180,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
                 />
               </div>
 
-              <div className="flex-col gap-3 flex">
+              <div className="flex flex-col gap-3">
                 <h3 className="truncate text-center text-xs font-semibold">
                   {product.product_title.replace(/[^\w\s]/gi, "")}
                 </h3>
