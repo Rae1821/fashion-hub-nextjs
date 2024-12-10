@@ -121,64 +121,77 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
   };
 
   return (
-    <div id="container" className="min-h-screen">
-      <h2 className="font-semibold tracking-tight">Uploaded Images</h2>
-      <p className="mb-4 text-sm">
-        Drag the images around to get outfit ideas. Click on the uploaded image
-        to delete it.
-      </p>
-      <UploadButton
-        className="ut-button:bg-red-300 ut-label:text-black ut-button:ut-readying:bg-red-300/50 ut-button:ut-uploading:bg-red-300/70"
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          router.push("/moodboard");
-          // setImageUrl(res[0].url);
-          // console.log(imageUrl);
-          // setImageName(res[0].name);
-          // console.log(imageName);
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
-      <div className="mt-8 flex w-full flex-row items-center gap-4 overflow-y-auto">
+    <div id="container" className="flex min-h-screen flex-col">
+      <div>
+        <h2 className="font-semibold tracking-tight">Uploaded Images</h2>
+        <p className="mb-4 text-sm">
+          Drag the images around to get outfit ideas. Click on the uploaded
+          image to delete it.
+        </p>
+        <UploadButton
+          className="ut-button:bg-red-300 ut-label:text-black ut-button:ut-readying:bg-red-300/50 ut-button:ut-uploading:bg-red-300/70"
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            // Do something with the response
+            console.log("Files: ", res);
+            router.push("/moodboard");
+            // setImageUrl(res[0].url);
+            // console.log(imageUrl);
+            // setImageName(res[0].name);
+            // console.log(imageName);
+          }}
+          onUploadError={(error: Error) => {
+            // Do something with the error.
+            alert(`ERROR! ${error.message}`);
+          }}
+        />
+      </div>
+
+      {/* USER UPLOADED IMAGES */}
+      <div className="mb-4 mt-8 flex flex-row items-center gap-2 justify-self-start overflow-y-auto">
         {userImages.map((image: any) => {
           return (
             <div
               key={image.id}
-              className="relative w-[250px] bg-white hover:shadow-lg hover:transition-all"
+              // eslint-disable-next-line tailwindcss/no-custom-classname
+              className="image flex w-full flex-1 flex-col gap-4 rounded-md border border-gray-200 bg-white shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all sm:w-[192px] sm:max-w-[192px]"
             >
-              <Image
-                // ref={imageRef}
-                src={image.image_url}
-                height={350}
-                width={350}
-                alt={image.image_name}
-                // eslint-disable-next-line tailwindcss/no-custom-classname
-                className="image w-[250px]"
-              />
-              <IoMdCloseCircle
-                className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
-                onClick={() => handleDeleteUploadedImage(image)}
-              />
+              <div className="">
+                <Image
+                  // ref={imageRef}
+                  src={image.image_url}
+                  height={250}
+                  width={250}
+                  alt={image.image_name}
+                  // eslint-disable-next-line tailwindcss/no-custom-classname
+                  className="product-card_img"
+                />
+                <IoMdCloseCircle
+                  className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
+                  onClick={() => handleDeleteUploadedImage(image)}
+                />
+              </div>
             </div>
           );
         })}
       </div>
 
+      {/* MOODBOARD AREA */}
+      <div className="h-[300px] bg-white">
+        <h2 className="font-semibold tracking-tight">Moodboard</h2>
+      </div>
+
+      {/* FAVORITE PRODUCTS SECTION */}
       <div className="mt-8">
         <h2 className="font-semibold tracking-tight">Favorite Products</h2>
         <p className="text-sm">
           Images you favorite from the products page will show up here
         </p>
-        <div className="mt-4 flex gap-4 md:flex-row">
+        <div className="mt-4 flex flex-row gap-2 overflow-y-scroll">
           {favProducts?.map((product: any) => (
             <div
               // eslint-disable-next-line tailwindcss/no-custom-classname
-              className="bg-white; image flex w-full flex-1 flex-col gap-4 rounded-md border border-gray-200 p-2 shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all sm:w-[192px] sm:max-w-[192px]"
+              className="image flex flex-1 flex-col gap-4 rounded-md border border-gray-200 bg-white p-2 shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all sm:w-[192px] sm:max-w-[192px]"
               key={product.product_title}
             >
               <div className="product-card_img-container">

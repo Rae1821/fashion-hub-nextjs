@@ -78,6 +78,8 @@ interface UpdateUserInput {
   bodyShape?: string;
   fashionStyle?: string;
 }
+
+// Update user
 export const updateUser = async (input: UpdateUserInput) => {
   try {
     const session = await auth();
@@ -148,6 +150,7 @@ interface AddProductInput {
   asin?: string;
 }
 
+// Add a product to favorites
 export const addFavoriteProduct = async (product: AddProductInput) => {
   try {
     const session = await auth();
@@ -189,6 +192,8 @@ interface DeleteFavoriteProductInput {
   product_photo?: string;
   asin?: string;
 }
+
+// Delete a product from favorites
 export const deleteFavoriteProduct = async (
   product: DeleteFavoriteProductInput
 ) => {
@@ -221,6 +226,7 @@ interface AddUploadedImagesInput {
   image_name?: string;
 }
 
+// Add uploaded images to moodboard
 export const addUploadedImages = async (image: AddUploadedImagesInput) => {
   try {
     const addImage = await db.image.create({
@@ -239,6 +245,7 @@ export const addUploadedImages = async (image: AddUploadedImagesInput) => {
   }
 };
 
+// Find user's uploaded images
 export const findUniqueImages = async () => {
   try {
     const session = await auth();
@@ -271,7 +278,7 @@ interface DeleteUploadedImageInput {
   image_url: string;
   image_name: string;
 }
-
+// Delete an uploaded image from moodboard
 export const deleteUploadedImage = async (image: DeleteUploadedImageInput) => {
   try {
     const session = await auth();

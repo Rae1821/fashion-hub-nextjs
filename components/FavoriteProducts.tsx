@@ -88,7 +88,7 @@ const FavoriteProducts = ({
             <Link href="/products"> Search Products</Link>
           </Button>
         </CardHeader>
-        <CardContent className="mt-4 flex flex-col gap-4 md:flex-row">
+        <CardContent className="mt-4 flex flex-col gap-4 overflow-y-scroll md:flex-row ">
           {favProducts?.map((product) => (
             <div
               className="product-card bg-red-300"
