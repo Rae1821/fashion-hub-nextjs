@@ -7,12 +7,13 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import { Button } from "./ui/button";
-// import { FiMinusCircle } from "react-icons/fi";
+import { IoMdCloseCircle } from "react-icons/io";
+
 import Link from "next/link";
 
 import { UploadButton } from "@/utils/uploadthing";
 
-import { deleteUploadedImage } from "@/actions/auth";
+import { deleteFavoriteProduct, deleteUploadedImage } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(useGSAP);
@@ -94,15 +95,30 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
     }
   };
 
-  // const handleDeleteFavorite = async () => {
-  //   try {
-  //     const result = await deleteFavoriteProduct(asin);
+  interface DeleteUserFavoriteProduct {
+    id: string;
+    product_title: string;
+    product_price: string;
+    product_original_price: string;
+    product_star_rating: string;
+    product_num_ratings: number;
+    product_url: string;
+    product_photo: string;
+    asin: string;
+  }
 
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleDeleteFavoriteProduct = async (
+    product: DeleteUserFavoriteProduct
+  ) => {
+    console.log("Product ID: ", product);
+    try {
+      const result = await deleteFavoriteProduct(product);
+
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div id="container" className="min-h-screen">
@@ -128,25 +144,29 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           alert(`ERROR! ${error.message}`);
         }}
       />
-      <div className="mt-8 flex flex-col gap-2 md:flex-row">
-        {userImages.map((image: any) => (
-          <div
-            key={image.id}
-            className="relative bg-white hover:shadow-lg hover:transition-all"
-          >
-            <Image
-              // ref={imageRef}
-              src={image.image_url}
-              height={250}
-              width={250}
-              alt={image.image_name}
-              // eslint-disable-next-line tailwindcss/no-custom-classname
-              className="image aspect-square rounded"
-              // onClick={() => handleDeleteUploadedImage(image.image_url)}
-              onClick={() => handleDeleteUploadedImage(image)}
-            />
-          </div>
-        ))}
+      <div className="mt-8 flex w-full flex-row items-center gap-4 overflow-y-auto">
+        {userImages.map((image: any) => {
+          return (
+            <div
+              key={image.id}
+              className="relative w-[250px] bg-white hover:shadow-lg hover:transition-all"
+            >
+              <Image
+                // ref={imageRef}
+                src={image.image_url}
+                height={350}
+                width={350}
+                alt={image.image_name}
+                // eslint-disable-next-line tailwindcss/no-custom-classname
+                className="image w-[250px]"
+              />
+              <IoMdCloseCircle
+                className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
+                onClick={() => handleDeleteUploadedImage(image)}
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="mt-8">
@@ -155,28 +175,24 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           Images you favorite from the products page will show up here
         </p>
         <div className="mt-4 flex gap-4 md:flex-row">
-          {favProducts?.map((product) => (
+          {favProducts?.map((product: any) => (
             <div
               // eslint-disable-next-line tailwindcss/no-custom-classname
               className="bg-white; image flex w-full flex-1 flex-col gap-4 rounded-md border border-gray-200 p-2 shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all sm:w-[192px] sm:max-w-[192px]"
               key={product.product_title}
             >
               <div className="product-card_img-container">
-                <div className="flex justify-end">
-                  {/* <Button onClick={() => handleDeleteFavorite(product.asin)}>
-                    {" "}
-                    {deleteProduct ? <FiMinusCircle /> : <FaPlus />}
-                  </Button> */}
-                  {/* <Button onClick={() => handleFavoriteImage(product.asin)}>
-                    <HiOutlineX />
-                  </Button> */}
-                </div>
+                <div className="flex justify-end"></div>
                 <Image
                   src={product.product_photo}
                   width={200}
                   height={200}
                   alt={product.product_title}
                   className="product-card_img"
+                />
+                <IoMdCloseCircle
+                  className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
+                  onClick={() => handleDeleteFavoriteProduct(product)}
                 />
               </div>
 

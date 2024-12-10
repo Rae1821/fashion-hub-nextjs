@@ -9,11 +9,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
-// import { FiMinusCircle } from "react-icons/fi";
-
 import Image from "next/image";
 import Link from "next/link";
-// import { deleteFavoriteProduct } from "@/actions/auth";
+import { deleteFavoriteProduct } from "@/actions/auth";
+import { IoMdCloseCircle } from "react-icons/io";
 
 type ProductDetails = {
   id: string;
@@ -54,27 +53,28 @@ const FavoriteProducts = ({
     };
   });
 
-  // interface DeleteFavoriteProducts {
-  //   id?: string;
-  //   product_title?: string;
-  //   product_price?: string;
-  //   product_original_price?: string;
-  //   product_star_rating?: string;
-  //   product_num_ratings?: number;
-  //   product_url?: string;
-  //   product_photo?: string;
-  //   asin?: string;
-  // }
+  interface DeleteFavoriteProduct {
+    id?: string;
+    product_title?: string;
+    product_price?: string;
+    product_original_price?: string;
+    product_star_rating?: string;
+    product_num_ratings?: number;
+    product_url?: string;
+    product_photo?: string;
+    asin?: string;
+  }
 
-  // const handleDeleteFavorite = async (productId: string) => {
-  //   try {
-  //     const result = await deleteFavoriteProduct(productId);
+  const handleDeleteFavorite = async (product: DeleteFavoriteProduct) => {
+    console.log("Product:", product);
+    try {
+      const result = await deleteFavoriteProduct(product);
 
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -95,19 +95,17 @@ const FavoriteProducts = ({
               key={product.product_title}
             >
               <div className="product-card_img-container">
-                <div className="flex justify-end">
-                  {/* <Button onClick={() => handleDeleteFavorite(product.id)}>
-                    {" "}
-
-                    <FiMinusCircle />
-                  </Button> */}
-                </div>
+                <div className="flex justify-end"></div>
                 <Image
                   src={product.product_photo}
                   width={200}
                   height={200}
                   alt={product.product_title}
                   className="product-card_img"
+                />
+                <IoMdCloseCircle
+                  className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
+                  onClick={() => handleDeleteFavorite(product)}
                 />
               </div>
 

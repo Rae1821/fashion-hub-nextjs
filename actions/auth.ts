@@ -178,6 +178,40 @@ export const addFavoriteProduct = async (product: AddProductInput) => {
   }
 };
 
+interface DeleteFavoriteProductInput {
+  id?: string;
+  product_title?: string;
+  product_price?: string;
+  product_original_price?: string;
+  product_star_rating?: string;
+  product_num_ratings?: number;
+  product_url?: string;
+  product_photo?: string;
+  asin?: string;
+}
+export const deleteFavoriteProduct = async (
+  product: DeleteFavoriteProductInput
+) => {
+  try {
+    const session = await auth();
+
+    if (!session || !session.user || !session.user.email) {
+      throw new Error("User not authenticated");
+    }
+
+    const deleteFavoriteProduct = await db.product.delete({
+      where: {
+        id: product.id,
+      },
+    });
+    revalidatePath("/moodboard");
+    return deleteFavoriteProduct;
+  } catch (error) {
+    console.log("Error deleting product:", error);
+    throw error;
+  }
+};
+
 // UPLOADTHING MOODBOARD IMAGES
 
 interface AddUploadedImagesInput {
