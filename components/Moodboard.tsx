@@ -121,7 +121,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
   };
 
   return (
-    <div id="container" className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <div>
         <h2 className="font-semibold tracking-tight">Uploaded Images</h2>
         <p className="mb-4 text-sm">
@@ -146,47 +146,42 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
           }}
         />
       </div>
-
-      {/* USER UPLOADED IMAGES */}
-      <div className="mb-4 mt-8 flex flex-row items-center gap-2 justify-self-start overflow-y-auto">
-        {userImages.map((image: any) => {
-          return (
-            <div
-              key={image.id}
-              // eslint-disable-next-line tailwindcss/no-custom-classname
-              className="image flex w-full flex-1 flex-col gap-4 rounded-md border border-gray-200 bg-white shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all sm:w-[192px] sm:max-w-[192px]"
-            >
-              <div className="">
-                <Image
-                  // ref={imageRef}
-                  src={image.image_url}
-                  height={250}
-                  width={250}
-                  alt={image.image_name}
-                  // eslint-disable-next-line tailwindcss/no-custom-classname
-                  className="product-card_img"
-                />
-                <IoMdCloseCircle
-                  className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
-                  onClick={() => handleDeleteUploadedImage(image)}
-                />
+      <div id="container" className="min-h-screen">
+        {/* USER UPLOADED IMAGES */}
+        <div className="mb-4 mt-8 flex flex-row items-center gap-2 justify-self-start overflow-y-auto">
+          {userImages.map((image: any) => {
+            return (
+              <div
+                key={image.id}
+                // eslint-disable-next-line tailwindcss/no-custom-classname
+                className="image flex w-full flex-1 flex-col gap-4 rounded-md border border-gray-200 bg-white shadow hover:-translate-y-1 hover:shadow-lg hover:transition-all"
+              >
+                <div className="w-f">
+                  <Image
+                    // ref={imageRef}
+                    src={image.image_url}
+                    height={550}
+                    width={550}
+                    alt={image.image_name}
+                    // eslint-disable-next-line tailwindcss/no-custom-classname
+                    className="w-full"
+                  />
+                  <IoMdCloseCircle
+                    className="absolute right-2 top-2 size-6 cursor-pointer text-red-300"
+                    onClick={() => handleDeleteUploadedImage(image)}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* MOODBOARD AREA */}
+            );
+          })}
+        </div>
+        {/*
       <div className="h-[300px] bg-white">
         <h2 className="font-semibold tracking-tight">Moodboard</h2>
-      </div>
+      </div> */}
 
-      {/* FAVORITE PRODUCTS SECTION */}
-      <div className="mt-8">
-        <h2 className="font-semibold tracking-tight">Favorite Products</h2>
-        <p className="text-sm">
-          Images you favorite from the products page will show up here
-        </p>
+        {/* FAVORITE PRODUCTS SECTION */}
+
         <div className="mt-4 flex flex-row gap-2 overflow-y-scroll">
           {favProducts?.map((product: any) => (
             <div
@@ -241,6 +236,7 @@ const Moodboard = ({ userProducts, userImages }: MoodboardProps) => {
             </div>
           ))}
         </div>
+        <h2 className="font-semibold tracking-tight">Favorite Products</h2>
       </div>
     </div>
   );
