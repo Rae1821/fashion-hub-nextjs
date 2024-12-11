@@ -13,7 +13,7 @@ const Hero = () => {
           Take our quiz to find out your unique fashion style!
         </p>
         <div className="mt-12">
-          <CoolButton href="/" title="start quiz" />
+          <CoolButton title="start quiz" />
         </div>
       </div>
     </section>
